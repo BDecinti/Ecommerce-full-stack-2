@@ -1,11 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ecommerce</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    
+
+    <!-- HEADER: Encabezado principal que se repite o mantiene la navegación -->
+    <header class="header">
+        <div class="logo">
+            <h2>MiTienda</h2>
+        </div>
+        
+        <!-- NAV: Menú de navegación principal entre páginas -->
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="productos.html">Productos</a>
+            <a href="nosotros.html">Nosotros</a>
+            <a href="blogs.html">Blogs</a>
+            <a href="contacto.html">Contacto</a>
+        </nav>
+
+        <!-- Sección rápida de usuario y carrito -->
+        <div class="user-menu">
+            <a href="login.html">Iniciar sesión</a> | 
+            <a href="signup.html">Registrarse</a> | 
+            <!-- Span con ID para actualizar el contador de productos desde JS -->
+            <a href="carrito.html">Cart (<span id="cart-count">0</span>)</a>
+        </div>
+    </header>
+
+    <!-- MAIN: Contenido único y principal de esta vista -->
+    <main>
+        <!-- SECTION: Banner o presentación de la tienda -->
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Bienvenido a Nuestra Tienda</h1>
+                <p>Encuentra los mejores productos al mejor precio.</p>
+                <a href="productos.html" class="btn">Ver Productos</a>
+            </div>
+        </section>
+
+        <!-- SECTION: Catálogo o listado inicial de productos -->
+        <section class="productos-container">
+            <h2>Productos Destacados</h2>
+            
+            <!-- Contenedor dinámico: Aquí JS inyectará los productos -->
+            <div id="grid-productos" class="grid-productos">
+                <!-- Se cargará mediante JavaScript -->
+                
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER: Pie de página con información secundaría -->
+    <footer class="footer">
+        <p>&copy; 2026 MiTienda - Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Vinculación del archivo JavaScript antes de cerrar el body para asegurar que el HTML cargó primero -->
+    <script src="js/productos.js"></script>
 </body>
 </html>
