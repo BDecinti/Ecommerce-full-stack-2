@@ -1,0 +1,33 @@
+.admin-welcome {
+  background: linear-gradient(120deg, #1b1140, #0d1b3d 60%, #071827);
+  border-bottom: 1px solid #2b2e52;
+  color: #fff;
+  text-align: center;
+  padding: 55px 20px;
+}
+.admin-welcome h1 {
+  margin-bottom: 8px;
+  background: linear-gradient(90deg, #8b5cf6, #22d3ee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.admin-cards {
+  padding-top: 30px;
+}
+.admin-card {
+  text-decoration: none;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s,
+    border-color 0.15s;
+}
+.admin-card:hover {
+  transform: translateY(-3px);
+  border-color: #8b5cf6;
+  box-shadow: 0 10px 25px rgba(139, 92, 246, 0.25);
+}
+.admin-card h2 {
+  margin-bottom: 8px;
+  color: #eef0ff;
+}

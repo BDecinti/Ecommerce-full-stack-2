@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MiTienda - Productos</title>
+    <title>MiTienda - Producto 2</title>
     <link rel="stylesheet" href="css/global.css" />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/producto-detalle.css" />
   </head>
   <body>
     <header class="header">
@@ -26,18 +26,37 @@
       </div>
     </header>
     <main>
-      <section class="page-header">
-        <h1>Productos</h1>
-        <p>Revisa nuestro catálogo y selecciona el producto que quieras.</p>
-      </section>
-      <section class="container">
-        <div id="grid-productos" class="grid grid-4"></div>
+      <section class="page-header"><h1>Detalle del producto</h1></section>
+      <section class="container product-detail card">
+        <img src="img/placeholder.svg" alt="Producto 2" />
+        <div>
+          <h2 id="detalle-nombre">Producto 2</h2>
+          <p class="price" id="detalle-precio"></p>
+          <p id="detalle-descripcion">
+            Producto de ejemplo del catálogo de MiTienda. Revisa sus
+            características antes de añadirlo al carrito.
+          </p>
+          <button onclick="agregarAlCarrito(2)">Añadir al carrito</button
+          ><a class="btn btn-secondary" href="productos.html"
+            >Volver a productos</a
+          >
+        </div>
       </section>
     </main>
     <footer class="footer">
       <p>&copy; 2026 MiTienda - Todos los derechos reservados.</p>
     </footer>
     <script src="js/productos.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const p = productos.find((x) => x.id === 2);
+        if (p) {
+          document.getElementById("detalle-nombre").textContent = p.nombre;
+          document.getElementById("detalle-precio").textContent =
+            "$" + p.precio.toLocaleString("es-CL");
+        }
+      });
+    </script>
     <script src="js/auth.js"></script>
   </body>
 </html>

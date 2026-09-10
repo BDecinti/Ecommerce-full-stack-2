@@ -1,0 +1,13 @@
+/* nosotros.css - Estilos para la página "Nosotros" */
+
+.about {
+  margin-top: 24px;
+  align-items: center;
+}
+
+.about img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 12px;
+}

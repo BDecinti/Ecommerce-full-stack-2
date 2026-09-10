@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MiTienda - Productos</title>
+    <title>MiTienda - Carrito</title>
     <link rel="stylesheet" href="css/global.css" />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
@@ -27,17 +27,29 @@
     </header>
     <main>
       <section class="page-header">
-        <h1>Productos</h1>
-        <p>Revisa nuestro catálogo y selecciona el producto que quieras.</p>
+        <h1>Carrito de compra</h1>
+        <p>Productos seleccionados.</p>
       </section>
-      <section class="container">
-        <div id="grid-productos" class="grid grid-4"></div>
+      <section class="container card">
+        <div id="carrito-lista"></div>
+        <div class="carrito-resumen">
+          <span>Total (<span id="carrito-cantidad">0</span> productos):</span>
+          <span class="carrito-total" id="carrito-total">$0</span>
+        </div>
+        <div class="actions">
+          <button class="btn-danger" id="vaciarCarrito">Vaciar carrito</button
+          ><a class="btn btn-secondary" href="productos.html"
+            >Seguir comprando</a
+          ><a class="btn btn-primary" id="btn-ir-a-pagar" href="pago.html"
+            >Ir a pagar</a
+          >
+        </div>
       </section>
     </main>
     <footer class="footer">
       <p>&copy; 2026 MiTienda - Todos los derechos reservados.</p>
     </footer>
-    <script src="js/productos.js"></script>
+    <script src="js/carrito.js"></script>
     <script src="js/auth.js"></script>
   </body>
 </html>

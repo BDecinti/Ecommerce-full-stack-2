@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MiTienda - Productos</title>
+    <title>MiTienda - Blogs</title>
     <link rel="stylesheet" href="css/global.css" />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/blogs.css" />
   </head>
   <body>
     <header class="header">
@@ -27,17 +27,32 @@
     </header>
     <main>
       <section class="page-header">
-        <h1>Productos</h1>
-        <p>Revisa nuestro catálogo y selecciona el producto que quieras.</p>
+        <h1>Blogs</h1>
+        <p>
+          Noticias, consejos y datos curiosos relacionados con nuestra tienda.
+        </p>
       </section>
-      <section class="container">
-        <div id="grid-productos" class="grid grid-4"></div>
+      <section class="container grid grid-2 blog-list">
+        <article class="card blog-card">
+          <img src="img/placeholder.svg" alt="Imagen del blog" />
+          <h2>Cómo elegir el producto adecuado</h2>
+          <p>
+            Algunos consejos para comparar características, precio y utilidad
+            antes de comprar.
+          </p>
+          <a class="btn btn-secondary" href="blog1.html">Leer más</a>
+        </article>
+        <article class="card blog-card">
+          <img src="img/placeholder.svg" alt="Imagen del blog" />
+          <h2>Datos curiosos del mundo online</h2>
+          <p>Descubre algunos datos interesantes sobre compras y tecnología.</p>
+          <a class="btn btn-secondary" href="blog2.html">Leer más</a>
+        </article>
       </section>
     </main>
     <footer class="footer">
       <p>&copy; 2026 MiTienda - Todos los derechos reservados.</p>
     </footer>
-    <script src="js/productos.js"></script>
     <script src="js/auth.js"></script>
   </body>
 </html>

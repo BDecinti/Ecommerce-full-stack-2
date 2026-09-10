@@ -1,0 +1,34 @@
+/* ==========================================================
+   blog-detalle.css
+   Estilos para la página de detalle de un blog (blog1.html, blog2.html)
+   ========================================================== */
+
+.blog-detail {
+  margin-top: 24px;
+  margin-bottom: 40px;
+}
+
+/* Achica la imagen principal del blog para que no ocupe todo el
+   ancho de la pantalla y mantenga una proporción prolija */
+.blog-detail img {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 0 auto 20px auto;
+}
+
+.blog-detail p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 600px) {
+  .blog-detail img {
+    max-width: 100%;
+    height: 200px;
+  }
+}

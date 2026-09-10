@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administrador - Usuarios</title>
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/admin.css" />
+  </head>
+  <body>
+    <header class="admin-header">
+      <div>
+        <a href="admin_home.html"><strong>MiTienda Admin</strong></a>
+      </div>
+      <nav>
+        <a href="admin_home.html">Home</a
+        ><a href="admin_productos.html">Productos</a
+        ><a href="admin_usuarios.html">Usuarios</a
+        ><a href="index.html">Tienda</a>
+      </nav>
+      <div class="admin-user-box">
+        <span id="admin-user-name"></span>
+        <a href="#" id="btn-logout-admin">Cerrar sesión</a>
+      </div>
+    </header>
+    <main class="admin-main">
+      <section class="container">
+        <div class="admin-title">
+          <div>
+            <h1>Usuarios</h1>
+            <p>Listado de usuarios registrados.</p>
+          </div>
+          <a class="btn btn-primary" href="admin_usuario_nuevo.html"
+            >+ Nuevo usuario</a
+          >
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>RUN</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tablaUsuarios"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <p>&copy; 2026 MiTienda - Todos los derechos reservados.</p>
+    </footer>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+      renderAdminUsuarios();
+    </script>
+  </body>
+</html>

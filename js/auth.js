@@ -1,99 +1,186 @@
 // 1. USUARIOS POR DEFECTO (Para poder probar sin registrarte primero)
 const usuariosPorDefecto = [
-    { email: 'admin@duoc.cl', password: '123', rol: 'admin', nombre: 'Admin Sistema' },
-    { email: 'cliente@duoc.cl', password: '123', rol: 'cliente', nombre: 'Cliente Prueba' }
+  {
+    email: "admin@duoc.cl",
+    password: "123",
+    rol: "admin",
+    nombre: "Admin Sistema",
+  },
+  {
+    email: "cliente@duoc.cl",
+    password: "123",
+    rol: "cliente",
+    nombre: "Cliente Prueba",
+  },
 ];
 
 // Cargar usuarios desde LocalStorage si existen; de lo contrario, usar los por defecto
 function obtenerUsuarios() {
-    const usuariosGuardados = localStorage.getItem('usuarios');
-    if (!usuariosGuardados) {
-        // Guardar los por defecto la primera vez
-        localStorage.setItem('usuarios', JSON.stringify(usuariosPorDefecto));
-        return usuariosPorDefecto;
-    }
-    return JSON.parse(usuariosGuardados);
+  const usuariosGuardados = localStorage.getItem("usuarios");
+
+  if (!usuariosGuardados) {
+    // Guardar los por defecto la primera vez
+    localStorage.setItem("usuarios", JSON.stringify(usuariosPorDefecto));
+    return usuariosPorDefecto;
+  }
+
+  return JSON.parse(usuariosGuardados);
 }
 
 // -------------------------------------------------------------
 // LOGICA DE REGISTRO (signup.html)
 // -------------------------------------------------------------
-const signupForm = document.getElementById('signupForm');
+const signupForm = document.getElementById("signupForm");
 
 if (signupForm) {
-    signupForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Evita que la página se recargue al enviar el formulario
+  signupForm.addEventListener("submit", function (event) {
+    event.preventDefault(); // Evita que la página se recargue al enviar el formulario
 
-        // Capturar los valores ingresados
-        const nombre = document.getElementById('nombre').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const rol = document.getElementById('rol').value;
+    // Capturar los valores ingresados
+    const nombre = document.getElementById("nombre").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const rol = document.getElementById("rol").value;
 
-        const usuarios = obtenerUsuarios();
+    const usuarios = obtenerUsuarios();
 
-        // Verificar si el correo ya está registrado
-        const existe = usuarios.find(u => u.email === email);
-        if (existe) {
-            document.getElementById('mensajeSignup').style.color = 'red';
-            document.getElementById('mensajeSignup').textContent = 'El correo ya está registrado.';
-            return;
-        }
+    // Verificar si el correo ya está registrado
+    const existe = usuarios.find((u) => u.email === email);
 
-        // Crear nuevo objeto de usuario
-        const nuevoUsuario = { nombre, email, password, rol };
-        usuarios.push(nuevoUsuario);
+    if (existe) {
+      document.getElementById("mensajeSignup").style.color = "red";
+      document.getElementById("mensajeSignup").textContent =
+        "El correo ya está registrado.";
+      return;
+    }
 
-        // Guardar la lista actualizada en LocalStorage
-        localStorage.setItem('usuarios', JSON.stringify(usuarios));
+    // Crear nuevo objeto de usuario
+    const nuevoUsuario = { nombre, email, password, rol };
+    usuarios.push(nuevoUsuario);
 
-        document.getElementById('mensajeSignup').style.color = 'green';
-        document.getElementById('mensajeSignup').textContent = '¡Registro exitoso! Redirigiendo al login...';
+    // Guardar la lista actualizada en LocalStorage
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
-        // Redirigir al login en 1.5 segundos
-        setTimeout(() => {
-            window.location.href = 'login.html';
-        }, 1500);
-    });
+    document.getElementById("mensajeSignup").style.color = "green";
+    document.getElementById("mensajeSignup").textContent =
+      "¡Registro exitoso! Redirigiendo al login...";
+
+    // Redirigir al login en 1.5 segundos
+    setTimeout(() => {
+      window.location.href = "login.html";
+    }, 1500);
+  });
 }
 
 // -------------------------------------------------------------
-// LOGICA DE LOGIN (login.html)
+// SESIÓN / HEADER DINÁMICO (usado en todas las páginas)
 // -------------------------------------------------------------
-const loginForm = document.getElementById('loginForm');
+
+// Devuelve el usuario actualmente logueado (o null si no hay sesión)
+function obtenerUsuarioActual() {
+  return JSON.parse(localStorage.getItem("usuarioLogueado") || "null");
+}
+
+// Cierra la sesión activa
+function cerrarSesion() {
+  localStorage.removeItem("usuarioLogueado");
+  window.location.href = "index.html";
+}
+
+// Protege las páginas de administración: si no hay sesión o el usuario no es admin, lo redirige
+function protegerAdmin() {
+  const usuario = obtenerUsuarioActual();
+  if (!usuario || usuario.rol !== "admin") {
+    window.location.href = "login.html";
+    return;
+  }
+
+  // Mostrar el nombre del admin y activar el botón de cerrar sesión
+  const nombreSpan = document.getElementById("admin-user-name");
+  const btnLogout = document.getElementById("btn-logout-admin");
+  if (nombreSpan) nombreSpan.textContent = `👤 ${usuario.nombre}`;
+  if (btnLogout) {
+    btnLogout.addEventListener("click", (e) => {
+      e.preventDefault();
+      cerrarSesion();
+    });
+  }
+}
+
+// Ajusta el header de la tienda según si hay o no sesión iniciada
+function sincronizarHeaderTienda() {
+  const linkLogin = document.getElementById("link-login");
+  if (!linkLogin) return; // Esta página no tiene el header de la tienda (ej: admin)
+
+  const linkSignup = document.getElementById("link-signup");
+  const linkAdmin = document.getElementById("link-admin");
+  const cajaUsuario = document.getElementById("user-info-box");
+  const usuario = obtenerUsuarioActual();
+
+  if (usuario) {
+    linkLogin.style.display = "none";
+    if (linkSignup) linkSignup.style.display = "none";
+    if (linkAdmin) linkAdmin.style.display = usuario.rol === "admin" ? "" : "none";
+    if (cajaUsuario) {
+      cajaUsuario.innerHTML = `<span class="user-saludo">Hola, ${usuario.nombre}</span><a href="#" id="btn-logout">Cerrar sesión</a>`;
+      document
+        .getElementById("btn-logout")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          cerrarSesion();
+        });
+    }
+  } else {
+    linkLogin.style.display = "";
+    if (linkSignup) linkSignup.style.display = "";
+    if (linkAdmin) linkAdmin.style.display = "none";
+    if (cajaUsuario) cajaUsuario.innerHTML = "";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  sincronizarHeaderTienda();
+  // Si la página tiene el header de administración, se exige sesión de admin
+  if (document.querySelector(".admin-header")) {
+    protegerAdmin();
+  }
+});
+const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
-    loginForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Evita recargar la página
+  loginForm.addEventListener("submit", function (event) {
+    event.preventDefault(); // Evita recargar la página
 
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const mensaje = document.getElementById('mensajeLogin');
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const mensaje = document.getElementById("mensajeLogin");
 
-        const usuarios = obtenerUsuarios();
+    const usuarios = obtenerUsuarios();
 
-        // BUSQUEDA / AUTENTICACION SIMULADA:
-        // En un sistema real, aquí harías un `fetch()` enviando los datos al Backend (servidor/Base de datos).
-        const usuarioValido = usuarios.find(u => u.email === email && u.password === password);
+    // BUSQUEDA / AUTENTICACION SIMULADA:
+    // En un sistema real, aquí harías un `fetch()` enviando los datos al Backend (servidor/Base de datos).
+    const usuarioValido = usuarios.find(
+      (u) => u.email === email && u.password === password,
+    );
 
-        if (usuarioValido) {
-            // Guardar la sesión activa del usuario actual
-            localStorage.setItem('usuarioLogueado', JSON.stringify(usuarioValido));
+    if (usuarioValido) {
+      // Guardar la sesión activa del usuario actual
+      localStorage.setItem("usuarioLogueado", JSON.stringify(usuarioValido));
 
-            mensaje.style.color = 'green';
-            mensaje.textContent = `Bienvenido ${usuarioValido.nombre} (${usuarioValido.rol})...`;
+      mensaje.style.color = "green";
+      mensaje.textContent = `Bienvenido ${usuarioValido.nombre} (${usuarioValido.rol})...`;
 
-            // Redireccionar según el ROL
-            setTimeout(() => {
-                if (usuarioValido.rol === 'admin') {
-                    window.location.href = 'admin_home.html'; // Vista de Administrador
-                } else {
-                    window.location.href = 'index.html';       // Vista de Cliente / Tienda
-                }
-            }, 1000);
+      // Redireccionar según el ROL
+      setTimeout(() => {
+        if (usuarioValido.rol === "admin") {
+          window.location.href = "admin_home.html"; // Vista de Administrador
         } else {
-            mensaje.style.color = 'red';
-            mensaje.textContent = 'Correo o contraseña incorrectos.';
+          window.location.href = "index.html"; // Vista de Cliente / Tienda
         }
-    });
+      }, 1000);
+    } else {
+      mensaje.style.color = "red";
+      mensaje.textContent = "Correo o contraseña incorrectos.";
+    }
+  });
 }

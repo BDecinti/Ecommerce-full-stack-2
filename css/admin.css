@@ -1,0 +1,50 @@
+.admin-header {
+  background: #14162a;
+  border-bottom: 1px solid #2b2e52;
+  color: #fff;
+  padding: 18px 28px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.admin-header a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 14px;
+  font-weight: 600;
+}
+.admin-header a:hover {
+  color: #22d3ee;
+}
+.admin-header strong {
+  background: linear-gradient(90deg, #8b5cf6, #22d3ee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.admin-user-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+#admin-user-name {
+  color: #39ff88;
+  font-weight: 700;
+}
+.admin-main {
+  padding: 35px 0;
+}
+.admin-title {
+  width: min(1200px, 92%);
+  margin: 0 auto 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.admin-main .container {
+  width: min(1200px, 92%);
+}
