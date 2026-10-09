@@ -1,4 +1,4 @@
-// LÓGICA DE LA PÁGINA DE PAGO (pago.html)
+// LÓGICA DE LA PÁGINA DE PAGO (payment.html)
 // Sistema de pago simulado: no pide datos reales de tarjeta.
 
 function obtenerCarritoPago() {
@@ -12,7 +12,7 @@ function renderResumenPago() {
   const formularioBox = document.getElementById("pago-formulario-box");
 
   if (carrito.length === 0) {
-    contenedor.innerHTML = `<p class="carrito-vacio">Tu carrito está vacío. <a href="productos.html">Ver productos</a></p>`;
+    contenedor.innerHTML = `<p class="carrito-vacio">Tu carrito está vacío. <a href="${RAIZ_SITIO}pages/products/products.html">Ver productos</a></p>`;
     formularioBox.style.display = "none";
     document.getElementById("pago-total").textContent = "$0";
     return;
@@ -22,7 +22,7 @@ function renderResumenPago() {
     .map(
       (item) => `
       <div class="pago-item">
-        <img src="${item.imagen}" alt="${item.nombre}">
+        <img src="${RAIZ_SITIO}${item.imagen}" alt="${item.nombre}">
         <span class="pago-item-nombre">${item.nombre} x${item.cantidad}</span>
         <span class="pago-item-subtotal">$${(item.precio * item.cantidad).toLocaleString("es-CL")}</span>
       </div>

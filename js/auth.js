@@ -1,3 +1,7 @@
+// Ruta absoluta a la raíz del sitio (la carpeta que contiene js/, css/, img/ y las páginas).
+// Sirve para navegar y cargar imágenes sin importar en qué carpeta esté la página actual.
+const RAIZ_SITIO = new URL("../", document.currentScript.src).href;
+
 // 1. USUARIOS POR DEFECTO (Para poder probar sin registrarte primero)
 const usuariosPorDefecto = [
   {
@@ -67,7 +71,7 @@ if (signupForm) {
 
     // Redirigir al login en 1.5 segundos
     setTimeout(() => {
-      window.location.href = "login.html";
+      window.location.href = RAIZ_SITIO + "pages/auth/login.html";
     }, 1500);
   });
 }
@@ -84,14 +88,14 @@ function obtenerUsuarioActual() {
 // Cierra la sesión activa
 function cerrarSesion() {
   localStorage.removeItem("usuarioLogueado");
-  window.location.href = "index.html";
+  window.location.href = RAIZ_SITIO + "index.html";
 }
 
 // Protege las páginas de administración: si no hay sesión o el usuario no es admin, lo redirige
 function protegerAdmin() {
   const usuario = obtenerUsuarioActual();
   if (!usuario || usuario.rol !== "admin") {
-    window.location.href = "login.html";
+    window.location.href = RAIZ_SITIO + "pages/auth/login.html";
     return;
   }
 
@@ -138,7 +142,43 @@ function sincronizarHeaderTienda() {
   }
 }
 
+// Footer completo de la tienda. Se arma aquí para no repetirlo en cada página HTML;
+// si el JS no carga, queda el footer simple (solo copyright) que trae cada página.
+function construirFooter() {
+  const footer = document.querySelector("footer.footer");
+  // El panel de administración conserva el footer simple
+  if (!footer || document.querySelector(".admin-header")) return;
+
+  const ruta = (destino) => RAIZ_SITIO + destino;
+  footer.classList.add("footer-full");
+  footer.innerHTML = `
+    <div class="footer-grid container">
+      <div class="footer-brand">
+        <a class="footer-logo" href="${ruta("index.html")}">🎮 MiTienda</a>
+        <p>Tu tienda gamer: periféricos, consolas y accesorios para llevar tu setup al siguiente nivel.</p>
+      </div>
+      <nav class="footer-col" aria-label="Tienda">
+        <h4>Tienda</h4>
+        <a href="${ruta("index.html")}">Inicio</a>
+        <a href="${ruta("pages/products/products.html")}">Productos</a>
+        <a href="${ruta("pages/checkout/cart.html")}">Carrito</a>
+      </nav>
+      <nav class="footer-col" aria-label="Empresa">
+        <h4>Empresa</h4>
+        <a href="${ruta("pages/company/about.html")}">Nosotros</a>
+        <a href="${ruta("pages/blog/posts.html")}">Blogs</a>
+        <a href="${ruta("pages/company/contact.html")}">Contacto</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 MiTienda - Todos los derechos reservados.</p>
+      <a href="#" class="footer-top">Volver arriba ↑</a>
+    </div>
+  `;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  construirFooter();
   sincronizarHeaderTienda();
   // Si la página tiene el header de administración, se exige sesión de admin
   if (document.querySelector(".admin-header")) {
@@ -173,9 +213,9 @@ if (loginForm) {
       // Redireccionar según el ROL
       setTimeout(() => {
         if (usuarioValido.rol === "admin") {
-          window.location.href = "admin_home.html"; // Vista de Administrador
+          window.location.href = RAIZ_SITIO + "pages/admin/dashboard.html"; // Vista de Administrador
         } else {
-          window.location.href = "index.html"; // Vista de Cliente / Tienda
+          window.location.href = RAIZ_SITIO + "index.html"; // Vista de Cliente / Tienda
         }
       }, 1000);
     } else {

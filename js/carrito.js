@@ -1,4 +1,4 @@
-// LÓGICA DE LA PÁGINA DEL CARRITO (carrito.html)
+// LÓGICA DE LA PÁGINA DEL CARRITO (cart.html)
 // El carrito se guarda en localStorage para que persista entre páginas.
 
 function obtenerCarrito() {
@@ -16,13 +16,13 @@ function renderCarrito() {
   contenedor.innerHTML = "";
 
   if (carrito.length === 0) {
-    contenedor.innerHTML = `<p class="carrito-vacio">Tu carrito está vacío. <a href="productos.html">Ver productos</a></p>`;
+    contenedor.innerHTML = `<p class="carrito-vacio">Tu carrito está vacío. <a href="${RAIZ_SITIO}pages/products/products.html">Ver productos</a></p>`;
   } else {
     carrito.forEach((item) => {
       const fila = document.createElement("div");
       fila.classList.add("carrito-item");
       fila.innerHTML = `
-        <img src="${item.imagen}" alt="${item.nombre}">
+        <img src="${RAIZ_SITIO}${item.imagen}" alt="${item.nombre}">
         <div class="carrito-item-info">
           <h3>${item.nombre}</h3>
           <p class="descripcion-producto">${item.descripcion || ""}</p>
@@ -75,8 +75,62 @@ function cambiarCantidad(idProducto, delta) {
   renderCarrito();
 }
 
-// Elimina por completo un producto del carrito
-function eliminarDelCarrito(idProducto) {
+// Muestra un diálogo de confirmación con el estilo de la tienda (en lugar del confirm() del navegador).
+// Devuelve una promesa: true si el usuario confirma, false si cancela, cierra con Esc o hace clic fuera.
+function confirmarAccion({ titulo, mensaje, textoConfirmar = "Aceptar", textoCancelar = "Cancelar" }) {
+  return new Promise((resolve) => {
+    const overlay = document.createElement("div");
+    overlay.className = "modal-overlay";
+    overlay.innerHTML = `
+      <div class="modal-box" role="alertdialog" aria-modal="true" aria-labelledby="modal-titulo">
+        <div class="modal-icon">⚠️</div>
+        <h3 class="modal-titulo" id="modal-titulo"></h3>
+        <p class="modal-mensaje"></p>
+        <div class="modal-acciones">
+          <button type="button" class="btn-dark" data-accion="cancelar"></button>
+          <button type="button" class="btn-danger" data-accion="confirmar"></button>
+        </div>
+      </div>
+    `;
+    // textContent evita interpretar como HTML el nombre del producto
+    overlay.querySelector(".modal-titulo").textContent = titulo;
+    overlay.querySelector(".modal-mensaje").textContent = mensaje;
+    overlay.querySelector("[data-accion='cancelar']").textContent = textoCancelar;
+    overlay.querySelector("[data-accion='confirmar']").textContent = textoConfirmar;
+
+    const cerrar = (resultado) => {
+      document.removeEventListener("keydown", alTeclear);
+      overlay.remove();
+      resolve(resultado);
+    };
+    const alTeclear = (e) => {
+      if (e.key === "Escape") cerrar(false);
+    };
+
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) return cerrar(false); // clic en el fondo oscuro
+      const accion = e.target.dataset.accion;
+      if (accion) cerrar(accion === "confirmar");
+    });
+    document.addEventListener("keydown", alTeclear);
+
+    document.body.appendChild(overlay);
+    overlay.querySelector("[data-accion='cancelar']").focus(); // por seguridad, el foco empieza en Cancelar
+  });
+}
+
+// Elimina por completo un producto del carrito (previa confirmación)
+async function eliminarDelCarrito(idProducto) {
+  const item = obtenerCarrito().find((p) => p.id === idProducto);
+  if (!item) return;
+
+  const confirmado = await confirmarAccion({
+    titulo: "¿Eliminar producto?",
+    mensaje: `¿Estás seguro de que quieres eliminar "${item.nombre}" del carrito?`,
+    textoConfirmar: "Sí, eliminar",
+  });
+  if (!confirmado) return;
+
   const carrito = obtenerCarrito().filter((p) => p.id !== idProducto);
   guardarCarrito(carrito);
   renderCarrito();

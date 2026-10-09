@@ -65,7 +65,7 @@ const idsDestacados = [2, 4, 5];
 function cargarProductos() {
   // Obtener la referencia del elemento contenedor HTML por su ID
   const contenedor = document.getElementById("grid-productos");
-  if (!contenedor) return; // Esta página no tiene catálogo (ej: carrito.html)
+  if (!contenedor) return; // Esta página no tiene catálogo (ej: cart.html)
   contenedor.innerHTML = ""; // Limpiar el contenido previo
 
   // Iterar sobre la lista de productos (similar a un for-each en Java/C++)
@@ -74,13 +74,20 @@ function cargarProductos() {
   });
 }
 
+// URL de la página de detalle de un producto (una sola página para todos, el id va en la URL)
+function urlDetalle(idProducto) {
+  return `${RAIZ_SITIO}pages/products/product-detail.html?id=${idProducto}`;
+}
+
 // Crea la tarjeta HTML reutilizable de un producto
 function crearCardProducto(producto) {
   const card = document.createElement("article");
   card.classList.add("card-producto");
   card.innerHTML = `
-            <img src="${producto.imagen}" alt="${producto.nombre}">
-            <h3>${producto.nombre}</h3>
+            <a class="card-link" href="${urlDetalle(producto.id)}">
+              <img src="${RAIZ_SITIO}${producto.imagen}" alt="${producto.nombre}">
+              <h3>${producto.nombre}</h3>
+            </a>
             <p class="descripcion-producto">${producto.descripcion}</p>
             <p>Precio: $${producto.precio.toLocaleString("es-CL")}</p>
             <button onclick="agregarAlCarrito(${producto.id})">Añadir al Carrito</button>
@@ -102,8 +109,10 @@ function cargarDestacados() {
     card.classList.add("card-producto", "card-promo");
     card.innerHTML = `
             <span class="badge-oferta">Oferta</span>
-            <img src="${producto.imagen}" alt="${producto.nombre}">
-            <h3>${producto.nombre}</h3>
+            <a class="card-link" href="${urlDetalle(producto.id)}">
+              <img src="${RAIZ_SITIO}${producto.imagen}" alt="${producto.nombre}">
+              <h3>${producto.nombre}</h3>
+            </a>
             <p class="descripcion-producto">${producto.descripcion}</p>
             <p>Precio: $${producto.precio.toLocaleString("es-CL")}</p>
             <button onclick="agregarAlCarrito(${producto.id})">Añadir al Carrito</button>

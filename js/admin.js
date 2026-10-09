@@ -74,7 +74,7 @@ function renderAdminProductos() {
   t.innerHTML = adminProductos
     .map(
       (p, i) =>
-        `<tr><td>${p.codigo}</td><td>${p.nombre}</td><td>$${Number(p.precio).toLocaleString("es-CL")}</td><td>${p.stock}</td><td><a class="btn btn-secondary" href="admin_producto_mostrar.html?id=${i}">Mostrar</a> <a class="btn btn-dark" href="admin_producto_editar.html?id=${i}">Editar</a></td></tr>`,
+        `<tr><td>${p.codigo}</td><td>${p.nombre}</td><td>$${Number(p.precio).toLocaleString("es-CL")}</td><td>${p.stock}</td><td><a class="btn btn-secondary" href="product-detail.html?id=${i}">Mostrar</a> <a class="btn btn-dark" href="product-edit.html?id=${i}">Editar</a></td></tr>`,
     )
     .join("");
 }
@@ -109,7 +109,7 @@ function configurarProductoForm(ed = false) {
     save();
     mensajeAdmin.className = "alert alert-success";
     mensajeAdmin.textContent = "Producto guardado correctamente.";
-    setTimeout(() => (location.href = "admin_productos.html"), 600);
+    setTimeout(() => (location.href = "products.html"), 600);
   });
 }
 function mostrarAdminProducto() {
@@ -128,7 +128,7 @@ function renderAdminUsuarios() {
   t.innerHTML = adminUsuarios
     .map(
       (u, i) =>
-        `<tr><td>${u.run}</td><td>${u.nombre}</td><td>${u.apellidos}</td><td>${u.email}</td><td>${u.rol}</td><td><a class="btn btn-secondary" href="admin_usuario_mostrar.html?id=${i}">Mostrar</a> <a class="btn btn-dark" href="admin_usuario_editar.html?id=${i}">Editar</a></td></tr>`,
+        `<tr><td>${u.run}</td><td>${u.nombre}</td><td>${u.apellidos}</td><td>${u.email}</td><td>${u.rol}</td><td><a class="btn btn-secondary" href="user-detail.html?id=${i}">Mostrar</a> <a class="btn btn-dark" href="user-edit.html?id=${i}">Editar</a></td></tr>`,
     )
     .join("");
 }
@@ -167,7 +167,7 @@ function configurarUsuarioForm(ed = false) {
     save();
     mensajeAdmin.className = "alert alert-success";
     mensajeAdmin.textContent = "Usuario guardado correctamente.";
-    setTimeout(() => (location.href = "admin_usuarios.html"), 600);
+    setTimeout(() => (location.href = "users.html"), 600);
   });
 }
 function mostrarAdminUsuario() {
