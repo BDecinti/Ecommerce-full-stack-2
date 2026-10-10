@@ -26,7 +26,11 @@ import AdminUserDetail from "./pages/admin/UserDetail.jsx";
 // Al cambiar de ruta se vuelve arriba, como ocurría al cargar una página HTML nueva
 function ScrollAlInicio() {
   const { pathname } = useLocation();
-  useEffect(() => window.scrollTo(0, 0), [pathname]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return null;
 }
 
@@ -34,18 +38,29 @@ export default function App() {
   return (
     <>
       <ScrollAlInicio />
+
       <Routes>
         {/* Tienda (usuario): header y footer completos */}
         <Route element={<TiendaLayout />}>
           <Route path="/" element={<Home />} />
+
+          {/* Productos */}
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<ProductDetail />} />
+
+          {/* Compra */}
           <Route path="/cart" element={<Cart />} />
           <Route path="/payment" element={<Payment />} />
+
+          {/* Autenticación */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+
+          {/* Empresa */}
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+
+          {/* Blog */}
           <Route path="/blog" element={<Posts />} />
           <Route path="/blog/:id" element={<Post />} />
         </Route>
@@ -53,10 +68,14 @@ export default function App() {
         {/* Panel de administración: solo accesible con sesión de rol admin */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
+
+          {/* Productos */}
           <Route path="products" element={<AdminProducts />} />
           <Route path="products/new" element={<AdminProductForm />} />
           <Route path="products/:id" element={<AdminProductDetail />} />
           <Route path="products/:id/edit" element={<AdminProductForm />} />
+
+          {/* Usuarios */}
           <Route path="users" element={<AdminUsers />} />
           <Route path="users/new" element={<AdminUserForm />} />
           <Route path="users/:id" element={<AdminUserDetail />} />
