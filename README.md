@@ -28,11 +28,10 @@ Idea central: **cada persona es dueña de un área del proyecto y solo edita sus
 ## 1. Las 6 reglas que evitan casi todos los problemas
 
 1. **Cada archivo tiene un dueño.** Si un archivo no es tuyo, no lo editas. Si necesitas un cambio ahí, lo pides (mensaje + issue) y lo hace su dueño.
-2. **Nadie trabaja directo en `main`.** Siempre en una rama propia. `main` solo recibe código por Pull Request (PR) revisado por otra persona.
-3. **Lo compartido se define primero y se modifica poco.** Datos (`src/data/`), rutas y componentes comunes se construyen juntos en la Fase 0. Después, solo se **agregan** cosas; no se renombran ni se borran sin avisar.
-4. **Antes de empezar a trabajar siempre se actualiza la rama** (`git pull` de `main`). Esto evita el clásico "trabajé 3 horas sobre una versión vieja".
-5. **PRs chicos y frecuentes** (idealmente de menos de un día de trabajo). Un PR gigante = conflictos garantizados.
-6. **Todo PR lo revisa otra persona del equipo.** Sirve para detectar errores y para que los 3 entiendan todo el código, algo clave porque en la presentación **cada integrante responde preguntas** sobre el proyecto y los cambios en GitHub.
+2. **Lo compartido se define primero y se modifica poco.** Datos (`src/data/`), rutas y componentes comunes se construyen juntos en la Fase 0. Después, solo se **agregan** cosas; no se renombran ni se borran sin avisar.
+3. **Antes de empezar a trabajar siempre se actualiza la rama** (`git pull` de `main`). Esto evita el clásico "trabajé 3 horas sobre una versión vieja".
+4. **PRs chicos y frecuentes** (idealmente de menos de un día de trabajo). Un PR gigante = conflictos garantizados.
+
 
 ---
 
@@ -42,9 +41,9 @@ Se reparte por **vistas completas** (de punta a punta) y no "uno hace HTML, otro
 
 | | Área | Vistas / componentes | Carpeta propia |
 |---|---|---|---|
-| **Persona A** | Catálogo de la tienda + capa de datos | Home, Productos, Detalle de producto, Categorías, Categoría #1, Ofertas, Nosotros, Blogs, Detalle blog #1 y #2, Contacto | `src/pages/store/`, `src/components/catalog/`, `src/data/` |
-| **Persona B** | Usuarios y compra | Iniciar sesión, Registro, Carrito, Checkout, Pago correcto, Pago con error | `src/pages/shop/`, `src/pages/auth/`, `src/components/cart/`, `src/context/` |
-| **Persona C** | Panel de administración | Dashboard, Órdenes/Boletas, Productos (nuevo, mostrar, editar, críticos, reportes), Categorías, Usuarios (nuevo, mostrar, editar, historial), Reportes, Perfil | `src/pages/admin/`, `src/components/admin/` |
+| **Alessandro** | Catálogo de la tienda + capa de datos | Home, Productos, Detalle de producto, Categorías, Categoría #1, Ofertas, Nosotros, Blogs, Detalle blog #1 y #2, Contacto | `src/pages/store/`, `src/components/catalog/`, `src/data/` |
+| **Nicolas** | Usuarios y compra | Iniciar sesión, Registro, Carrito, Checkout, Pago correcto, Pago con error | `src/pages/shop/`, `src/pages/auth/`, `src/components/cart/`, `src/context/` |
+| **Bruno** | Panel de administración | Dashboard, Órdenes/Boletas, Productos (nuevo, mostrar, editar, críticos, reportes), Categorías, Usuarios (nuevo, mostrar, editar, historial), Reportes, Perfil | `src/pages/admin/`, `src/components/admin/` |
 
 Cada uno además **escribe las pruebas (Jasmine) de sus propios componentes**, en la misma carpeta o en `tests/<su-area>/`.
 
