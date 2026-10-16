@@ -78,7 +78,7 @@ export default function Login() {
           <strong>Usuarios de prueba:</strong>
         </p>
         <p>
-          👤 Administrador: <code>admin@duoc.cl</code> / <code>123</code>
+          👤 Administrador: <code>admin@duoc.cl</code> / <code>12345</code>
         </p>
         <p>
           🛒 Comprador: <code>cliente@duoc.cl</code> / <code>123</code>

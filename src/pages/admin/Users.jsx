@@ -5,7 +5,7 @@ import { adminUsuariosPorDefecto } from "../../data/adminPorDefecto.js";
 
 export default function Users() {
   useTitulo("Administrador - Usuarios");
-  const [usuarios] = useListaLocal("adminUsuarios", adminUsuariosPorDefecto);
+  const [usuarios] = useListaLocal("usuarios", adminUsuariosPorDefecto);
 
   return (
     <section className="container">

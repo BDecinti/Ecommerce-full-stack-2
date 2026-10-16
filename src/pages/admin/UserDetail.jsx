@@ -7,7 +7,7 @@ import "../../styles/admin-detail.css";
 export default function UserDetail() {
   useTitulo("Administrador - Mostrar Usuario");
   const { id } = useParams();
-  const [usuarios] = useListaLocal("adminUsuarios", adminUsuariosPorDefecto);
+  const [usuarios] = useListaLocal("usuarios", adminUsuariosPorDefecto);
   const u = usuarios[Number(id)];
 
   return (
@@ -23,7 +23,9 @@ export default function UserDetail() {
       </div>
       <article className="card">
         {u ? (
-          Object.entries(u).map(([clave, valor]) => (
+          Object.entries(u)
+            .filter(([clave]) => clave !== "password")
+            .map(([clave, valor]) => (
             <div className="detail-row" key={clave}>
               <strong>{clave}:</strong> {valor || "No informado"}
             </div>

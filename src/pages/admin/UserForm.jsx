@@ -10,6 +10,7 @@ const CAMPOS = [
   "nombre",
   "apellidos",
   "email",
+  "password",
   "fechaNacimiento",
   "rol",
   "region",
@@ -27,7 +28,7 @@ export default function UserForm() {
   const editando = id !== undefined;
   const idx = Number(id);
   const navigate = useNavigate();
-  const [usuarios, guardar] = useListaLocal("adminUsuarios", adminUsuariosPorDefecto);
+  const [usuarios, guardar] = useListaLocal("usuarios", adminUsuariosPorDefecto);
 
   useTitulo(editando ? "Administrador - Editar Usuario" : "Administrador - Nuevo Usuario");
 
@@ -38,16 +39,27 @@ export default function UserForm() {
     );
   });
   const [mensaje, setMensaje] = useState("");
+  const [error, setError] = useState("");
 
   const cambiar = (e) => setForm({ ...form, [e.target.id]: e.target.value });
 
   const enviar = (e) => {
     e.preventDefault();
+    const email = form.email.trim();
+
+    // El correo identifica al usuario en el login, así que no puede repetirse
+    if (usuarios.some((u, i) => u.email === email && !(editando && i === idx))) {
+      setError("Ya existe un usuario con ese correo.");
+      return;
+    }
+    setError("");
+
     const usuario = {
       run: form.run.replace(/[.\-]/g, "").toUpperCase(),
       nombre: form.nombre.trim(),
       apellidos: form.apellidos.trim(),
-      email: form.email.trim(),
+      email,
+      password: form.password,
       fechaNacimiento: form.fechaNacimiento,
       rol: form.rol,
       region: form.region,
@@ -97,6 +109,18 @@ export default function UserForm() {
             required
             maxLength={100}
             value={form.email}
+            onChange={cambiar}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Contraseña</label>
+          <input
+            id="password"
+            type="password"
+            required
+            minLength={4}
+            maxLength={10}
+            value={form.password}
             onChange={cambiar}
           />
         </div>
@@ -151,6 +175,7 @@ export default function UserForm() {
             Cancelar
           </Link>
         </div>
+        <p className={error ? "alert alert-error" : ""}>{error}</p>
         <p className={mensaje ? "alert alert-success" : ""}>{mensaje}</p>
       </form>
     </section>

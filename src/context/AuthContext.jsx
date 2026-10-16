@@ -1,23 +1,20 @@
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { leerJSON, guardarJSON } from "../hooks/useLocalStorage.js";
+import { adminUsuariosPorDefecto } from "../data/adminPorDefecto.js";
 
 // Sesión del usuario. Reemplaza las funciones de auth.js que leían localStorage y modificaban
 // el header a mano (obtenerUsuarioActual, cerrarSesion, sincronizarHeaderTienda, protegerAdmin).
 // Ahora el usuario es un estado de React: cuando cambia, todos los componentes que lo usan se redibujan.
 
-// USUARIOS POR DEFECTO (para poder probar sin registrarte primero)
-const usuariosPorDefecto = [
-  { email: "admin@duoc.cl", password: "123", rol: "admin", nombre: "Admin Sistema" },
-  { email: "cliente@duoc.cl", password: "123", rol: "cliente", nombre: "Cliente Prueba" },
-];
-
 // Cargar usuarios desde localStorage si existen; de lo contrario, usar los por defecto
+// (admin@duoc.cl y cliente@duoc.cl, para poder probar sin registrarte primero).
+// Es la misma lista que gestiona el panel de administración.
 function obtenerUsuarios() {
   const guardados = leerJSON("usuarios", null);
   if (!guardados) {
-    guardarJSON("usuarios", usuariosPorDefecto);
-    return usuariosPorDefecto;
+    guardarJSON("usuarios", adminUsuariosPorDefecto);
+    return adminUsuariosPorDefecto;
   }
   return guardados;
 }
