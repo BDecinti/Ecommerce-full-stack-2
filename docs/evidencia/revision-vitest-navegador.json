@@ -1,0 +1,89 @@
+{
+  "fecha": "2026-10-23T15:30:27.096Z",
+  "rutas": [
+    {
+      "ruta": "/products/1",
+      "vista": "escritorio",
+      "anchoDocumento": 1440,
+      "anchoVentana": 1440,
+      "separacionMinima": 10
+    },
+    {
+      "ruta": "/products?q=sin-coincidencias-xyz",
+      "vista": "escritorio",
+      "anchoDocumento": 1440,
+      "anchoVentana": 1440,
+      "separacionMinima": 10
+    },
+    {
+      "ruta": "/admin/products",
+      "vista": "escritorio",
+      "anchoDocumento": 1440,
+      "anchoVentana": 1440,
+      "grupos": 32,
+      "separacionMinima": 10,
+      "gapCSS": "10px"
+    },
+    {
+      "ruta": "/admin/users",
+      "vista": "escritorio",
+      "anchoDocumento": 1440,
+      "anchoVentana": 1440,
+      "grupos": 2,
+      "separacionMinima": 10,
+      "gapCSS": "10px"
+    },
+    {
+      "ruta": "/admin/categories",
+      "vista": "escritorio",
+      "anchoDocumento": 1440,
+      "anchoVentana": 1440,
+      "grupos": 14,
+      "separacionMinima": 10,
+      "gapCSS": "10px"
+    },
+    {
+      "ruta": "/products/1",
+      "vista": "movil",
+      "anchoDocumento": 390,
+      "anchoVentana": 390,
+      "separacionMinima": 10
+    },
+    {
+      "ruta": "/products?q=sin-coincidencias-xyz",
+      "vista": "movil",
+      "anchoDocumento": 390,
+      "anchoVentana": 390,
+      "separacionMinima": 10
+    },
+    {
+      "ruta": "/admin/products",
+      "vista": "movil",
+      "anchoDocumento": 390,
+      "anchoVentana": 390,
+      "grupos": 32,
+      "separacionMinima": 10,
+      "gapCSS": "10px"
+    },
+    {
+      "ruta": "/admin/users",
+      "vista": "movil",
+      "anchoDocumento": 390,
+      "anchoVentana": 390,
+      "grupos": 2,
+      "separacionMinima": 10,
+      "gapCSS": "10px"
+    },
+    {
+      "ruta": "/admin/categories",
+      "vista": "movil",
+      "anchoDocumento": 390,
+      "anchoVentana": 390,
+      "grupos": 14,
+      "separacionMinima": 10,
+      "gapCSS": "10px"
+    }
+  ],
+  "errores": [],
+  "vistaPortatil": "Inicio y catálogo funcionan con file://"
+}

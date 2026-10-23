@@ -15,7 +15,8 @@ export default function Categories() {
   const [porEliminar, setPorEliminar] = useState(null);
 
   const filas = principales.flatMap((cat) => [cat, ...hijosDe(cat.id)]);
-  const cantidadProductos = (id) => productos.filter((p) => p.categoriaId === id).length;
+  const cantidadProductos = (id) =>
+    productos.filter((p) => p.categoriaId === id).length;
 
   const motivoBloqueo = (cat) => {
     if (hijosDe(cat.id).length > 0) return "Tiene subcategorías";
@@ -30,7 +31,10 @@ export default function Categories() {
 
   return (
     <section className="container">
-      <AdminTitle titulo="Categorías" descripcion="Categorías y subcategorías de la tienda.">
+      <AdminTitle
+        titulo="Categorías"
+        descripcion="Categorías y subcategorías de la tienda."
+      >
         <Link className="btn btn-primary" to="/admin/categories/new">
           + Nueva categoría
         </Link>
@@ -55,18 +59,23 @@ export default function Categories() {
                   <td>{esSub ? "Subcategoría" : "Categoría"}</td>
                   <td>{cantidadProductos(cat.id)}</td>
                   <td>
-                    <Link className="btn btn-dark" to={`/admin/categories/${cat.id}/edit`}>
-                      Editar
-                    </Link>{" "}
-                    <button
-                      type="button"
-                      className="btn-danger"
-                      disabled={bloqueo !== ""}
-                      title={bloqueo || "Eliminar categoría"}
-                      onClick={() => setPorEliminar(cat)}
-                    >
-                      Eliminar
-                    </button>
+                    <div className="table-actions">
+                      <Link
+                        className="btn btn-dark"
+                        to={`/admin/categories/${cat.id}/edit`}
+                      >
+                        Editar
+                      </Link>
+                      <button
+                        type="button"
+                        className="btn-danger"
+                        disabled={bloqueo !== ""}
+                        title={bloqueo || "Eliminar categoría"}
+                        onClick={() => setPorEliminar(cat)}
+                      >
+                        Eliminar
+                      </button>
+                    </div>
                   </td>
                 </tr>
               );

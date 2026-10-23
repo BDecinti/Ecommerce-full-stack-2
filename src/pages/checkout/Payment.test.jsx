@@ -1,7 +1,7 @@
-import React from "react";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { cleanup, fireEvent, screen } from "@testing-library/react";
-import Payment from "../../src/pages/checkout/Payment.jsx";
-import { renderTienda, sembrar, producto } from "../helpers/render.jsx";
+import Payment from "./Payment.jsx";
+import { renderTienda, sembrar, producto } from "../../test/render.jsx";
 function campo(label, value) {
   fireEvent.change(screen.getByLabelText(label), { target: { value } });
 }
@@ -46,9 +46,9 @@ describe("Compra integrada", () => {
   it("CK02 envío solicita dirección y muestra costo", () => {
     renderTienda(<Payment />);
     fireEvent.click(screen.getByLabelText(/Envío a domicilio/));
-    expect(
-      screen.getByLabelText("Calle, número y departamento").required,
-    ).toBeTrue();
+    expect(screen.getByLabelText("Calle, número y departamento").required).toBe(
+      true,
+    );
     expect(screen.getByText("$14.990")).toBeTruthy();
   });
   it("CK03 contacto inválido bloquea el paso a tarjeta", () => {

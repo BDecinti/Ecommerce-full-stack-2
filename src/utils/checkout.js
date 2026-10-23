@@ -1,4 +1,4 @@
-// Reglas de la compra de demostración, compartidas por la vista y Jasmine.
+// Reglas de la compra de demostración, compartidas por la vista y sus pruebas.
 export const TARJETA_APROBADA = "4242424242424242";
 export const TARJETA_RECHAZADA = "4000000000000002";
 export const costoEnvio = (tipo, subtotal) =>

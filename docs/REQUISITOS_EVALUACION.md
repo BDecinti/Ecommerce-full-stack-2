@@ -1,5 +1,7 @@
 # Requisitos de la Evaluación 2
 
+Indicación actualizada del docente (23 de octubre de 2026): ejecutar las pruebas con Vitest y ubicar los archivos `.test.jsx` junto a los componentes correspondientes.
+
 Este documento reúne los requisitos de la Evaluación 2 del proyecto académico de Full Stack II.
 
 ---
@@ -35,7 +37,7 @@ El template HTML de referencia (Figura 1) muestra una tienda de videojuegos con:
    - Incorporar características interactivas con React, como formularios avanzados, filtros de búsqueda y navegación mejorada.
 
 7. **Configuración de pruebas**
-   - Configurar el entorno de pruebas usando **Jasmine y Karma** para ejecutar pruebas unitarias en componentes de React.
+   - Configurar el entorno de pruebas usando **Vitest y React Testing Library** para ejecutar pruebas unitarias en componentes de React.
 
 8. **Desarrollo de pruebas unitarias**
    - Escribir pruebas que verifiquen la lógica y el comportamiento de los componentes, asegurando que cada parte funcione como se espera.
@@ -136,9 +138,9 @@ Nota del documento: ver el template HTML, donde se detalla completamente este si
 
 ---
 
-## 4. Propuesta de pruebas con Jasmine (alcance propuesto por el docente)
+## 4. Propuesta de pruebas con Vitest (alcance propuesto por el docente)
 
-Usar Jasmine para escribir y ejecutar pruebas unitarias que aseguren la funcionalidad y calidad del código de la aplicación React, verificando renderizado, props, estado y eventos.
+Usar Vitest para escribir y ejecutar pruebas unitarias que aseguren la funcionalidad y calidad del código de la aplicación React, verificando renderizado, props, estado y eventos.
 
 - **Pruebas de renderizado**
   - *Renderizado correcto:* los componentes se renderizan con los datos proporcionados. Tarea: asegurar que los componentes de lista rendericen todos los elementos de un conjunto de datos.
@@ -182,5 +184,5 @@ El equipo debe:
 - Mantén el código simple y comprensible, porque **cada integrante debe poder explicarlo** en la ronda de preguntas. Explica brevemente las decisiones importantes.
 - Haz commits pequeños y con mensajes claros, ya que se evaluarán los cambios en GitHub.
 - Usa Bootstrap para el diseño responsivo, un archivo JS de datos simulados con CRUD, y localStorage para persistir el carrito y otros datos cuando corresponda.
-- Configura Jasmine + Karma y escribe pruebas de renderizado, props, estado y eventos; ayúdame también a documentar la cobertura para el documento de testing.
+- Configura Vitest + React Testing Library y escribe pruebas de renderizado, props, estado y eventos; ayúdame también a documentar la cobertura para el documento de testing.
 - Cuando algo del documento sea ambiguo (por ejemplo, fechas, rúbrica o detalles del backend, que no se indican), pregúntame antes de asumir.

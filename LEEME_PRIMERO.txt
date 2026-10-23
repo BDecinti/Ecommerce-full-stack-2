@@ -40,7 +40,9 @@ Ejemplo de celular para recorrer el formulario: +56 9 1234 5678.
   npm run build
 
 La carpeta docs incluye los tres informes Word y la evidencia de las pruebas.
-La carpeta src contiene el codigo y tests contiene las pruebas Jasmine.
+Las pruebas usan Vitest. Cada archivo .test.jsx esta al lado de su componente.
+Ejemplo: src/components/ProductCard.jsx y ProductCard.test.jsx.
+Para repetir las pruebas al editar: npm run test:watch.
 
 La vista HTML es una copia portatil para revisar el resultado.
 Si modificas el codigo, vuelve a crearla con:

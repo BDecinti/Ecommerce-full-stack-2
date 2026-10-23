@@ -1,14 +1,14 @@
-# Propuesta de pruebas con Jasmine
+# Propuesta de pruebas con Vitest
 
 Estrategia y escenarios de validación de MiTienda
 
-21 de octubre de 2026
+23 de octubre de 2026
 
 ## 1 Estrategia y alcance
 
-La estrategia combina reglas unitarias, componentes React y recorridos integrados de la compra. Jasmine ejecuta las expectativas; Testing Library dispara eventos y consulta la interfaz por nombres accesibles; JSDOM provee el navegador simulado. c8 mide el código original de src con mapas de fuente por archivo.
+La estrategia combina reglas unitarias, componentes React y recorridos integrados de la compra. Vitest ejecuta los casos y mide la cobertura con su proveedor V8; React Testing Library dispara eventos y consulta la interfaz por nombres accesibles. JSDOM provee el DOM simulado. La configuración se encuentra en vite.config.js y src/test/setup.js.
 
-Se implementaron 76 casos automatizados. Las pruebas se organizan en reglas.spec.js, componentes.spec.jsx, compra.spec.jsx y rutas.spec.jsx. Cada ejecución limpia el DOM y el almacenamiento para aislar casos.
+Se implementaron 116 casos automatizados. Cada archivo .test.jsx o .test.js está junto al componente o módulo probado. Por ejemplo, ProductCard.jsx y ProductCard.test.jsx comparten src/components. Los 24 componentes reutilizables tienen un archivo de pruebas propio, incluidos los 9 del panel. src/App.test.jsx cubre rutas e integración; src/test solo contiene utilidades. Cada caso limpia el DOM y el almacenamiento.
 
 | Tipo exigido | Aplicación concreta | Casos |
 | --- | --- | --- |
@@ -17,13 +17,17 @@ Se implementaron 76 casos automatizados. Las pruebas se organizan en reglas.spec
 | Estado | Carrito, catálogo, formularios y pedido persistente. | UI02, UI03, UI11, UI14 a UI17 |
 | Eventos | Click, escritura, selección, envío y cambio de estado. | UI05, UI08, UI09, UI12, UI35 a UI37 y CK01 a CK08 |
 
+### Pruebas de los componentes
+
+CP01 a CP22 comprueban navegación, diálogos, cierre con Escape, foco, buscador, contador del carrito, avisos temporizados y carrusel. CP23 a CP34 cubren título, iconos, barra lateral, estados, datos del pedido, subtotales y cantidades limitadas al stock. CP35 a CP40 verifican filtros, límites de precio e imágenes con respaldo local ante errores.
+
 ### Organización del equipo
 
 El README asigna catálogo a Alessandro, compra y usuarios a Nicolás y administración a Bruno. La revisión de estas pruebas puede repartirse por esas áreas.
 
 ### Ejecución reproducible
 
-Con Node.js 24, ejecutar npm ci, npm test, npm run test:coverage y npm run build. Los resultados de casos se generan en reports/jasmine-results.json y los porcentajes en coverage/coverage-summary.json. coverage/index.html permite inspeccionar líneas no ejercitadas.
+Con Node.js 24, ejecutar npm ci, npm test, npm run test:coverage y npm run build. Los resultados de casos se generan en reports/vitest-results.json y los porcentajes en coverage/coverage-summary.json. coverage/index.html permite inspeccionar líneas no ejercitadas.
 
 ## 2 Casos prioritarios de compra
 
@@ -62,4 +66,4 @@ Los siguientes escenarios se proponen para una siguiente iteración. No se conta
 
 Toda corrección funcional debe acompañarse de un caso que reproduzca el fallo. La suite y el build deben pasar antes de integrar cambios. La cobertura se evalúa por riesgo y por líneas sin ejecutar; un porcentaje global no sustituye la revisión de los flujos.
 
-El ejecutor usa Jasmine en Node con JSDOM, sin Karma. Si la rúbrica del docente exige Karma o un navegador específico, debe agregarse esa ejecución y registrarse su resultado antes de la entrega académica.
+Se aplica la corrección del docente: Vitest reemplaza al ejecutor anterior y los casos se guardan junto a sus componentes. npm test ejecuta una vez; npm run test:watch repite al editar. Los componentes se verifican por su comportamiento visible, propiedades, estado y eventos.
