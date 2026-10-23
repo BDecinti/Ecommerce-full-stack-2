@@ -1,0 +1,33 @@
+{
+  "name": "mitienda-ecommerce",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node tests/run-tests.mjs",
+    "test:coverage": "c8 --all --include=src/** --extension=.js --extension=.jsx --reporter=text --reporter=html --reporter=json-summary --reporter=lcov node tests/run-tests.mjs",
+    "vista:portatil": "node scripts/crear-vista.mjs"
+  },
+  "dependencies": {
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router-dom": "^7.18.4"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
+    "@vitejs/plugin-react": "^6.1.2",
+    "c8": "^12.0.0",
+    "esbuild": "^0.28.2",
+    "jasmine": "^7.0.0",
+    "jsdom": "^30.1.3",
+    "prettier": "^3.9.10",
+    "vite": "^8.3.4"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}

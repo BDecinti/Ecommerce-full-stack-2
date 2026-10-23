@@ -1,0 +1,82 @@
+.orders-filtro {
+  min-width: 220px;
+}
+.orders-cambiar-estado {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 280px;
+  margin-top: 18px;
+}
+.orders-cambiar-estado label {
+  margin-bottom: 0;
+}
+.orders-cambiar-estado small {
+  color: var(--text-muted);
+}
+.pedido-producto {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pedido-producto img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+tfoot td {
+  border-bottom: none;
+  text-align: right;
+}
+tfoot td:last-child {
+  text-align: left;
+}
+
+.estado-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.estado-pagado {
+  background: rgba(34, 211, 238, 0.14);
+  color: var(--accent-cyan);
+}
+.estado-preparacion {
+  background: rgba(139, 92, 246, 0.18);
+  color: #b79cff;
+}
+.estado-entregado {
+  background: rgba(57, 255, 136, 0.14);
+  color: var(--accent-green);
+}
+.estado-cancelado {
+  background: rgba(239, 68, 68, 0.18);
+  color: var(--accent-red);
+}
+
+.orders-acciones {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Formulario de nuevo pedido */
+.orders-subtitulo {
+  margin-bottom: 14px;
+  font-size: 1.2rem;
+}
+.orders-total {
+  margin-top: 14px;
+  text-align: right;
+  font-size: 1.2rem;
+}
+.orders-entrega {
+  max-width: 640px;
+}
+.picker-cantidad input {
+  width: 90px;
+}

@@ -1,0 +1,71 @@
+.category-menu {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 8px 0;
+  align-self: start;
+}
+.category-menu ul {
+  list-style: none;
+}
+.category-menu li {
+  position: relative;
+}
+.category-menu a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 18px;
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 600;
+}
+.category-menu li:hover > a,
+.category-menu li:focus-within > a {
+  background: rgba(139, 92, 246, 0.14);
+  color: var(--accent-cyan);
+}
+.category-menu li.en-ruta > a {
+  border-left: 3px solid var(--accent-purple);
+  padding-left: 15px;
+}
+.category-menu-flecha {
+  color: var(--text-muted);
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+/* Subcategorías: aparecen a la derecha al pasar el mouse (o al navegar con teclado) */
+.category-submenu {
+  display: none;
+  position: absolute;
+  top: -8px;
+  left: 100%;
+  z-index: 20;
+  min-width: 220px;
+  padding: 8px 0;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+.category-menu li:hover > .category-submenu,
+.category-menu li:focus-within > .category-submenu {
+  display: block;
+}
+
+/* En pantallas angostas (sin mouse) las subcategorías se muestran siempre, debajo de su categoría */
+@media (max-width: 800px) {
+  .category-submenu {
+    display: block;
+    position: static;
+    min-width: 0;
+    padding: 0 0 0 16px;
+    border: none;
+    box-shadow: none;
+    background: none;
+  }
+  .category-menu-flecha {
+    display: none;
+  }
+}

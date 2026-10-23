@@ -1,0 +1,29 @@
+.categories-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 28px;
+  padding: 22px 0 40px;
+}
+.categories-titulo {
+  margin-bottom: 18px;
+}
+.categories-vacio {
+  color: var(--text-muted);
+}
+
+@media (max-width: 800px) {
+  .categories-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.categories-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-self: start;
+}
+.categories-cantidad {
+  margin-bottom: 14px;
+  color: var(--text-muted);
+}

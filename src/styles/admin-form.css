@@ -1,0 +1,61 @@
+.admin-main .form-card h1 {
+  margin-bottom: 18px;
+}
+.admin-main .form-card button {
+  margin-top: 5px;
+}
+
+/* Interruptor "Destacado": reemplaza al checkbox nativo */
+.admin-main .form-card .switch {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 0;
+  cursor: pointer;
+  font-size: 1.1rem;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.admin-main .form-card .switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.admin-main .form-card .switch-pista {
+  position: relative;
+  flex-shrink: 0;
+  width: 56px;
+  height: 30px;
+  border-radius: 15px;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--border-soft);
+  transition: background 0.2s, border-color 0.2s;
+}
+.admin-main .form-card .switch-pista::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: transform 0.2s, background 0.2s;
+}
+.admin-main .form-card .switch input:checked + .switch-pista {
+  background: var(--gradient-brand);
+  border-color: transparent;
+}
+.admin-main .form-card .switch input:checked + .switch-pista::after {
+  transform: translateX(26px);
+  background: #fff;
+}
+.admin-main .form-card .switch:hover .switch-pista {
+  border-color: var(--accent-cyan);
+}
+
+.admin-main .form-card {
+  max-width: 640px;
+  margin: 0;
+}

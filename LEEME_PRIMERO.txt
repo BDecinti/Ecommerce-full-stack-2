@@ -1,0 +1,49 @@
+MITIENDA - ENTREGA PARA COMPARTIR
+
+1. EXTRAER EL ZIP COMPLETO
+No abras los archivos desde dentro del ZIP. Usa "Extraer todo" primero.
+
+2. VER LA TIENDA SIN INSTALAR NADA
+Abre VER_TIENDA.html con Chrome, Edge o Firefox.
+Incluye las imagenes y permite navegar, usar el carrito y probar la compra.
+Funciona sin Internet. Cada navegador guarda sus propios datos de demostracion.
+No es necesario abrir Visual Studio ni instalar Node para esta opcion.
+
+3. EJECUTAR Y EDITAR EL PROYECTO COMPLETO
+Instala Node.js 24 o superior desde https://nodejs.org/
+En Windows: doble clic en INICIAR_TIENDA.cmd.
+En macOS o Linux: abrir una terminal en esta carpeta y ejecutar sh iniciar.sh.
+La primera ejecucion necesita Internet para descargar las dependencias.
+
+Tambien puedes abrir esta carpeta en Visual Studio Code y usar:
+  npm ci
+  npm run dev
+
+Usa la direccion que imprime Vite, normalmente http://localhost:5173/
+Mantener la terminal abierta mientras se utiliza la tienda.
+Cerrar con Ctrl+C.
+
+4. USUARIOS DE PRUEBA
+Administrador: admin@duoc.cl / 12345
+Cliente: cliente@duoc.cl / 123
+
+5. COMPRA DE DEMOSTRACION
+Tarjeta aprobada: 4242 4242 4242 4242
+Tarjeta rechazada: 4000 0000 0000 0002
+Titular ficticio, vencimiento futuro (ejemplo 12/30) y CVV de prueba 123.
+No ingreses datos reales. No se realiza ningun cobro ni envio real.
+Ejemplo de celular para recorrer el formulario: +56 9 1234 5678.
+
+6. PRUEBAS Y DOCUMENTOS
+  npm test
+  npm run test:coverage
+  npm run build
+
+La carpeta docs incluye los tres informes Word y la evidencia de las pruebas.
+La carpeta src contiene el codigo y tests contiene las pruebas Jasmine.
+
+La vista HTML es una copia portatil para revisar el resultado.
+Si modificas el codigo, vuelve a crearla con:
+  npm run vista:portatil
+
+Los cambios locales no se sincronizan con otros equipos.

@@ -1,0 +1,22 @@
+/* producto-detalle.css - Estilos para la página de detalle de producto */
+
+.product-detail {
+  margin-top: 24px;
+  margin-bottom: 40px;
+}
+
+.product-detail img {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  height: 300px;
+  object-fit: contain;
+  margin: 0 auto 20px auto;
+}
+
+.product-detail .price {
+  font-size: 1.4rem;
+  color: var(--accent-green);
+  font-weight: bold;
+  margin: 12px 0;
+}
