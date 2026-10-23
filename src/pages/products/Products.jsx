@@ -48,10 +48,14 @@ export default function Products() {
             <div className="empty-state card">
               <h2>Sin coincidencias</h2>
               <p>Prueba con otro término o limpia los filtros.</p>
-              <button onClick={() => setFiltros(filtrosIniciales)}>
-                Limpiar filtros
-              </button>{" "}
-              <Link to="/products">Ver catálogo completo</Link>
+              <div className="actions">
+                <button onClick={() => setFiltros(filtrosIniciales)}>
+                  Limpiar filtros
+                </button>
+                <Link className="btn btn-secondary" to="/products">
+                  Ver catálogo completo
+                </Link>
+              </div>
             </div>
           )}
         </div>

@@ -2,7 +2,7 @@
 
 Tienda de tecnología y gaming MiTienda
 
-21 de octubre de 2026
+23 de octubre de 2026
 
 ## 1 Propósito y alcance
 
@@ -20,7 +20,7 @@ El producto es una aplicación React y Vite que se ejecuta en el navegador. Los 
 
 ### Entorno y arquitectura
 
-Node.js 24 o superior ejecuta las herramientas y Jasmine. React presenta las vistas, React Router administra las rutas y los contextos comparten productos, categorías, carrito, pedidos y sesión. El CSS adapta la tienda a escritorio y móvil.
+Node.js 24 o superior ejecuta las herramientas y Vitest. React presenta las vistas, React Router administra las rutas y los contextos comparten productos, categorías, carrito, pedidos y sesión. El CSS adapta la tienda a escritorio y móvil.
 
 La línea base del repositorio es 396c877. Los contratos de datos existentes se conservan y se añaden campos de entrega, costo de envío y pago simulado.
 
@@ -154,7 +154,7 @@ Los pedidos conservan una copia del nombre y precio de sus artículos para prese
 
 El flujo principal se acepta al completar una compra con envío, observar su comprobante, encontrar el pedido en administración y verificar que el carrito quede vacío y el stock disminuya. El flujo alternativo se acepta al rechazar una tarjeta, conservar el estado y aprobar un reintento.
 
-| Requisitos | Casos Jasmine | Verificación adicional |
+| Requisitos | Casos Vitest | Verificación adicional |
 | --- | --- | --- |
 | RF01 a RF04 | UT19 a UT23 y UI01 a UI07 | Inicio, catálogo y categorías en navegador. |
 | RF05 y RF06 | UI08 a UI11, UI25, UI33 y UI34 | Login emergente y acceso de administrador. |
@@ -165,7 +165,7 @@ El flujo principal se acepta al completar una compra con envío, observar su com
 
 ### Condiciones de entrega
 
-La entrega debe incluir código en una rama de trabajo, lockfile, pruebas Jasmine ejecutables, informe de cobertura con métricas y brechas, propuesta de pruebas y este ERS. El código se revisa localmente antes de publicar.
+La entrega debe incluir código en una rama de trabajo, lockfile, pruebas Vitest ejecutables, informe de cobertura con métricas y brechas, propuesta de pruebas y este ERS. El código se revisa localmente antes de publicar.
 
 ### Límites y evolución
 
@@ -175,4 +175,4 @@ No se establece un SLA, una certificación de accesibilidad ni un porcentaje obl
 
 ### Fuentes del proyecto
 
-Repositorio base: https://github.com/BDecinti/Ecommerce-full-stack-2. Contratos y organización: README.md. Implementación: src y pruebas en tests. Esta especificación documenta la versión local preparada para revisión el 21 de octubre de 2026.
+Repositorio base: https://github.com/BDecinti/Ecommerce-full-stack-2. Contratos y organización: README.md. Implementación y pruebas: src. Esta especificación documenta la versión local preparada para revisión el 23 de octubre de 2026.

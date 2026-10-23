@@ -39,15 +39,26 @@ export default function Users() {
                 <td>{u.email}</td>
                 <td>{u.rol}</td>
                 <td>
-                  <Link className="btn btn-secondary" to={`/admin/users/${i}`}>
-                    Mostrar
-                  </Link>{" "}
-                  <Link className="btn btn-secondary" to={`/admin/users/${i}/orders`}>
-                    Historial
-                  </Link>{" "}
-                  <Link className="btn btn-dark" to={`/admin/users/${i}/edit`}>
-                    Editar
-                  </Link>
+                  <div className="table-actions">
+                    <Link
+                      className="btn btn-secondary"
+                      to={`/admin/users/${i}`}
+                    >
+                      Mostrar
+                    </Link>
+                    <Link
+                      className="btn btn-secondary"
+                      to={`/admin/users/${i}/orders`}
+                    >
+                      Historial
+                    </Link>
+                    <Link
+                      className="btn btn-dark"
+                      to={`/admin/users/${i}/edit`}
+                    >
+                      Editar
+                    </Link>
+                  </div>
                 </td>
               </tr>
             ))}
