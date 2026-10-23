@@ -1,0 +1,7 @@
+node_modules/
+dist/
+coverage/
+reports/
+tests/.generated/
+.qa/
+VER_TIENDA.html
