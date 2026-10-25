@@ -1041,7 +1041,25 @@ details p {
   }
 }
 
-/* Fotos de producto (URLs externas): se ven completas, sin recortes, sobre fondo claro */
+/* Las acciones conservan separación incluso al pasar a otra línea. */
+.table-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.table-actions > .btn,
+.table-actions > button {
+  margin: 0;
+  white-space: nowrap;
+}
+.admin-main .actions,
+.admin-main .modal-acciones {
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Mantiene las fotografías incorporadas por el equipo en el catálogo. */
 .carrito-item img,
 .pago-item img,
 .pedido-producto img {
@@ -1054,8 +1072,6 @@ details p {
   border-radius: 10px;
   padding: 12px;
 }
-
-/* Imágenes de los apartados del Home (fotos externas): completas y sobre fondo claro */
 .category-tile img {
   height: 130px;
   object-fit: contain;

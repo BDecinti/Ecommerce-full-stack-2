@@ -1,8 +1,8 @@
-import React from "react";
-import { cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
-import App from "../../src/App.jsx";
-import { renderTienda, sembrar, producto } from "../helpers/render.jsx";
-import { adminUsuariosPorDefecto } from "../../src/data/adminPorDefecto.js";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
+import { cleanup, fireEvent, screen } from "@testing-library/react";
+import App from "./App.jsx";
+import { renderTienda, sembrar, producto } from "./test/render.jsx";
+import { adminUsuariosPorDefecto } from "./data/adminPorDefecto.js";
 describe("Rutas y administración", () => {
   beforeEach(() => {
     localStorage.clear();
@@ -67,7 +67,7 @@ describe("Rutas y administración", () => {
     fireEvent.click(
       screen.getByRole("button", { name: "Iniciar sesión", exact: true }),
     );
-    expect(screen.getByRole("dialog").open).toBeTrue();
+    expect(screen.getByRole("dialog").open).toBe(true);
     fireEvent.click(
       screen.getByRole("button", { name: "Cerrar inicio de sesión" }),
     );
@@ -88,7 +88,7 @@ describe("Rutas y administración", () => {
       JSON.parse(localStorage.getItem("categorias")).some(
         (c) => c.nombre === "Categoría demo",
       ),
-    ).toBeTrue();
+    ).toBe(true);
   });
   it("UI36 producto nuevo valida código duplicado", () => {
     localStorage.setItem(
@@ -139,6 +139,6 @@ describe("Rutas y administración", () => {
       target: { value: "cancelado" },
     });
     expect(JSON.parse(localStorage.getItem("productos"))[0].stock).toBe(4);
-    expect(screen.getByLabelText("Cambiar estado").disabled).toBeTrue();
+    expect(screen.getByLabelText("Cambiar estado").disabled).toBe(true);
   });
 });

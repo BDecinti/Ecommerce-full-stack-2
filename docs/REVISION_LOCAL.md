@@ -1,6 +1,6 @@
 # Revisión local de MiTienda
 
-Esta entrega está preparada en la rama `feature/mejoras-tienda-testing-ers`, basada en `396c877`. No se ha publicado ni enviado a GitHub.
+Esta entrega reúne la migración a Vitest, las pruebas de componentes y los informes actualizados. La revisión funcional parte de la versión `396c877`.
 
 ## Ejecutar
 
@@ -36,16 +36,18 @@ npm run test:coverage
 npm run build
 ```
 
-Jasmine ejecuta reglas, renderizado, props, estado, eventos y compra integrada en JSDOM. Los archivos de resultados se generan en `reports/` y `coverage/`; estas carpetas no se versionan.
+Vitest ejecuta reglas, renderizado, props, estado, eventos y compra integrada en JSDOM. Los archivos de resultados se generan en `reports/` y `coverage/`; estas carpetas no se versionan.
 
-Se usó Jasmine en Node sin Karma. Confirmar con el docente si la rúbrica requiere específicamente Karma.
+La indicación actualizada del docente se aplica con Vitest y pruebas junto al componente: por ejemplo, `src/components/ProductCard.jsx` y `src/components/ProductCard.test.jsx`. `src/test/` contiene únicamente utilidades y preparación. `npm run test:watch` repite las pruebas durante el desarrollo.
+
+Los 24 componentes reutilizables de `src/components/`, incluido el panel, tienen un archivo de pruebas propio. También se conservan los casos de reglas, contextos, rutas y compra. La integración conserva las fotografías incorporadas por el equipo y comprueba su respaldo local ante errores de carga.
 
 La revisión del navegador recorrió 23 rutas y comprobó la compra, rechazo, reintento y CSV. El inicio se verificó en escritorio de 1440 px y móvil de 390 px sin desbordamiento horizontal.
 
 ## Documentos
 
 - [ERS actualizado](ERS_v2.docx) y [fuente Markdown](ERS_v2.md).
-- [Propuesta Jasmine](Propuesta_pruebas_Jasmine.docx) y [fuente Markdown](Propuesta_pruebas_Jasmine.md).
+- [Propuesta de pruebas con Vitest](Propuesta_pruebas_Vitest.docx) y [fuente Markdown](Propuesta_pruebas_Vitest.md).
 - [Cobertura y resultados](Cobertura_testing.docx) y [fuente Markdown](Cobertura_testing.md).
 
 `scripts/generar_documentos.py` regenera los informes con python-docx y los resultados de la última ejecución. El Word conserva formato editable. Los PNG y PDF de revisión no forman parte de la entrega.
@@ -58,4 +60,4 @@ El envío simulado cuesta $4.990 bajo $100.000 de subtotal; desde ese monto es g
 
 ## Evidencia de esta revisión
 
-La carpeta evidencia incluye capturas de inicio en escritorio y móvil, entrega, pago aprobado y rechazado e inventario. También contiene los resultados de Jasmine, la cobertura y las rutas verificadas en navegador.
+La carpeta evidencia incluye capturas de inicio en escritorio y móvil, entrega, pago aprobado y rechazado e inventario. También contiene los resultados de Vitest, la cobertura y las rutas verificadas en navegador.

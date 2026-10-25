@@ -56,18 +56,20 @@ export default function Products() {
                 <td>{p.stock}</td>
                 <td>{p.destacado ? "Sí" : "No"}</td>
                 <td>
-                  <Link
-                    className="btn btn-secondary"
-                    to={`/admin/products/${p.id}`}
-                  >
-                    Mostrar
-                  </Link>{" "}
-                  <Link
-                    className="btn btn-dark"
-                    to={`/admin/products/${p.id}/edit`}
-                  >
-                    Editar
-                  </Link>
+                  <div className="table-actions">
+                    <Link
+                      className="btn btn-secondary"
+                      to={`/admin/products/${p.id}`}
+                    >
+                      Mostrar
+                    </Link>
+                    <Link
+                      className="btn btn-dark"
+                      to={`/admin/products/${p.id}/edit`}
+                    >
+                      Editar
+                    </Link>
+                  </div>
                 </td>
               </tr>
             ))}

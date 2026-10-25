@@ -8,9 +8,34 @@ En Windows también puedes iniciar el proyecto con **INICIAR_TIENDA.cmd** despu�
 
 ## Revisión local y entrega actualizada
 
-Las mejoras de tienda, compra y administración, las pruebas Jasmine y los informes Word se describen en [docs/REVISION_LOCAL.md](docs/REVISION_LOCAL.md). Usa Node.js 24 o superior. Ejecuta `npm ci`, `npm run dev`, `npm test` y `npm run test:coverage`.
+Las mejoras de tienda, compra y administración, las pruebas Vitest y los informes Word se describen en [docs/REVISION_LOCAL.md](docs/REVISION_LOCAL.md). Usa Node.js 24 o superior. Ejecuta `npm ci`, `npm run dev`, `npm test` y `npm run test:coverage`.
 
-La entrega se mantiene local para revisión antes de publicar.
+Esta versión incluye la migración a Vitest, pruebas junto a los componentes y los informes actualizados.
+
+## Pruebas con Vitest
+
+La corrección del docente se aplica con **Vitest 5**, React Testing Library y JSDOM. Vite ejecuta y compila la aplicación; Vitest ejecuta las pruebas.
+
+```bash
+npm test                   # ejecución completa, termina al finalizar
+npm run test:watch         # repetir al editar durante el desarrollo
+npm run test:coverage      # pruebas e informe de cobertura V8
+npm run build              # comprobar la compilación
+```
+
+Cada componente reutilizable tiene su prueba en la misma carpeta:
+
+```text
+src/components/ProductCard.jsx
+src/components/ProductCard.test.jsx
+src/components/admin/OrderTable.jsx
+src/components/admin/OrderTable.test.jsx
+src/pages/checkout/Payment.jsx
+src/pages/checkout/Payment.test.jsx
+```
+
+Las reglas y los contextos siguen la misma convención. `src/App.test.jsx` comprueba rutas e integración; `src/test/` solo contiene preparación y utilidades compartidas. Los casos usan expectativas sobre renderizado, props, estado y eventos, con proveedores reales para carrito, catálogo, pedidos y sesión. La ejecución genera `reports/vitest-results.json`; la cobertura se consulta en `coverage/index.html` y `coverage/coverage-summary.json`.
+
 
 Proyecto semestral para el ramo de Full Stack II. Se tratará de un ecommerce 
 
@@ -58,7 +83,7 @@ Se reparte por **vistas completas** (de punta a punta) y no "uno hace HTML, otro
 | **Nicolas** | Usuarios y compra | Iniciar sesión, Registro, Carrito, Checkout, Pago correcto, Pago con error | `src/pages/shop/`, `src/pages/auth/`, `src/components/cart/`, `src/context/` |
 | **Bruno** | Panel de administración | Dashboard, Órdenes/Boletas, Productos (nuevo, mostrar, editar, críticos, reportes), Categorías, Usuarios (nuevo, mostrar, editar, historial), Reportes, Perfil | `src/pages/admin/`, `src/components/admin/` |
 
-Cada uno además **escribe las pruebas (Jasmine) de sus propios componentes**, en la misma carpeta o en `tests/<su-area>/`.
+Cada uno además **escribe las pruebas (Vitest) de sus propios componentes**, **en la misma carpeta del componente**, con el sufijo `.test.jsx`.
 
 **Responsabilidades transversales** (para que nada quede sin dueño):
 
@@ -98,9 +123,9 @@ tienda-react/
 │  │  └─ admin/         ← Persona C
 │  ├─ context/          ← Persona B (estado global del carrito y sesión)
 │  ├─ data/             ← Persona A (datos + CRUD, compartido)
+│  ├─ test/             ← configuración y utilidades compartidas (sin casos)
 │  ├─ App.jsx           ← rutas (compartido)
 │  └─ main.jsx
-├─ tests/               ← pruebas Jasmine (una subcarpeta por área)
 ├─ docs/                ← ERS V2, documento de testing, este plan
 └─ README.md
 ```
@@ -239,7 +264,7 @@ Esta fase es la más importante. Se hace **en conjunto** (videollamada o presenc
 - [ ] Crear `routes` con **todas** las rutas de la tabla 5.3, apuntando a páginas vacías ("Home – en construcción"). Así nadie edita `App.jsx` después.
 - [ ] Crear los componentes comunes: Navbar y Footer (según el template HTML).
 - [ ] Armar `src/data/` con datos de ejemplo y las funciones CRUD (al menos productos y categorías; el resto con la estructura lista).
-- [ ] **Configurar Jasmine + Karma con UNA prueba trivial que pase.** Es probablemente lo más complicado técnicamente; resuélvanlo temprano en equipo y confirmen que `npm test` funciona en el computador de los tres. Si se traba más de un par de horas, consulten al docente.
+- [ ] **Configurar Vitest + Testing Library y las pruebas junto a cada componente.** Confirmar que `npm test` funciona en el computador de los tres.
 - [ ] Cada uno hace una prueba de todo el flujo Git: crea una rama, cambia algo mínimo, abre un PR y alguien lo revisa/aprueba.
 
 **Hito:** los 3 pueden clonar el repo, correrlo, hacer un PR y ver las rutas funcionando.
@@ -266,7 +291,7 @@ Aprendizaje: formularios controlados, `useEffect`, Context, CRUD con estado.
 - Reportes y Perfil del admin, mensajes de error, mejoras de interactividad.
 - Limpiar código muerto y dejar nombres claros.
 
-### Fase 4: Pruebas con Jasmine (≈10%, pero escribiendo desde la Fase 1)
+### Fase 4: Pruebas con Vitest (≈10%, pero escribiendo desde la Fase 1)
 Idealmente **cada vez que terminan un componente importante, escriben su prueba**, en vez de dejar todo para el final. Cubrir los 4 tipos que pide el docente:
 - Renderizado (una lista muestra todos los elementos; un mensaje de error solo aparece si hay error).
 - Props (un botón recibe su etiqueta y su `onClick`).
@@ -338,7 +363,7 @@ La regla es **aprender justo antes de usar**, siempre con algo concreto de tu á
 - Cada integrante debe entender los componentes y pruebas de su área.
 - Revisar juntos los cambios en rutas, contextos y datos compartidos.
 - Mantener nombres claros, componentes con una responsabilidad y pruebas de los comportamientos principales.
-- Antes de integrar un cambio, ejecutar Jasmine y comprobar la navegación en el navegador.
+- Antes de integrar un cambio, ejecutar Vitest y comprobar la navegación en el navegador.
 
 ---
 
@@ -346,7 +371,7 @@ La regla es **aprender justo antes de usar**, siempre con algo concreto de tu á
 
 | Riesgo | Prevención |
 |---|---|
-| Jasmine + Karma no funciona con React | Configurarlo en la Fase 0 con una prueba trivial; si se traba, consultar al docente. |
+| Versiones incompatibles del ejecutor y su cobertura | Instalar con `npm ci` para usar las versiones fijadas en el lockfile. |
 | Dos personas editan el mismo archivo | Tabla de propiedad (sección 2) + rutas definidas de antemano + revisión de PRs. |
 | Cambian la forma de los datos y se rompe todo | Contratos (sección 5), solo agregar campos, nunca renombrar; avisar en el chat. |
 | Uno avanza mucho y los otros se quedan atrás | Reuniones cortas, tablero de tareas, ayuda con revisiones/pruebas (no editando archivos ajenos). |
@@ -360,7 +385,7 @@ La regla es **aprender justo antes de usar**, siempre con algo concreto de tu á
 
 1. ¿Cuál es la **fecha de entrega** y la **rúbrica** de evaluación?
 2. La presentación debe mostrar "el desarrollo funcional integrado con el **backend** y frontend". ¿Hay un backend aparte de esta entrega, o basta con el archivo JS de datos simulados?
-3. ¿Es obligatorio **Karma** con Jasmine, o se acepta otra forma de ejecutar Jasmine con React?
+3. Indicación actualizada del docente: usar **Vitest** y mantener cada prueba en la carpeta del componente correspondiente.
 4. ¿Qué nivel de cobertura de pruebas se espera?
 5. En el diagrama del admin, bajo "Categoría" aparece "Editar usuario": ¿es un error y debería ser "Editar categoría"?
 

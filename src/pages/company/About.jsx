@@ -54,7 +54,7 @@ export default function About() {
           [
             "03",
             "Aprender construyendo",
-            "Una demo académica con React, pruebas Jasmine y administración local. Los pagos y envíos son simulados.",
+            "Una tienda académica de tecnología, con catálogo y compra de demostración. Los pagos y envíos son simulados.",
           ],
         ].map(([n, t, p]) => (
           <article key={n}>

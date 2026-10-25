@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import datetime, timezone
 import json, re, sys
 from docx import Document
 from docx.shared import Inches, Pt, RGBColor
@@ -8,11 +9,26 @@ from docx.enum.table import WD_TABLE_ALIGNMENT, WD_CELL_VERTICAL_ALIGNMENT
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "docs"
 OUT.mkdir(exist_ok=True)
-DATE = "21 de octubre de 2026"
-results = json.loads((ROOT / "reports/jasmine-results.json").read_text(encoding="utf-8-sig"))
+DATE = "23 de octubre de 2026"
+raw = json.loads((ROOT / "reports/vitest-results.json").read_text(encoding="utf-8-sig"))
+cases = []
+for suite in raw["testResults"]:
+    filename = Path(suite["name"]).relative_to(ROOT).as_posix()
+    for case in suite["assertionResults"]:
+        match = re.search(r"(?:UT|UI|CK|CP)\d+", case["fullName"])
+        cases.append({"id": match.group() if match else case["title"], "nombre": case["fullName"], "archivo": filename, "estado": case["status"], "errores": case["failureMessages"]})
+cases.sort(key=lambda c: ({"UT": 0, "UI": 1, "CK": 2, "CP": 3}.get(c["id"][:2], 4), int(re.search(r"\d+", c["id"]).group()) if re.search(r"\d+", c["id"]) else 0))
+results = {"fecha": datetime.fromtimestamp(raw["startTime"] / 1000, timezone.utc).isoformat(), "resultado": "passed" if raw["success"] else "failed", "total": raw["numTotalTests"], "aprobadas": raw["numPassedTests"], "fallidas": raw["numFailedTests"], "archivos": len(raw["testResults"]), "pruebas": cases}
 coverage = json.loads((ROOT / "coverage/coverage-summary.json").read_text(encoding="utf-8-sig"))
-browser = json.loads((ROOT / "reports/browser-results.json").read_text(encoding="utf-8-sig"))
+browser_path = ROOT / "reports/browser-results.json"
+if not browser_path.exists():
+    browser_path = OUT / "evidencia/navegador.json"
+browser = json.loads(browser_path.read_text(encoding="utf-8-sig"))
 total = coverage["total"]
+evidence = OUT / "evidencia"
+evidence.mkdir(exist_ok=True)
+(evidence / "vitest.json").write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
+(evidence / "cobertura.json").write_text(json.dumps(total, ensure_ascii=False, indent=2), encoding="utf-8")
 P = lambda s: ("p", s)
 H = lambda s: ("h", s)
 T = lambda headers, rows, widths=None: ("t", (headers, rows, widths))
@@ -95,7 +111,7 @@ def make(name, title, subtitle, pages):
                 headers,rows,widths=data
                 table(d,headers,rows,widths)
                 md += ["| "+" | ".join(map(str,headers))+" |","| "+" | ".join(["---"]*len(headers))+" |"]+["| "+" | ".join(str(x).replace("|","/") for x in r)+" |" for r in rows]+[""]
-    d.core_properties.title=title;d.core_properties.subject=subtitle;d.core_properties.author="Equipo MiTienda"
+    d.core_properties.title=title;d.core_properties.subject=subtitle;d.core_properties.author="Equipo MiTienda";d.core_properties.last_modified_by="Equipo MiTienda";d.core_properties.comments=""
     for node in list(d.styles.element.xpath(".//w:pBdr")) + list(d.element.xpath(".//w:pBdr")):
         node.getparent().remove(node)
     d.save(OUT/(name+".docx"))
@@ -110,7 +126,7 @@ P("El producto es una aplicación React y Vite que se ejecuta en el navegador. L
 B("Actores"),
 T(["Actor","Operaciones"],[["Visitante","Explorar, filtrar, leer el blog, registrar cuenta, usar el carrito y comprar como invitado."],["Cliente","Iniciar y cerrar sesión; usar el catálogo y la compra con datos de contacto precargados."],["Administrador","Gestionar catálogo, categorías y usuarios; revisar pedidos, estados, inventario y ventas."]],[1.25,5.25]),
 B("Entorno y arquitectura"),
-P("Node.js 24 o superior ejecuta las herramientas y Jasmine. React presenta las vistas, React Router administra las rutas y los contextos comparten productos, categorías, carrito, pedidos y sesión. El CSS adapta la tienda a escritorio y móvil."),
+P("Node.js 24 o superior ejecuta las herramientas y Vitest. React presenta las vistas, React Router administra las rutas y los contextos comparten productos, categorías, carrito, pedidos y sesión. El CSS adapta la tienda a escritorio y móvil."),
 P("La línea base del repositorio es 396c877. Los contratos de datos existentes se conservan y se añaden campos de entrega, costo de envío y pago simulado."),
 B("Convenciones"),
 P("RF identifica requisitos funcionales, RNF requisitos de calidad y RN reglas del negocio. Cada requisito incluye un resultado observable. La cobertura y los casos ejecutados se registran en el documento de testing.")
@@ -175,14 +191,14 @@ P("Los pedidos conservan una copia del nombre y precio de sus artículos para pr
 [
 H("6 Aceptación y trazabilidad"),
 P("El flujo principal se acepta al completar una compra con envío, observar su comprobante, encontrar el pedido en administración y verificar que el carrito quede vacío y el stock disminuya. El flujo alternativo se acepta al rechazar una tarjeta, conservar el estado y aprobar un reintento."),
-T(["Requisitos","Casos Jasmine","Verificación adicional"],[["RF01 a RF04","UT19 a UT23 y UI01 a UI07","Inicio, catálogo y categorías en navegador."],["RF05 y RF06","UI08 a UI11, UI25, UI33 y UI34","Login emergente y acceso de administrador."],["RF07","UI12 y UI18 a UI20","Rutas informativas y blog."],["RF08 a RF13","UT01 a UT18, UI15, UI16 y CK01 a CK08","Rechazo, reintento aprobado y revisión del pedido."],["RF14 a RF19","UT24, UT25, UT28 a UT31, UI13, UI14, UI17 y UI26 a UI37","Recorrido de panel y CSV de inventario."],["RNF01 a RNF05","UT26 y UT27; suite de rutas","Build y revisión a 390 y 1440 px."]],[1.1,2.6,2.8]),
+T(["Requisitos","Casos Vitest","Verificación adicional"],[["RF01 a RF04","UT19 a UT23 y UI01 a UI07","Inicio, catálogo y categorías en navegador."],["RF05 y RF06","UI08 a UI11, UI25, UI33 y UI34","Login emergente y acceso de administrador."],["RF07","UI12 y UI18 a UI20","Rutas informativas y blog."],["RF08 a RF13","UT01 a UT18, UI15, UI16 y CK01 a CK08","Rechazo, reintento aprobado y revisión del pedido."],["RF14 a RF19","UT24, UT25, UT28 a UT31, UI13, UI14, UI17 y UI26 a UI37","Recorrido de panel y CSV de inventario."],["RNF01 a RNF05","UT26 y UT27; suite de rutas","Build y revisión a 390 y 1440 px."]],[1.1,2.6,2.8]),
 B("Condiciones de entrega"),
-P("La entrega debe incluir código en una rama de trabajo, lockfile, pruebas Jasmine ejecutables, informe de cobertura con métricas y brechas, propuesta de pruebas y este ERS. El código se revisa localmente antes de publicar."),
+P("La entrega debe incluir código en una rama de trabajo, lockfile, pruebas Vitest ejecutables, informe de cobertura con métricas y brechas, propuesta de pruebas y este ERS. El código se revisa localmente antes de publicar."),
 B("Límites y evolución"),
 P("La demo no ofrece sincronización entre dispositivos, autorización del lado del servidor, cifrado de contraseñas, correo real ni pagos o logística reales. Una versión productiva requiere backend, base de datos, autenticación y pasarela de pagos, además de pruebas de integración sobre esos servicios."),
 P("No se establece un SLA, una certificación de accesibilidad ni un porcentaje obligatorio de cobertura porque no forman parte de la rúbrica disponible. Los resultados medidos y las pruebas pendientes se describen de manera separada en el informe de testing."),
 B("Fuentes del proyecto"),
-P("Repositorio base: https://github.com/BDecinti/Ecommerce-full-stack-2. Contratos y organización: README.md. Implementación: src y pruebas en tests. Esta especificación documenta la versión local preparada para revisión el 21 de octubre de 2026.")
+P("Repositorio base: https://github.com/BDecinti/Ecommerce-full-stack-2. Contratos y organización: README.md. Implementación y pruebas: src. Esta especificación documenta la versión local preparada para revisión el 23 de octubre de 2026.")
 ]
 ]
 make("ERS_v2","Especificación de requisitos del software","Tienda de tecnología y gaming MiTienda",ers)
@@ -190,13 +206,15 @@ make("ERS_v2","Especificación de requisitos del software","Tienda de tecnologí
 propuesta=[
 [
 H("1 Estrategia y alcance"),
-P("La estrategia combina reglas unitarias, componentes React y recorridos integrados de la compra. Jasmine ejecuta las expectativas; Testing Library dispara eventos y consulta la interfaz por nombres accesibles; JSDOM provee el navegador simulado. c8 mide el código original de src con mapas de fuente por archivo."),
-P("Se implementaron "+str(results["total"])+" casos automatizados. Las pruebas se organizan en reglas.spec.js, componentes.spec.jsx, compra.spec.jsx y rutas.spec.jsx. Cada ejecución limpia el DOM y el almacenamiento para aislar casos."),
+P("La estrategia combina reglas unitarias, componentes React y recorridos integrados de la compra. Vitest ejecuta los casos y mide la cobertura con su proveedor V8; React Testing Library dispara eventos y consulta la interfaz por nombres accesibles. JSDOM provee el DOM simulado. La configuración se encuentra en vite.config.js y src/test/setup.js."),
+P("Se implementaron "+str(results["total"])+" casos automatizados. Cada archivo .test.jsx o .test.js está junto al componente o módulo probado. Por ejemplo, ProductCard.jsx y ProductCard.test.jsx comparten src/components. Los 24 componentes reutilizables tienen un archivo de pruebas propio, incluidos los 9 del panel. src/App.test.jsx cubre rutas e integración; src/test solo contiene utilidades. Cada caso limpia el DOM y el almacenamiento."),
 T(["Tipo exigido","Aplicación concreta","Casos"],[["Renderizado","Tarjeta, inicio, catálogo vacío, rutas y panel.","UI01, UI04, UI06, UI07, UI18 a UI32"],["Props","Producto, insignia y configuración inicial de filtros.","UI01 y UI05"],["Estado","Carrito, catálogo, formularios y pedido persistente.","UI02, UI03, UI11, UI14 a UI17"],["Eventos","Click, escritura, selección, envío y cambio de estado.","UI05, UI08, UI09, UI12, UI35 a UI37 y CK01 a CK08"]],[1.1,4.2,1.2]),
+B("Pruebas de los componentes"),
+P("CP01 a CP22 comprueban navegación, diálogos, cierre con Escape, foco, buscador, contador del carrito, avisos temporizados y carrusel. CP23 a CP34 cubren título, iconos, barra lateral, estados, datos del pedido, subtotales y cantidades limitadas al stock. CP35 a CP40 verifican filtros, límites de precio e imágenes con respaldo local ante errores."),
 B("Organización del equipo"),
 P("El README asigna catálogo a Alessandro, compra y usuarios a Nicolás y administración a Bruno. La revisión de estas pruebas puede repartirse por esas áreas."),
 B("Ejecución reproducible"),
-P("Con Node.js 24, ejecutar npm ci, npm test, npm run test:coverage y npm run build. Los resultados de casos se generan en reports/jasmine-results.json y los porcentajes en coverage/coverage-summary.json. coverage/index.html permite inspeccionar líneas no ejercitadas.")
+P("Con Node.js 24, ejecutar npm ci, npm test, npm run test:coverage y npm run build. Los resultados de casos se generan en reports/vitest-results.json y los porcentajes en coverage/coverage-summary.json. coverage/index.html permite inspeccionar líneas no ejercitadas.")
 ],
 [
 H("2 Casos prioritarios de compra"),
@@ -212,13 +230,13 @@ P("Los siguientes escenarios se proponen para una siguiente iteración. No se co
 T(["Prioridad","Prueba propuesta","Motivo"],[["Alta","Crear, editar y eliminar por interfaz todos los registros permitidos; verificar dependencias.","Ampliar la regresión del panel más allá de rutas, código duplicado y categoría nueva."],["Alta","Simular cuota de almacenamiento, datos con estructura inválida y dos pestañas editando.","La persistencia actual es local y las escrituras no constituyen una transacción de servidor."],["Alta","Cambiar stock o precio desde administración durante la revisión de compra.","Detectar cambios concurrentes y mantener el resumen coherente."],["Media","Navegación completa por teclado, lector de pantalla y contraste medido.","Complementar etiquetas, foco visible y diálogo nativo."],["Media","Ejecutar la misma compra en Firefox, Safari y Android e iOS reales.","La revisión de navegador ejecutada corresponde a Edge en Windows."],["Posterior","Integración con API, autenticación, correo y pasarela sandbox cuando exista backend.","Estos servicios no están implementados en esta entrega."]],[.8,3.4,2.3]),
 B("Criterios de revisión"),
 P("Toda corrección funcional debe acompañarse de un caso que reproduzca el fallo. La suite y el build deben pasar antes de integrar cambios. La cobertura se evalúa por riesgo y por líneas sin ejecutar; un porcentaje global no sustituye la revisión de los flujos."),
-P("El ejecutor usa Jasmine en Node con JSDOM, sin Karma. Si la rúbrica del docente exige Karma o un navegador específico, debe agregarse esa ejecución y registrarse su resultado antes de la entrega académica.")
+P("Se aplica la corrección del docente: Vitest reemplaza al ejecutor anterior y los casos se guardan junto a sus componentes. npm test ejecuta una vez; npm run test:watch repite al editar. Los componentes se verifican por su comportamiento visible, propiedades, estado y eventos.")
 ]
 ]
-make("Propuesta_pruebas_Jasmine","Propuesta de pruebas con Jasmine","Estrategia y escenarios de validación de MiTienda",propuesta)
+make("Propuesta_pruebas_Vitest","Propuesta de pruebas con Vitest","Estrategia y escenarios de validación de MiTienda",propuesta)
 
 def pct(obj, metric): return str(obj[metric]["pct"]) + " %"
-selected=["utils/checkout.js","pages/checkout/Payment.jsx","utils/filtrarProductos.js","components/ProductFilters.jsx","context/CartContext.jsx","context/ProductContext.jsx","context/AuthContext.jsx","utils/reporteVentas.js","pages/admin/ProductReports.jsx"]
+selected=["components/Header.jsx","components/ConfirmDialog.jsx","components/CartMessage.jsx","components/admin/OrderProductPicker.jsx","utils/checkout.js","pages/checkout/Payment.jsx","utils/filtrarProductos.js","components/ProductFilters.jsx","context/CartContext.jsx","context/ProductContext.jsx","context/AuthContext.jsx","utils/reporteVentas.js","pages/admin/ProductReports.jsx"]
 files={}
 for key,value in coverage.items():
     k=key.replace("\\","/")
@@ -227,13 +245,13 @@ metrics=[[label,total[key]["covered"],total[key]["total"],pct(total,key)] for la
 covpages=[
 [
 H("1 Resultado de la ejecución"),
-P("La suite terminó con "+str(results["aprobadas"])+" pruebas aprobadas de "+str(results["total"])+", sin fallos. Las pruebas cubren reglas del catálogo y compra, componentes React, estado compartido, navegación y regresión del panel. La revisión local del navegador también completó compra rechazada, reintento aprobado y descarga del inventario."),
+P("La suite de "+str(results["archivos"])+" archivos terminó con "+str(results["aprobadas"])+" pruebas aprobadas de "+str(results["total"])+", sin fallos. Las pruebas cubren reglas del catálogo y compra, componentes React, estado compartido, navegación y regresión del panel. La revisión funcional anterior completó compra rechazada, reintento aprobado y descarga del inventario. La revisión del 23 de octubre verifica separación de acciones en escritorio y móvil y la vista HTML portátil."),
 T(["Métrica global de src","Cubierto","Total","Porcentaje"],metrics,[2.7,1,1,1.8]),
-P("La medición incluye todos los archivos JavaScript y JSX de src, también los que no se importan en un caso. Excluye CSS, fotografías, pruebas y dependencias. Las ramas de archivos nunca ejecutados se contabilizan según el tratamiento de V8 y c8; el porcentaje de ramas no debe interpretarse como cobertura de todas las decisiones posibles del producto."),
-P("La cobertura describe la ejecución automatizada, no certifica que todo el sistema esté libre de errores. La revisión visual y los recorridos en Edge se informan por separado y no se suman a los porcentajes de Jasmine."),
+P("La medición incluye todos los archivos JavaScript y JSX de src, aunque no se importen en un caso. Excluye CSS, fotografías, archivos .test y src/test. Se usa @vitest/coverage-v8, versión 5.0.5. Las métricas se calculan con el mapeo de código de Vitest; no son directamente comparables con las del ejecutor anterior."),
+P("La cobertura describe la ejecución automatizada, no certifica que todo el sistema esté libre de errores. La revisión visual y los recorridos en Edge se informan por separado y no se suman a los porcentajes de Vitest."),
 B("Entorno y reproducción"),
-P("Windows, Node.js 24, Jasmine y JSDOM. Comandos: npm ci; npm test; npm run test:coverage; npm run build. Los scripts se encuentran en package.json y tests/run-tests.mjs."),
-P("Los reportes de datos se generan en reports/jasmine-results.json y coverage/coverage-summary.json. El reporte navegable se encuentra en coverage/index.html. La revisión corresponde a la versión local basada en 396c877.")
+P("Windows, Node.js 24, Vitest 5.0.5, React Testing Library y JSDOM. Comandos: npm ci; npm test; npm run test:coverage; npm run build. Los scripts se encuentran en package.json, vite.config.js y src/test/setup.js."),
+P("Los reportes de datos se generan en reports/vitest-results.json y coverage/coverage-summary.json. El reporte navegable se encuentra en coverage/index.html. La revisión corresponde a la versión local basada en 396c877.")
 ],
 [
 H("2 Cobertura de módulos relevantes"),
@@ -244,14 +262,14 @@ B("Brechas y alcance"),
 P("Los porcentajes inferiores a 100 % señalan rutas o funciones que requieren más casos. La tabla de módulos no representa una meta aprobada por el docente. La propuesta complementaria detalla las ampliaciones sugeridas."),
 P("La navegación del panel prueba que las vistas se presentan; no equivale a probar todas las combinaciones de sus formularios. No se ejecutaron pruebas sobre un backend, pagos bancarios, correo real, sincronización entre equipos, carga concurrente o certificación de accesibilidad."),
 B("Registro de casos"),
-P("Las páginas siguientes enumeran todos los casos ejecutados y sus estados. UT identifica reglas unitarias, UI componentes y navegación, y CK compra integrada. Los casos de compra ejercitan contextos reales y almacenamiento del navegador simulado.")
+P("Las páginas siguientes enumeran todos los casos ejecutados y sus estados. UT identifica reglas unitarias, UI componentes y navegación, CK compra integrada y CP los nuevos casos de componentes reutilizables. Los casos de compra ejercitan contextos reales y almacenamiento del navegador simulado.")
 ]
 ]
 specs=results["pruebas"]
-for offset in range(0,len(specs),19):
+for offset in range(0,len(specs),20):
     rows=[]
-    for case in specs[offset:offset+19]:
+    for case in specs[offset:offset+20]:
         name=case["nombre"].split(case["id"],1)[-1].strip()
         rows.append([case["id"],name,"Aprobada" if case["estado"]=="passed" else case["estado"]])
-    covpages.append([H(str(3+offset//19)+" Casos ejecutados"),T(["ID","Verificación","Estado"],rows,[.65,5,.85])])
+    covpages.append([H(str(3+offset//20)+" Casos ejecutados"),T(["ID","Verificación","Estado"],rows,[.65,5,.85])])
 make("Cobertura_testing","Cobertura de testing","Resultados medidos y trazabilidad de las pruebas de MiTienda",covpages)
