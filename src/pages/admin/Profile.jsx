@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import useTitulo from "../../hooks/useTitulo.js";
 import { useAuth } from "../../context/AuthContext.jsx";
-import { useListaLocal } from "../../hooks/useLocalStorage.js";
-import { adminUsuariosPorDefecto } from "../../data/adminPorDefecto.js";
 import "../../styles/admin-detail.css";
 
 const DATOS = [
@@ -20,18 +18,17 @@ const DATOS = [
 export default function Profile() {
   useTitulo("Administrador - Perfil");
   const { usuario, cerrarSesion } = useAuth();
-  const [usuarios] = useListaLocal("usuarios", adminUsuariosPorDefecto);
 
   // Se busca en la lista de usuarios para mostrar los datos más recientes y saber su posición (id de edición)
-  const indice = usuarios.findIndex((u) => u.email === usuario.email);
-  const datos = indice >= 0 ? usuarios[indice] : usuario;
+  const indice = usuario.rol === "admin" ? usuario.id : -1;
+  const datos = usuario;
 
   return (
     <section className="container">
       <div className="admin-title">
         <div>
           <h1>Perfil</h1>
-          <p>Datos de tu cuenta de administrador.</p>
+          <p>Datos de tu cuenta.</p>
         </div>
         {indice >= 0 && (
           <Link className="btn btn-primary" to={`/admin/users/${indice}/edit`}>
@@ -42,7 +39,9 @@ export default function Profile() {
 
       <article className="card">
         <div className="detail-row">
-          <span className="admin-avatar">{datos.nombre.charAt(0).toUpperCase()}</span>{" "}
+          <span className="admin-avatar">
+            {datos.nombre.charAt(0).toUpperCase()}
+          </span>{" "}
           <strong>
             {datos.nombre} {datos.apellidos}
           </strong>{" "}
@@ -62,7 +61,11 @@ export default function Profile() {
         <Link className="btn btn-secondary" to="/">
           Volver a la tienda
         </Link>
-        <button type="button" className="btn btn-secondary" onClick={cerrarSesion}>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={cerrarSesion}
+        >
           Cerrar sesión
         </button>
       </div>

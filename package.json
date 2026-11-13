@@ -10,7 +10,12 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "vista:portatil": "node scripts/crear-vista.mjs",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "dev:full": "node scripts/iniciar.mjs",
+    "backend": "node scripts/backend.mjs run",
+    "preparar": "node scripts/backend.mjs prepare",
+    "test:backend": "node scripts/backend.mjs test",
+    "build:full": "npm run build && node scripts/backend.mjs package"
   },
   "dependencies": {
     "react": "^19.3.0",

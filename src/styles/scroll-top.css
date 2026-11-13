@@ -16,7 +16,9 @@
   opacity: 0;
   transform: translateY(12px);
   pointer-events: none;
-  transition: opacity 0.25s, transform 0.25s;
+  transition:
+    opacity 0.25s,
+    transform 0.25s;
   z-index: 40; /* bajo la capa oscura del menú de categorías (49) y el header (50) */
 }
 

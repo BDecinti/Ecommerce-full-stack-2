@@ -18,7 +18,9 @@ export function guardarJSON(clave, valor) {
 // Sirve para datos iniciales (productos, categorías): al subir la versión en el código, el navegador
 // recibe los datos nuevos en vez de quedarse con los que tenía guardados.
 export function leerConVersion(clave, version, valorPorDefecto) {
-  return leerJSON(clave + "Version", null) === version ? leerJSON(clave, valorPorDefecto) : valorPorDefecto;
+  return leerJSON(clave + "Version", null) === version
+    ? leerJSON(clave, valorPorDefecto)
+    : valorPorDefecto;
 }
 
 export function guardarConVersion(clave, version, valor) {
@@ -30,7 +32,9 @@ export function guardarConVersion(clave, version, valor) {
 // Reemplaza a las variables globales adminProductos / adminUsuarios y a la función save() de admin.js.
 // Devuelve [lista, guardar]: guardar(nuevaLista) actualiza el estado y escribe en localStorage.
 export function useListaLocal(clave, listaPorDefecto) {
-  const [lista, setLista] = useState(() => leerJSON(clave, null) || listaPorDefecto);
+  const [lista, setLista] = useState(
+    () => leerJSON(clave, null) || listaPorDefecto,
+  );
 
   // Como hacía admin.js al cargar: la primera vez se guardan los datos por defecto
   useEffect(() => {

@@ -6,9 +6,9 @@ import { filtrosIniciales } from "../utils/filtrarProductos.js";
 
 describe("ProductFilters", () => {
   beforeEach(() => sembrar());
-  it("UI05 filtros notifican eventos y props", () => {
+  it("UI05 filtros notifican eventos y props", async () => {
     const cambio = vi.fn();
-    renderTienda(
+    await renderTienda(
       <ProductFilters
         filtros={filtrosIniciales}
         marcas={[{ marca: "Demo", cantidad: 1 }]}
@@ -30,9 +30,9 @@ describe("ProductFilters", () => {
     fireEvent.click(screen.getByRole("button", { name: "Limpiar" }));
     expect(cambio).toHaveBeenCalledWith(filtrosIniciales);
   });
-  it("CP35 combina marca, orden y límites de precio mediante sus eventos", () => {
+  it("CP35 combina marca, orden y límites de precio mediante sus eventos", async () => {
     const cambiar = vi.fn();
-    renderTienda(
+    await renderTienda(
       <ProductFilters
         filtros={filtrosIniciales}
         marcas={[{ marca: "Demo", cantidad: 1 }]}
@@ -58,7 +58,7 @@ describe("ProductFilters", () => {
       });
     }
   });
-  it("CP36 muestra límites incompatibles y permite quitar una marca seleccionada", () => {
+  it("CP36 muestra límites incompatibles y permite quitar una marca seleccionada", async () => {
     const cambiar = vi.fn();
     const filtros = {
       ...filtrosIniciales,
@@ -66,7 +66,7 @@ describe("ProductFilters", () => {
       precioMin: "200",
       precioMax: "100",
     };
-    renderTienda(
+    await renderTienda(
       <ProductFilters
         filtros={filtros}
         marcas={[{ marca: "Demo", cantidad: 1 }]}

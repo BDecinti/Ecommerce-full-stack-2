@@ -1,69 +1,60 @@
 # Propuesta de pruebas con Vitest
 
-Estrategia y escenarios de validación de MiTienda
+MiTienda · Componentes, sesiones e integración REST
 
-23 de octubre de 2026
+## Objetivo y estrategia
 
-## 1 Estrategia y alcance
+El plan verifica que los cambios de la tienda conserven el comportamiento visible y respeten las respuestas de la API. Vitest ejecuta pruebas rápidas de funciones, componentes y contextos con React Testing Library y JSDOM. Se usa un servidor HTTP simulado para controlar respuestas sin depender de que el backend esté encendido.
 
-La estrategia combina reglas unitarias, componentes React y recorridos integrados de la compra. Vitest ejecuta los casos y mide la cobertura con su proveedor V8; React Testing Library dispara eventos y consulta la interfaz por nombres accesibles. JSDOM provee el DOM simulado. La configuración se encuentra en vite.config.js y src/test/setup.js.
+La seguridad y las reglas que modifican datos se comprueban también con la suite Java sobre H2 real. Finalmente se recorre la tienda en Edge conectada con Spring Boot. Una prueba de componente aprobada no sustituye la prueba de autorización del servidor.
 
-Se implementaron 116 casos automatizados. Cada archivo .test.jsx o .test.js está junto al componente o módulo probado. Por ejemplo, ProductCard.jsx y ProductCard.test.jsx comparten src/components. Los 24 componentes reutilizables tienen un archivo de pruebas propio, incluidos los 9 del panel. src/App.test.jsx cubre rutas e integración; src/test solo contiene utilidades. Cada caso limpia el DOM y el almacenamiento.
+## Organización junto a los componentes
 
-| Tipo exigido | Aplicación concreta | Casos |
-| --- | --- | --- |
-| Renderizado | Tarjeta, inicio, catálogo vacío, rutas y panel. | UI01, UI04, UI06, UI07, UI18 a UI32 |
-| Props | Producto, insignia y configuración inicial de filtros. | UI01 y UI05 |
-| Estado | Carrito, catálogo, formularios y pedido persistente. | UI02, UI03, UI11, UI14 a UI17 |
-| Eventos | Click, escritura, selección, envío y cambio de estado. | UI05, UI08, UI09, UI12, UI35 a UI37 y CK01 a CK08 |
+Cada prueba comparte carpeta con el archivo que verifica. ProductCard.test.jsx comprueba ProductCard.jsx; RequireRole.test.jsx comprueba RequireRole.jsx; AuthContext.test.jsx comprueba AuthContext.jsx. Las utilidades comunes se mantienen en src/test para evitar repetir proveedores y preparación.
 
-### Pruebas de los componentes
+El archivo de configuración es vite.config.js. setup.js prepara el DOM y limpia almacenamiento y datos entre casos. render.jsx monta los proveedores reales y permite esperar la restauración. server.js simula exclusivamente las respuestas necesarias para el frontend. Los cambios de seguridad del servidor deben tener su caso correspondiente en ApiIntegrationTest.
 
-CP01 a CP22 comprueban navegación, diálogos, cierre con Escape, foco, buscador, contador del carrito, avisos temporizados y carrusel. CP23 a CP34 cubren título, iconos, barra lateral, estados, datos del pedido, subtotales y cantidades limitadas al stock. CP35 a CP40 verifican filtros, límites de precio e imágenes con respaldo local ante errores.
+## Casos prioritarios del frontend
 
-### Organización del equipo
+| Grupo | Propuesta y resultado esperado |
+| --- | --- |
+| Catálogo y tarjetas | Mostrar datos recibidos, estados sin stock y navegación; añadir hasta la cantidad disponible |
+| Categorías y filtros | Combinar texto y categoría, cambiar orden y mostrar una búsqueda sin resultados |
+| Carrito | Aumentar, reducir y retirar; persistir solo identificadores y cantidades; recalcular con el catálogo |
+| Registro y login | Normalizar correo, omitir rol público y mostrar errores de API; esperar antes de navegar |
+| Sesión | Restaurar mediante cookie, no guardar JWT, renovar una sola vez y revocar al cerrar |
+| Rutas | No renderizar contenido privado para invitados; rechazar roles insuficientes y recuperar la compra pendiente |
+| Compra | Validar entrega y tarjeta, conservar datos entre pasos, esperar respuesta y mostrar aprobación o rechazo |
+| Administración | Aplicar respuestas de CRUD con IDs estables y mantener datos si una operación falla |
+| Recuperación | Mostrar carga y errores de conexión; volver a intentar sin dejar una página vacía |
 
-El README asigna catálogo a Alessandro, compra y usuarios a Nicolás y administración a Bruno. La revisión de estas pruebas puede repartirse por esas áreas.
+Los casos deben comprobar lo que observa el usuario mediante roles, etiquetas y textos accesibles. Se esperan resultados asíncronos con findBy o waitFor. Se evitan esperas arbitrarias y aserciones sobre detalles internos de React que puedan cambiar sin modificar la función del componente.
 
-### Ejecución reproducible
+## Casos prioritarios del backend
 
-Con Node.js 24, ejecutar npm ci, npm test, npm run test:coverage y npm run build. Los resultados de casos se generan en reports/vitest-results.json y los porcentajes en coverage/coverage-summary.json. coverage/index.html permite inspeccionar líneas no ejercitadas.
+| Riesgo | Prueba y criterio de aceptación |
+| --- | --- |
+| Escalada de permisos | Un cliente no crea productos y no lista usuarios; un vendedor no gestiona categorías ni retira productos |
+| Suplantación de sesión | JWT con firma, emisor o audiencia inválidos devuelve 401; cookie de renovación sola no habilita recursos |
+| Revocación | Logout, cambio de rol o desactivación impide usar el JWT anterior |
+| Escritura sin CSRF | Login y cambios sin cookie y cabecera válidas se rechazan |
+| Manipulación de importes | El cliente no envía precios aceptados; el total se calcula en el servidor |
+| Sobreventa | Dos compras concurrentes de una unidad generan exactamente un pedido |
+| Repetición de pago | Confirmar de nuevo la misma clave devuelve el pedido original sin volver a descontar |
+| Integridad histórica | Retirar un producto conserva sus líneas compradas; cancelar repone una vez |
 
-## 2 Casos prioritarios de compra
+La suite utiliza peticiones HTTP simuladas por MockMvc con filtros de seguridad y servicios reales. La base H2 se migra antes de ejecutar los casos. Los datos se limpian entre pruebas para que el resultado no dependa del orden de ejecución.
 
-| Caso | Preparación y acción | Resultado esperado |
-| --- | --- | --- |
-| CK01 | Entrar al pago con carrito vacío. | No aparece confirmación de pago; se ofrece catálogo. |
-| CK02 y CK03 | Seleccionar envío y probar celular inválido. | Dirección requerida; costo visible; contacto inválido bloquea avance. |
-| CK04 | Un producto de $10.000, envío y tarjeta 4242. | Pedido de $14.990, dirección registrada, stock -1 y carrito vacío. |
-| CK05 | Mismo carrito con tarjeta 4000 terminada en 0002. | Rechazo; stock, carrito y pedidos sin cambios. |
-| CK06 | Después del rechazo, cambiar a 4242 y confirmar. | Un pedido de retiro, sin cobro de envío. |
-| CK07 | Ingresar otro número de tarjeta. | La revisión se bloquea con un error explicativo. |
-| CK08 | Completar envío, avanzar y volver. | La dirección y los datos del receptor permanecen. |
+## Demostración integrada
 
-### Casos de límites y reglas
+La revisión comienza con catálogo público y login de cliente. Se recarga la página para comprobar la restauración, se intenta acceder al panel y se verifica el rechazo. Después se realiza un pago rechazado y uno aprobado y se consulta el pedido en Mis compras.
 
-UT01 comprueba $99.999 y $100.000 para envío gratuito. UT03 a UT08 verifican los campos de entrega por separado. UT10 a UT15 cubren ambos números demo, formato y vencimiento. UT16 incluye cantidad cero, negativa, fraccionaria, superior al stock y producto inexistente.
+Se cierra la sesión, se intenta falsificar un rol en localStorage y se comprueba que la ruta privada sigue exigiendo ingreso. Con vendedor se revisa el menú limitado y con administrador se recorren usuarios, categorías y dashboard. Se visita Swagger y se comprueba la presentación móvil. Las capturas y el resumen de resultados se conservan en docs/evidencia/backend.
 
-### Integridad de administración
+## Ejecución y aceptación
 
-UI14 verifica crear, editar, descontar, reponer y eliminar en ProductContext. UI35 crea una categoría desde su formulario. UI36 rechaza un código duplicado. UI37 cancela un pedido, comprueba la reposición y verifica el bloqueo de cambios posteriores.
+Para una revisión rápida se usa npm test. Para medir cobertura se ejecuta npm run test:coverage. Durante el desarrollo, npm run test:watch repite las pruebas afectadas. La verificación Java se ejecuta con npm run test:backend y la compilación con npm run build:full.
 
-## 3 Propuestas de ampliación
+La entrega registra 138 pruebas de frontend y 44 pruebas Java aprobadas. Cualquier fallo debe corregirse o quedar identificado explícitamente antes de presentar el proyecto. La cobertura actual se informa en Cobertura_testing y no se usa como prueba de ausencia de defectos.
 
-Los siguientes escenarios se proponen para una siguiente iteración. No se contabilizan como aprobados ni aumentan la cobertura informada hasta contar con su implementación y ejecución.
-
-| Prioridad | Prueba propuesta | Motivo |
-| --- | --- | --- |
-| Alta | Crear, editar y eliminar por interfaz todos los registros permitidos; verificar dependencias. | Ampliar la regresión del panel más allá de rutas, código duplicado y categoría nueva. |
-| Alta | Simular cuota de almacenamiento, datos con estructura inválida y dos pestañas editando. | La persistencia actual es local y las escrituras no constituyen una transacción de servidor. |
-| Alta | Cambiar stock o precio desde administración durante la revisión de compra. | Detectar cambios concurrentes y mantener el resumen coherente. |
-| Media | Navegación completa por teclado, lector de pantalla y contraste medido. | Complementar etiquetas, foco visible y diálogo nativo. |
-| Media | Ejecutar la misma compra en Firefox, Safari y Android e iOS reales. | La revisión de navegador ejecutada corresponde a Edge en Windows. |
-| Posterior | Integración con API, autenticación, correo y pasarela sandbox cuando exista backend. | Estos servicios no están implementados en esta entrega. |
-
-### Criterios de revisión
-
-Toda corrección funcional debe acompañarse de un caso que reproduzca el fallo. La suite y el build deben pasar antes de integrar cambios. La cobertura se evalúa por riesgo y por líneas sin ejecutar; un porcentaje global no sustituye la revisión de los flujos.
-
-Se aplica la corrección del docente: Vitest reemplaza al ejecutor anterior y los casos se guardan junto a sus componentes. npm test ejecuta una vez; npm run test:watch repite al editar. Los componentes se verifican por su comportamiento visible, propiedades, estado y eventos.
+Se propone ampliar los escenarios a PostgreSQL, varios navegadores, múltiples pestañas y carga sostenida. Estas tareas son posteriores a la evidencia local incluida. Para reproducir una regresión se debe conservar el requisito afectado, la petición o acción que la activa y el resultado esperado antes de corregir el código.

@@ -3,8 +3,17 @@
 /* BANNER PRINCIPAL (hero del home, si se usa la clase .hero) */
 .hero,
 .hero-home {
-  background: radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.35), transparent 55%),
-    radial-gradient(circle at 80% 60%, rgba(34, 211, 238, 0.25), transparent 55%),
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(139, 92, 246, 0.35),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 80% 60%,
+      rgba(34, 211, 238, 0.25),
+      transparent 55%
+    ),
     #0d0e1f;
   color: white;
   padding: 4rem 2rem;

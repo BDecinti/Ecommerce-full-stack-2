@@ -50,11 +50,12 @@ export default function ProductForm() {
     editando ? !!obtener(id)?.destacado : false,
   );
   const [mensaje, setMensaje] = useState("");
+  const [enviando, setEnviando] = useState(false);
 
   // Los inputs tienen como id el nombre del campo, así un solo handler sirve para todos
   const cambiar = (e) => setForm({ ...form, [e.target.id]: e.target.value });
 
-  const enviar = (e) => {
+  const enviar = async (e) => {
     e.preventDefault();
     const producto = {
       codigo: form.codigo.trim(),
@@ -81,16 +82,28 @@ export default function ProductForm() {
       setMensaje("Revisa el nombre y usa un código único.");
       return;
     }
-    if (editando && obtener(id)) {
-      editar(Number(id), producto);
-    } else {
-      crear(producto);
+    if (enviando) return;
+    setEnviando(true);
+    try {
+      if (editando && obtener(id)) await editar(Number(id), producto);
+      else await crear(producto);
+    } catch (e) {
+      setMensaje(e.message);
+      setEnviando(false);
+      return;
     }
 
     setMensaje("Producto guardado correctamente.");
     setTimeout(() => navigate("/admin/products"), 600);
   };
 
+  if (editando && !obtener(id))
+    return (
+      <section className="form-card card">
+        <p>Producto no encontrado.</p>
+        <Link to="/admin/products">Volver</Link>
+      </section>
+    );
   return (
     <section className="form-card card">
       <h1>{editando ? "Editar producto" : "Nuevo producto"}</h1>
@@ -208,7 +221,7 @@ export default function ProductForm() {
           </label>
         </div>
         <div className="actions">
-          <button type="submit">
+          <button type="submit" disabled={enviando}>
             {editando ? "Guardar cambios" : "Guardar producto"}
           </button>
           <Link className="btn btn-secondary" to="/admin/products">

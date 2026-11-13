@@ -44,7 +44,12 @@ export default function Header() {
           {usuario ? (
             <span className="user-info-box">
               <span className="user-saludo">Hola, {usuario.nombre}</span>
-              {usuario.rol === "admin" && <Link to="/admin">Panel admin</Link>}
+              <Link to="/my-orders">Mis compras</Link>
+              {["admin", "vendedor"].includes(usuario.rol) && (
+                <Link to={usuario.rol === "admin" ? "/admin" : "/admin/orders"}>
+                  Panel admin
+                </Link>
+              )}
               <a
                 href="#"
                 onClick={(e) => {

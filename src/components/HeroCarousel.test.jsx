@@ -5,8 +5,8 @@ import HeroCarousel from "./HeroCarousel.jsx";
 
 describe("HeroCarousel", () => {
   const activo = () => screen.getAllByRole("link")[0];
-  it("CP19 flechas y puntos cambian el banner y vuelven al principio", () => {
-    renderTienda(<HeroCarousel />);
+  it("CP19 flechas y puntos cambian el banner y vuelven al principio", async () => {
+    await renderTienda(<HeroCarousel />);
     expect(activo()).toHaveTextContent("");
     expect(activo().querySelector("img")).toHaveAttribute(
       "alt",
@@ -24,9 +24,9 @@ describe("HeroCarousel", () => {
       expect.stringContaining("Memoria Corsair"),
     );
   });
-  it("CP20 avanza automáticamente, pausa con el puntero y reanuda", () => {
+  it("CP20 avanza automáticamente, pausa con el puntero y reanuda", async () => {
     vi.useFakeTimers();
-    renderTienda(<HeroCarousel />);
+    await renderTienda(<HeroCarousel />);
     act(() => vi.advanceTimersByTime(5000));
     expect(activo().querySelector("img")).toHaveAttribute(
       "alt",

@@ -1,6 +1,4 @@
-// Categorías iniciales. Hay dos niveles: categorías principales (padreId: null) y subcategorías
-// (padreId = id de la principal). Solo se usan si localStorage está vacío o si cambia VERSION_CATEGORIAS
-// (después manda CategoryContext). Si se cambian aquí, hay que subir VERSION_CATEGORIAS.
+// Fuente de semillas y datos de pruebas. Las categorias activas se obtienen desde REST.
 export const VERSION_CATEGORIAS = 4;
 
 // Categoría especial "Ofertas": no tiene productos propios. Muestra los 9 productos de los banners del

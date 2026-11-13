@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
+import { useState } from "react";
 import useTitulo from "../../hooks/useTitulo.js";
 import { usePedidos } from "../../context/PedidoContext.jsx";
-import { useProductos } from "../../context/ProductContext.jsx";
 import AdminTitle from "../../components/admin/AdminTitle.jsx";
 import EstadoBadge from "../../components/admin/EstadoBadge.jsx";
 import EstadoSelect from "../../components/admin/EstadoSelect.jsx";
@@ -13,7 +13,8 @@ import "../../styles/admin-orders.css";
 export default function OrderDetail() {
   const { id } = useParams();
   const { obtener, cambiarEstado } = usePedidos();
-  const { reponerStock } = useProductos();
+  const [error, setError] = useState("");
+  const [enviando, setEnviando] = useState(false);
   const pedido = obtener(id);
 
   useTitulo(
@@ -21,14 +22,26 @@ export default function OrderDetail() {
   );
 
   // Un pedido cancelado devuelve sus productos al stock y ya no puede cambiar de estado
-  const actualizar = (estado) => {
+  const actualizar = async (estado) => {
     if (pedido.estado === "cancelado") return;
-    if (estado === "cancelado") reponerStock(pedido.items);
-    cambiarEstado(pedido.id, estado);
+    setEnviando(true);
+    try {
+      await cambiarEstado(pedido.id, estado);
+      setError("");
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setEnviando(false);
+    }
   };
 
   return (
     <section className="container">
+      {error && (
+        <p className="alert alert-error" role="alert">
+          {error}
+        </p>
+      )}
       <AdminTitle
         titulo={pedido ? `Pedido #${pedido.id}` : "Pedido"}
         descripcion="Detalle de la compra."
@@ -50,7 +63,9 @@ export default function OrderDetail() {
                 id="estado"
                 value={pedido.estado}
                 onChange={actualizar}
-                disabled={pedido.estado === "cancelado"}
+                disabled={
+                  enviando || ["cancelado", "entregado"].includes(pedido.estado)
+                }
               />
               {pedido.estado === "cancelado" && (
                 <small>Un pedido cancelado no se puede modificar.</small>

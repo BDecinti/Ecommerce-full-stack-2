@@ -33,13 +33,15 @@ const aFecha = (texto) => {
 // Nombre legible de un período según la granularidad
 function etiquetaPeriodo(desde, gran) {
   if (gran === "dia") return fechaCorta(desde);
-  if (gran === "semana") return `${fechaCorta(desde)} al ${fechaCorta(desplazar(desde, "dia", 6))}`;
+  if (gran === "semana")
+    return `${fechaCorta(desde)} al ${fechaCorta(desplazar(desde, "dia", 6))}`;
   return desde.toLocaleDateString("es-CL", { month: "long", year: "numeric" });
 }
 
 function Variacion({ actual, base }) {
   const v = variacion(actual, base);
-  if (v === null) return <span className="rep-var neutro">{actual > 0 ? "Nuevo" : "—"}</span>;
+  if (v === null)
+    return <span className="rep-var neutro">{actual > 0 ? "Nuevo" : "—"}</span>;
   const clase = v > 0 ? "sube" : v < 0 ? "baja" : "neutro";
   return (
     <span className={`rep-var ${clase}`}>
@@ -136,7 +138,11 @@ export default function Reports() {
 
   const serie = serieVentas(ventas, gran, inicio);
   const nombreCategoria = (id) => obtener(id)?.nombre ?? "Sin categoría";
-  const desglose = desgloseVentas(enRango(ventas, inicio, fin), productos, nombreCategoria);
+  const desglose = desgloseVentas(
+    enRango(ventas, inicio, fin),
+    productos,
+    nombreCategoria,
+  );
   const ranking = rankingProductos(desglose.vendidos, productos);
 
   const metricas = [
@@ -147,7 +153,10 @@ export default function Reports() {
 
   return (
     <>
-      <AdminTitle titulo="Reportes" descripcion="Reporte de ventas (sin contar pedidos cancelados)." />
+      <AdminTitle
+        titulo="Reportes"
+        descripcion="Reporte de ventas (sin contar pedidos cancelados)."
+      />
 
       <section className="card rep-filtros">
         <label>
@@ -162,7 +171,11 @@ export default function Reports() {
         </label>
         <label>
           Fecha de referencia
-          <input type="date" value={referencia} onChange={(e) => setReferencia(e.target.value)} />
+          <input
+            type="date"
+            value={referencia}
+            onChange={(e) => setReferencia(e.target.value)}
+          />
         </label>
         <p className="rep-periodo">
           Período analizado: <strong>{etiquetaPeriodo(inicio, gran)}</strong>
@@ -177,8 +190,12 @@ export default function Reports() {
               <tr>
                 <th></th>
                 <th>Actual</th>
-                <th>Período anterior ({etiquetaPeriodo(inicioAnterior, gran)})</th>
-                <th>Mismo período año pasado ({etiquetaPeriodo(inicioAnio, gran)})</th>
+                <th>
+                  Período anterior ({etiquetaPeriodo(inicioAnterior, gran)})
+                </th>
+                <th>
+                  Mismo período año pasado ({etiquetaPeriodo(inicioAnio, gran)})
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -189,10 +206,18 @@ export default function Reports() {
                     <strong>{m.formato(actual[m.clave])}</strong>
                   </td>
                   <td>
-                    {m.formato(anterior[m.clave])} <Variacion actual={actual[m.clave]} base={anterior[m.clave]} />
+                    {m.formato(anterior[m.clave])}{" "}
+                    <Variacion
+                      actual={actual[m.clave]}
+                      base={anterior[m.clave]}
+                    />
                   </td>
                   <td>
-                    {m.formato(anioPasado[m.clave])} <Variacion actual={actual[m.clave]} base={anioPasado[m.clave]} />
+                    {m.formato(anioPasado[m.clave])}{" "}
+                    <Variacion
+                      actual={actual[m.clave]}
+                      base={anioPasado[m.clave]}
+                    />
                   </td>
                 </tr>
               ))}
@@ -202,7 +227,10 @@ export default function Reports() {
       </section>
 
       <section className="card">
-        <h2>Ventas por {granularidades.find((g) => g.valor === gran).etiqueta.toLowerCase()}</h2>
+        <h2>
+          Ventas por{" "}
+          {granularidades.find((g) => g.valor === gran).etiqueta.toLowerCase()}
+        </h2>
         <div className="table-wrap">
           <table>
             <thead>
@@ -228,15 +256,30 @@ export default function Reports() {
       </section>
 
       <section className="rep-grid">
-        <TablaDesglose titulo="Ventas por categoría" filas={desglose.categorias} columna="Categoría" />
-        <TablaDesglose titulo="Ventas por marca" filas={desglose.marcas} columna="Marca" />
+        <TablaDesglose
+          titulo="Ventas por categoría"
+          filas={desglose.categorias}
+          columna="Categoría"
+        />
+        <TablaDesglose
+          titulo="Ventas por marca"
+          filas={desglose.marcas}
+          columna="Marca"
+        />
       </section>
 
       <section className="rep-grid">
-        <TablaDesglose titulo="Ventas por producto" filas={desglose.productos} columna="Producto" />
+        <TablaDesglose
+          titulo="Ventas por producto"
+          filas={desglose.productos}
+          columna="Producto"
+        />
         <div className="rep-columna">
           <TablaRanking titulo="Productos más vendidos" filas={ranking.mas} />
-          <TablaRanking titulo="Productos menos vendidos" filas={ranking.menos} />
+          <TablaRanking
+            titulo="Productos menos vendidos"
+            filas={ranking.menos}
+          />
         </div>
       </section>
     </>

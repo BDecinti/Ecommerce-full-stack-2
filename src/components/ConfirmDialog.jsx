@@ -34,14 +34,24 @@ export default function ConfirmDialog({
       className="modal-overlay"
       onClick={(e) => e.target === e.currentTarget && onCancelar()} // clic en el fondo oscuro
     >
-      <div className="modal-box" role="alertdialog" aria-modal="true" aria-labelledby="modal-titulo">
+      <div
+        className="modal-box"
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="modal-titulo"
+      >
         <div className="modal-icon">⚠️</div>
         <h3 className="modal-titulo" id="modal-titulo">
           {titulo}
         </h3>
         <p className="modal-mensaje">{mensaje}</p>
         <div className="modal-acciones">
-          <button type="button" className="btn-dark" ref={botonCancelar} onClick={onCancelar}>
+          <button
+            type="button"
+            className="btn-dark"
+            ref={botonCancelar}
+            onClick={onCancelar}
+          >
             {textoCancelar}
           </button>
           <button type="button" className="btn-danger" onClick={onConfirmar}>

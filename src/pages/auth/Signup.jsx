@@ -13,15 +13,18 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mensaje, setMensaje] = useState(null);
+  const [enviando, setEnviando] = useState(false);
 
-  const enviar = (e) => {
+  const enviar = async (e) => {
     e.preventDefault(); // Evita que la página se recargue al enviar el formulario
 
-    const resultado = registrar({
+    setEnviando(true);
+    const resultado = await registrar({
       nombre: nombre.trim(),
       email: email.trim().toLowerCase(),
       password,
     });
+    setEnviando(false);
     if (!resultado.ok) {
       setMensaje({ texto: resultado.error, color: "red" });
       return;
@@ -76,7 +79,7 @@ export default function Signup() {
             id="password"
             autoComplete="new-password"
             required
-            minLength={4}
+            minLength={8}
             maxLength={128}
             placeholder="••••••••"
             value={password}
@@ -84,7 +87,9 @@ export default function Signup() {
           />
         </div>
 
-        <button type="submit">Registrarse</button>
+        <button type="submit" disabled={enviando}>
+          {enviando ? "Creando cuenta…" : "Registrarse"}
+        </button>
       </form>
 
       <p

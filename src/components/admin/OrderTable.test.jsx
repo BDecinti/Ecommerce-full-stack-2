@@ -4,8 +4,8 @@ import { renderTienda } from "../../test/render.jsx";
 import OrderTable from "./OrderTable.jsx";
 
 describe("OrderTable", () => {
-  it("CP33 presenta pedido, entrega, estado y enlace al detalle", () => {
-    renderTienda(
+  it("CP33 presenta pedido, entrega, estado y enlace al detalle", async () => {
+    await renderTienda(
       <OrderTable
         pedidos={[
           {
@@ -28,8 +28,8 @@ describe("OrderTable", () => {
       "/admin/orders/12",
     );
   });
-  it("CP34 lista vacía conserva los encabezados sin pedidos ficticios", () => {
-    renderTienda(<OrderTable pedidos={[]} />);
+  it("CP34 lista vacía conserva los encabezados sin pedidos ficticios", async () => {
+    await renderTienda(<OrderTable pedidos={[]} />);
     expect(screen.getAllByRole("row")).toHaveLength(1);
     expect(screen.queryByRole("link", { name: "Ver" })).not.toBeInTheDocument();
   });

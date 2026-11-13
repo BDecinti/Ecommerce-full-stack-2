@@ -5,8 +5,8 @@ import Products from "./Products.jsx";
 
 describe("Products", () => {
   beforeEach(() => sembrar());
-  it("UI07 búsqueda del catálogo muestra estado vacío", () => {
-    renderTienda(<Products />, "/products?q=inexistente");
+  it("UI07 búsqueda del catálogo muestra estado vacío", async () => {
+    await renderTienda(<Products />, "/products?q=inexistente");
     expect(screen.getByText("Sin coincidencias")).toBeTruthy();
     expect(screen.getByRole("status").textContent).toContain("0");
   });

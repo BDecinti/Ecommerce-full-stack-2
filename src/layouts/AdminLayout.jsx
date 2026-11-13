@@ -1,23 +1,33 @@
-import { Navigate } from "react-router-dom";
 import PageTransition from "../components/PageTransition.jsx";
-import { useAuth } from "../context/AuthContext.jsx";
+import RequireRole from "../components/RequireRole.jsx";
 import AdminSidebar from "../components/admin/AdminSidebar.jsx";
-// Estructura del panel de administración. Reemplaza a protegerAdmin() de auth.js: si no hay sesión
-// o el usuario no es admin, se redirige al login antes de dibujar cualquier página del panel.
+import { usePedidos } from "../context/PedidoContext.jsx";
+import { useUsuarios } from "../context/UsuariosContext.jsx";
 export default function AdminLayout() {
-  const { usuario, sesionCerrada } = useAuth();
-
-  if (!usuario || usuario.rol !== "admin") {
-    // Si acaba de cerrar sesión va al home; si es un visitante sin sesión, al login
-    return <Navigate to={sesionCerrada ? "/" : "/login"} replace />;
-  }
-
+  const pedidos = usePedidos(),
+    usuarios = useUsuarios();
   return (
-    <div className="admin-shell">
-      <AdminSidebar />
-      <main className="admin-main">
-        <PageTransition />
-      </main>
-    </div>
+    <RequireRole roles={["admin", "vendedor"]}>
+      <div className="admin-shell">
+        <AdminSidebar />
+        <main className="admin-main">
+          {pedidos.error && (
+            <p className="alert alert-error" role="alert">
+              {pedidos.error}
+            </p>
+          )}
+          {usuarios.error && (
+            <p className="alert alert-error" role="alert">
+              {usuarios.error}
+            </p>
+          )}
+          {pedidos.cargando || usuarios.cargando ? (
+            <p role="status">Cargando datos…</p>
+          ) : (
+            <PageTransition />
+          )}
+        </main>
+      </div>
+    </RequireRole>
   );
 }

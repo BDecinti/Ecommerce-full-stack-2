@@ -31,7 +31,10 @@ export default function OrderTable({ pedidos }) {
               </td>
               <td>{formatearPrecio(p.total)}</td>
               <td>
-                <Link className="btn btn-secondary" to={`/admin/orders/${p.id}`}>
+                <Link
+                  className="btn btn-secondary"
+                  to={`/admin/orders/${p.id}`}
+                >
                   Ver
                 </Link>
               </td>

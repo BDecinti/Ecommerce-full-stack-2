@@ -8,11 +8,9 @@ import useTitulo from "../../hooks/useTitulo.js";
 import { formatearPrecio } from "../../data/productos.js";
 import {
   costoEnvio,
-  datosDelPedido,
   validarEntrega,
   validarTarjeta,
   validarStock,
-  TARJETA_RECHAZADA,
 } from "../../utils/checkout.js";
 import "../../styles/styles.css";
 
@@ -20,8 +18,8 @@ export default function Payment() {
   useTitulo("MiTienda - Finalizar compra");
   const { usuario } = useAuth();
   const { carrito, total, vaciar } = useCart();
-  const { productos, descontarStock } = useProductos();
-  const { crear } = usePedidos();
+  const { productos } = useProductos();
+  const { comprar } = usePedidos();
   const [paso, setPaso] = useState(0);
   const [entrega, setEntrega] = useState({
     nombre: usuario?.nombre || "",
@@ -42,6 +40,8 @@ export default function Payment() {
   const [rechazado, setRechazado] = useState(false);
   const [pedido, setPedido] = useState(null);
   const procesando = useRef(false);
+  const claveCompra = useRef(crypto.randomUUID());
+  const [enviando, setEnviando] = useState(false);
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, [paso, pedido, rechazado]);
@@ -56,7 +56,7 @@ export default function Payment() {
     setError(problema);
     if (!problema) setPaso(paso + 1);
   };
-  const pagar = () => {
+  const pagar = async () => {
     if (procesando.current) return;
     const problema =
       validarStock(carrito, productos) ||
@@ -67,18 +67,27 @@ export default function Payment() {
       return;
     }
     procesando.current = true;
-    if (tarjeta.numero.replace(/\s/g, "") === TARJETA_RECHAZADA) {
-      setRechazado(true);
-      setError("");
+    setEnviando(true);
+    setError("");
+    try {
+      const nuevo = await comprar(
+        {
+          items: carrito.map(({ id, cantidad }) => ({ id, cantidad })),
+          entrega,
+          tarjeta,
+        },
+        claveCompra.current,
+      );
+      vaciar();
+      setTarjeta({ numero: "", titular: "", vencimiento: "", cvv: "" });
+      setPedido(nuevo);
+    } catch (e) {
+      if (e.code === "PAGO_RECHAZADO") setRechazado(true);
+      else setError(e.message);
+    } finally {
       procesando.current = false;
-      return;
+      setEnviando(false);
     }
-    // Se guardan solo datos de entrega y artículos. La tarjeta y el CVV nunca se persisten.
-    const nuevo = crear(datosDelPedido(carrito, entrega, total));
-    descontarStock(carrito);
-    vaciar();
-    setTarjeta({ numero: "", titular: "", vencimiento: "", cvv: "" });
-    setPedido(nuevo);
   };
   if (pedido)
     return (
@@ -346,7 +355,7 @@ export default function Payment() {
                 {tarjeta.numero.replace(/\s/g, "").slice(-4)}
               </p>
               <p className="muted">
-                Al confirmar se registrará un pedido simulado en este navegador.
+                Al confirmar se registrará un pedido simulado en tu cuenta.
               </p>
               <div className="actions">
                 <button
@@ -358,7 +367,7 @@ export default function Payment() {
                 >
                   Volver a pago
                 </button>
-                <button onClick={pagar}>
+                <button onClick={pagar} disabled={enviando}>
                   Confirmar y pagar{" "}
                   {formatearPrecio(
                     total + costoEnvio(entrega.tipoEntrega, total),

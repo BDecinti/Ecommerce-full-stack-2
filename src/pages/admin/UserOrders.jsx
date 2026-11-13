@@ -1,10 +1,9 @@
 import { Link, useParams } from "react-router-dom";
 import useTitulo from "../../hooks/useTitulo.js";
-import { useListaLocal } from "../../hooks/useLocalStorage.js";
+import { useUsuarios } from "../../context/UsuariosContext.jsx";
 import { usePedidos } from "../../context/PedidoContext.jsx";
 import AdminTitle from "../../components/admin/AdminTitle.jsx";
 import OrderTable from "../../components/admin/OrderTable.jsx";
-import { adminUsuariosPorDefecto } from "../../data/adminPorDefecto.js";
 import { formatearPrecio } from "../../data/productos.js";
 import "../../styles/admin-home.css";
 
@@ -12,14 +11,17 @@ import "../../styles/admin-home.css";
 export default function UserOrders() {
   useTitulo("Administrador - Historial de compras");
   const { id } = useParams();
-  const [usuarios] = useListaLocal("usuarios", adminUsuariosPorDefecto);
+  const { usuarios, obtener } = useUsuarios();
   const { pedidos } = usePedidos();
-  const u = usuarios[Number(id)];
+  const u = obtener(id);
 
   if (!u) {
     return (
       <>
-        <AdminTitle titulo="Historial de compras" descripcion="Usuario no encontrado.">
+        <AdminTitle
+          titulo="Historial de compras"
+          descripcion="Usuario no encontrado."
+        >
           <Link className="btn btn-secondary" to="/admin/users">
             Volver
           </Link>
@@ -33,18 +35,31 @@ export default function UserOrders() {
   const gastado = validos.reduce((acc, p) => acc + p.total, 0);
 
   const indicadores = [
-    { titulo: "Pedidos", valor: suyos.length, detalle: `${suyos.length - validos.length} cancelados` },
-    { titulo: "Total gastado", valor: formatearPrecio(gastado), detalle: "sin contar cancelados" },
+    {
+      titulo: "Pedidos",
+      valor: suyos.length,
+      detalle: `${suyos.length - validos.length} cancelados`,
+    },
+    {
+      titulo: "Total gastado",
+      valor: formatearPrecio(gastado),
+      detalle: "sin contar cancelados",
+    },
     {
       titulo: "Ticket promedio",
-      valor: formatearPrecio(validos.length ? Math.round(gastado / validos.length) : 0),
+      valor: formatearPrecio(
+        validos.length ? Math.round(gastado / validos.length) : 0,
+      ),
       detalle: "por pedido",
     },
   ];
 
   return (
     <>
-      <AdminTitle titulo="Historial de compras" descripcion={`${u.nombre} ${u.apellidos ?? ""} · ${u.email}`}>
+      <AdminTitle
+        titulo="Historial de compras"
+        descripcion={`${u.nombre} ${u.apellidos ?? ""} · ${u.email}`}
+      >
         <Link className="btn btn-secondary" to="/admin/users">
           Volver
         </Link>
@@ -62,7 +77,9 @@ export default function UserOrders() {
 
       <section className="card dash-pedidos">
         {suyos.length === 0 ? (
-          <p className="dash-vacio">Este usuario aún no ha realizado compras.</p>
+          <p className="dash-vacio">
+            Este usuario aún no ha realizado compras.
+          </p>
         ) : (
           <OrderTable pedidos={suyos} />
         )}

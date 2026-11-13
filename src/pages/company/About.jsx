@@ -22,12 +22,13 @@ export default function About() {
           <p>
             MiTienda nace como proyecto semestral de Full Stack II. Alessandro,
             Nicolás y Bruno conectan catálogo, experiencia de compra y
-            administración en una aplicación React.
+            administración con React y Spring Boot.
           </p>
           <p>
             Queremos que comparar productos, entender sus características y
             recorrer una compra sea sencillo. El catálogo y los pedidos se
-            guardan en este navegador para demostrar el flujo completo.
+            guardan en la base de datos de la tienda para demostrar el flujo
+            completo.
           </p>
           <Link className="btn btn-primary" to="/categories">
             Conoce el catálogo ↗

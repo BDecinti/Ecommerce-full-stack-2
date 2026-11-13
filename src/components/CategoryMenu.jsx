@@ -14,15 +14,23 @@ export default function CategoryMenu({ activaId }) {
         {principales.map((cat) => {
           const hijos = hijosDe(cat.id);
           return (
-            <li key={cat.id} className={enRuta.includes(cat.id) ? "en-ruta" : ""}>
+            <li
+              key={cat.id}
+              className={enRuta.includes(cat.id) ? "en-ruta" : ""}
+            >
               <Link to={`/categories/${cat.id}`}>
                 {cat.nombre}
-                {hijos.length > 0 && <span className="category-menu-flecha">›</span>}
+                {hijos.length > 0 && (
+                  <span className="category-menu-flecha">›</span>
+                )}
               </Link>
               {hijos.length > 0 && (
                 <ul className="category-submenu">
                   {hijos.map((sub) => (
-                    <li key={sub.id} className={sub.id === Number(activaId) ? "en-ruta" : ""}>
+                    <li
+                      key={sub.id}
+                      className={sub.id === Number(activaId) ? "en-ruta" : ""}
+                    >
                       <Link to={`/categories/${sub.id}`}>{sub.nombre}</Link>
                     </li>
                   ))}

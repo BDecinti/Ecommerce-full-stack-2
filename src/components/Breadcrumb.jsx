@@ -12,7 +12,9 @@ export default function Breadcrumb({ items }) {
             {item.to && i < items.length - 1 ? (
               <Link to={item.to}>{item.texto}</Link>
             ) : (
-              <span aria-current={i === items.length - 1 ? "page" : undefined}>{item.texto}</span>
+              <span aria-current={i === items.length - 1 ? "page" : undefined}>
+                {item.texto}
+              </span>
             )}
           </li>
         ))}

@@ -1,5 +1,6 @@
+import { server } from "./test/server.js";
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { cleanup, fireEvent, screen } from "@testing-library/react";
+import { cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
 import App from "./App.jsx";
 import { renderTienda, sembrar, producto } from "./test/render.jsx";
 import { adminUsuariosPorDefecto } from "./data/adminPorDefecto.js";
@@ -24,7 +25,7 @@ describe("Rutas y administración", () => {
   ];
   for (const [id, ruta, titulo] of rutas)
     it(id + " muestra " + ruta, async () => {
-      renderTienda(<App />, ruta);
+      await renderTienda(<App />, ruta);
       expect(
         await screen.findByRole("heading", { name: titulo, exact: true }),
       ).toBeTruthy();
@@ -44,7 +45,7 @@ describe("Rutas y administración", () => {
         "usuarioLogueado",
         JSON.stringify(adminUsuariosPorDefecto[0]),
       );
-      renderTienda(<App />, ruta);
+      await renderTienda(<App />, ruta);
       expect(
         await screen.findByRole("heading", { name: titulo, exact: true }),
       ).toBeTruthy();
@@ -54,16 +55,16 @@ describe("Rutas y administración", () => {
       "usuarioLogueado",
       JSON.stringify(adminUsuariosPorDefecto[1]),
     );
-    renderTienda(<App />, "/admin/products");
+    await renderTienda(<App />, "/admin/products");
     expect(
       await screen.findByRole("heading", {
-        name: "Iniciar Sesión",
+        name: "No tienes permiso para esta sección",
         exact: true,
       }),
     ).toBeTruthy();
   });
-  it("UI34 login emergente se abre desde la tienda", () => {
-    renderTienda(<App />);
+  it("UI34 login emergente se abre desde la tienda", async () => {
+    await renderTienda(<App />);
     fireEvent.click(
       screen.getByRole("button", { name: "Iniciar sesión", exact: true }),
     );
@@ -78,24 +79,22 @@ describe("Rutas y administración", () => {
       "usuarioLogueado",
       JSON.stringify(adminUsuariosPorDefecto[0]),
     );
-    renderTienda(<App />, "/admin/categories/new");
+    await renderTienda(<App />, "/admin/categories/new");
     fireEvent.change(screen.getByLabelText("Nombre"), {
       target: { value: "Categoría demo" },
     });
     fireEvent.click(screen.getByRole("button", { name: "Crear categoría" }));
     expect(await screen.findByText("Categoría demo")).toBeTruthy();
-    expect(
-      JSON.parse(localStorage.getItem("categorias")).some(
-        (c) => c.nombre === "Categoría demo",
-      ),
-    ).toBe(true);
+    expect(server().categorias.some((c) => c.nombre === "Categoría demo")).toBe(
+      true,
+    );
   });
-  it("UI36 producto nuevo valida código duplicado", () => {
+  it("UI36 producto nuevo valida código duplicado", async () => {
     localStorage.setItem(
       "usuarioLogueado",
       JSON.stringify(adminUsuariosPorDefecto[0]),
     );
-    renderTienda(<App />, "/admin/products/new");
+    await renderTienda(<App />, "/admin/products/new");
     fireEvent.change(screen.getByLabelText("Código producto"), {
       target: { value: "DEMO-90" },
     });
@@ -112,7 +111,7 @@ describe("Rutas y administración", () => {
     expect(
       screen.getByText("Revisa el nombre y usa un código único."),
     ).toBeTruthy();
-    expect(JSON.parse(localStorage.getItem("productos")).length).toBe(1);
+    expect(server().productos.length).toBe(1);
   });
   it("UI37 cancelar pedido devuelve stock una sola vez", async () => {
     localStorage.setItem(
@@ -134,11 +133,14 @@ describe("Rutas y administración", () => {
         },
       ]),
     );
-    renderTienda(<App />, "/admin/orders/1");
+    await renderTienda(<App />, "/admin/orders/1");
     fireEvent.change(screen.getByLabelText("Cambiar estado"), {
       target: { value: "cancelado" },
     });
-    expect(JSON.parse(localStorage.getItem("productos"))[0].stock).toBe(4);
+    await waitFor(() =>
+      expect(screen.getByLabelText("Cambiar estado")).toBeDisabled(),
+    );
+    expect(server().productos[0].stock).toBe(4);
     expect(screen.getByLabelText("Cambiar estado").disabled).toBe(true);
   });
 });

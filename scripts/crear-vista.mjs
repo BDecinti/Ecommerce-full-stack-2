@@ -1,49 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { build } from "esbuild";
-
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const images = new Map();
-const types = { ".svg": "image/svg+xml", ".webp": "image/webp", ".jpg": "image/jpeg", ".png": "image/png" };
-for (const name of await fs.readdir(path.join(root, "public/img"))) {
-  const mime = types[path.extname(name)];
-  if (!mime) continue;
-  const data = await fs.readFile(path.join(root, "public/img", name));
-  images.set("img/" + name, "data:" + mime + ";base64," + data.toString("base64"));
-}
-const result = await build({
-  absWorkingDir: root,
-  entryPoints: ["src/main.jsx"],
-  bundle: true,
-  write: false,
-  platform: "browser",
-  format: "iife",
-  jsx: "automatic",
-  minify: true,
-  legalComments: "inline",
-  define: { "process.env.NODE_ENV": '"production"', "import.meta.env": '{"BASE_URL":""}' },
-  plugins: [{
-    name: "vista-portatil",
-    setup(builder) {
-      builder.onLoad({ filter: /\.(jsx?|css)$/ }, async args => {
-        if (!args.path.startsWith(path.join(root, "src") + path.sep)) return;
-        let source = await fs.readFile(args.path, "utf8");
-        if (args.path.endsWith(".css")) {
-          source = source.replace(/@import\s+url\([^;]+;\s*/g, "");
-          return { contents: "const style=document.createElement('style');style.textContent=" + JSON.stringify(source) + ";document.head.append(style);", loader: "js" };
-        }
-        // La copia portátil usa rutas con # y fotografías embebidas para abrirse sin servidor.
-        if (args.path === path.join(root, "src/main.jsx")) source = source.replaceAll("BrowserRouter", "HashRouter");
-        source = source.replace(/(["'])\/?(img\/[^"'\s]+)\1/g, (match, quote, imagePath) => images.has(imagePath) ? JSON.stringify(images.get(imagePath)) : match);
-        // El enlace de salto no debe modificar las rutas con # de esta copia.
-        source = source.replace('href="#contenido"', 'href="#contenido" onClick={e => { e.preventDefault(); document.getElementById("contenido")?.scrollIntoView(); }}');
-        return { contents: source, loader: args.path.endsWith(".jsx") ? "jsx" : "js" };
-      });
-    }
-  }]
-});
-const code = result.outputFiles[0].text.replaceAll("</script", "<\\/script");
-const html = '<!doctype html>\n<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0d1014"><title>MiTienda</title></head><body><div id="root"></div><script>' + code + '</script></body></html>\n';
+const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MiTienda — Inicio local</title><style>*{box-sizing:border-box}body{margin:0;background:#0d1014;color:#edf0f3;font:17px/1.6 system-ui,sans-serif}main{max-width:850px;margin:60px auto;padding:32px}small{color:#c8ff31;font-weight:800;letter-spacing:2px}h1{font-size:clamp(36px,8vw,66px);line-height:1.1;letter-spacing:-2px}em{color:#c8ff31;font-style:normal}section{border:1px solid #303640;background:#181d24;border-radius:20px;padding:25px;margin:25px 0}a{color:#c8ff31}a.btn{display:inline-block;background:#c8ff31;color:#0d1014;font-weight:750;text-decoration:none;padding:13px 22px;border-radius:12px;margin:8px 12px 8px 0}code{background:#252c35;padding:3px 6px;border-radius:5px}li{margin:12px 0}.muted{color:#aeb9c5}h2{font-size:22px}footer{font-size:14px;color:#aeb9c5}</style></head><body><main><small>MITIENDA · FULL STACK II</small><h1>Tu tienda.<br><em>Lista para ejecutar.</em></h1><p>React, Spring Boot y una base de datos que conserva tus cambios.</p><section><h2>Abre el proyecto completo</h2><ol><li>Extrae todos los archivos del ZIP.</li><li>Instala <a href="https://nodejs.org/">Node.js 24 o superior</a>.</li><li>En Windows, abre <strong>INICIAR_TIENDA.cmd</strong>. La primera vez se descargan las herramientas necesarias.</li><li>Mantén la ventana abierta y entra a la tienda.</li></ol><a class="btn" href="http://127.0.0.1:5173/">Abrir MiTienda ↗</a><a href="http://127.0.0.1:8080/swagger-ui.html">Ver Swagger</a><p class="muted">Desde una terminal: <code>npm ci</code> y <code>npm run dev:full</code>. En macOS y Linux instala también Java 21.</p></section><section><h2>Prueba cada rol</h2><p>Administrador: <code>admin@duoc.cl</code> / <code>Admin123!</code><br>Cliente: <code>cliente@duoc.cl</code> / <code>Cliente123!</code><br>Vendedor: <code>vendedor@duoc.cl</code> / <code>Vendedor123!</code></p><p class="muted">Pago aprobado: 4242 4242 4242 4242. Rechazado: 4000 0000 0000 0002. Vencimiento futuro y CVV 123. Usa únicamente datos ficticios.</p></section><footer>La aplicación necesita el servidor local. Consulta README.md para compilar el JAR, ejecutar pruebas o configurar PostgreSQL.</footer></main></body></html>`;
 await fs.writeFile(path.join(root, "VER_TIENDA.html"), html);
-console.log("VER_TIENDA.html listo (" + (Buffer.byteLength(html) / 1024 / 1024).toFixed(2) + " MB).");
+console.log("Guía VER_TIENDA.html actualizada.");
