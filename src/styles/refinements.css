@@ -1,4 +1,32 @@
 /* Pulido compartido: respeta la identidad gamer con menos ruido visual. */
+.session-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 65vh;
+  color: #bdf55b;
+  font-weight: 600;
+}
+.session-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #bdf55b33;
+  border-top-color: #bdf55b;
+  border-radius: 50%;
+  animation: session-spin 1s linear infinite;
+}
+@keyframes session-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.my-order {
+  margin-bottom: 24px;
+}
+.my-order details {
+  margin-top: 18px;
+}
 :root {
   --bg-dark: #0d1014;
   --bg-panel: #15191f;
@@ -870,11 +898,11 @@ details p {
     margin-top: 30px;
   }
   .store-benefits {
-    justify-content: start;
-    overflow: auto;
-    font-size: 10px;
-    gap: 25px;
-    white-space: nowrap;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 11px;
+    gap: 12px 20px;
+    white-space: normal;
   }
   .section-heading {
     align-items: start;

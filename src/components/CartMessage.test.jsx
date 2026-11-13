@@ -5,18 +5,18 @@ import ProductCard from "./ProductCard.jsx";
 import CartMessage from "./CartMessage.jsx";
 
 describe("CartMessage", () => {
-  function mostrar() {
+  async function mostrar() {
     sembrar();
-    renderTienda(
+    await renderTienda(
       <>
         <ProductCard producto={producto} />
         <CartMessage />
       </>,
     );
   }
-  it("CP17 confirma el añadido y desaparece después de tres segundos", () => {
+  it("CP17 confirma el añadido y desaparece después de tres segundos", async () => {
     vi.useFakeTimers();
-    mostrar();
+    await mostrar();
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /Añadir al carrito/ }));
     expect(screen.getByRole("status")).toHaveTextContent(
@@ -27,9 +27,9 @@ describe("CartMessage", () => {
     act(() => vi.advanceTimersByTime(1));
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
   });
-  it("CP18 otro añadido reinicia el tiempo y el enlace cierra el aviso", () => {
+  it("CP18 otro añadido reinicia el tiempo y el enlace cierra el aviso", async () => {
     vi.useFakeTimers();
-    mostrar();
+    await mostrar();
     const agregar = screen.getByRole("button", { name: /Añadir al carrito/ });
     fireEvent.click(agregar);
     act(() => vi.advanceTimersByTime(2000));

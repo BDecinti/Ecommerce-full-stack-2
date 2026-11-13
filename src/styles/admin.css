@@ -51,7 +51,9 @@
   color: var(--text-muted);
   text-decoration: none;
   font-weight: 600;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 .admin-menu a:hover {
   background: rgba(255, 255, 255, 0.04);

@@ -34,7 +34,10 @@ export default function ScrollToTop() {
     const paso = (ahora) => {
       const progreso = Math.min((ahora - t0) / DURACION, 1);
       // "instant" evita que el scroll-behavior: smooth de global.css suavice cada cuadro y retrase la subida
-      window.scrollTo({ top: inicio * (1 - suavizado(progreso)), behavior: "instant" });
+      window.scrollTo({
+        top: inicio * (1 - suavizado(progreso)),
+        behavior: "instant",
+      });
       if (progreso < 1) frame.current = requestAnimationFrame(paso);
     };
     frame.current = requestAnimationFrame(paso);
@@ -49,7 +52,17 @@ export default function ScrollToTop() {
       title="Volver arriba"
       tabIndex={visible ? 0 : -1}
     >
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg
+        viewBox="0 0 24 24"
+        width="22"
+        height="22"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
         <path d="M12 19V5M5 12l7-7 7 7" />
       </svg>
     </button>

@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 import useTitulo from "../../hooks/useTitulo.js";
-import { useListaLocal } from "../../hooks/useLocalStorage.js";
-import { adminUsuariosPorDefecto } from "../../data/adminPorDefecto.js";
+import { useUsuarios } from "../../context/UsuariosContext.jsx";
 
 export default function Users() {
   useTitulo("Administrador - Usuarios");
-  const [usuarios] = useListaLocal("usuarios", adminUsuariosPorDefecto);
+  const { usuarios, obtener } = useUsuarios();
 
   return (
     <section className="container">
@@ -32,7 +31,7 @@ export default function Users() {
           </thead>
           <tbody>
             {usuarios.map((u, i) => (
-              <tr key={i}>
+              <tr key={u.id}>
                 <td>{u.run}</td>
                 <td>{u.nombre}</td>
                 <td>{u.apellidos}</td>
@@ -42,19 +41,19 @@ export default function Users() {
                   <div className="table-actions">
                     <Link
                       className="btn btn-secondary"
-                      to={`/admin/users/${i}`}
+                      to={`/admin/users/${u.id}`}
                     >
                       Mostrar
                     </Link>
                     <Link
                       className="btn btn-secondary"
-                      to={`/admin/users/${i}/orders`}
+                      to={`/admin/users/${u.id}/orders`}
                     >
                       Historial
                     </Link>
                     <Link
                       className="btn btn-dark"
-                      to={`/admin/users/${i}/edit`}
+                      to={`/admin/users/${u.id}/edit`}
                     >
                       Editar
                     </Link>

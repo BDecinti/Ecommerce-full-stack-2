@@ -4,8 +4,8 @@ import { renderTienda } from "../test/render.jsx";
 import CategoryMenu from "./CategoryMenu.jsx";
 
 describe("CategoryMenu", () => {
-  it("CP12 muestra enlaces de categorías y resalta la categoría activa", () => {
-    renderTienda(<CategoryMenu activaId={7} />);
+  it("CP12 muestra enlaces de categorías y resalta la categoría activa", async () => {
+    await renderTienda(<CategoryMenu activaId={7} />);
     const enlace = screen.getByRole("link", { name: "Teclados y mouse" });
     expect(enlace).toHaveAttribute("href", "/categories/7");
     expect(enlace.closest("li")).toHaveClass("en-ruta");

@@ -2,8 +2,13 @@ import { formatearPrecio } from "../../data/productos.js";
 
 // Lista de productos con un campo de cantidad cada uno (0 hasta su stock).
 // No guarda nada: recibe `cantidades` ({ [id]: n }) y avisa cada cambio con onChange(id, n).
-export default function OrderProductPicker({ productos, cantidades, onChange }) {
-  const limitar = (p, valor) => Math.min(p.stock, Math.max(0, Math.floor(Number(valor)) || 0));
+export default function OrderProductPicker({
+  productos,
+  cantidades,
+  onChange,
+}) {
+  const limitar = (p, valor) =>
+    Math.min(p.stock, Math.max(0, Math.floor(Number(valor)) || 0));
 
   return (
     <div className="table-wrap">

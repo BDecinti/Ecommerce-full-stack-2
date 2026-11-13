@@ -4,8 +4,8 @@ import { renderTienda } from "../test/render.jsx";
 import Footer from "./Footer.jsx";
 
 describe("Footer", () => {
-  it("CP13 ofrece catálogo, información de la empresa y registro", () => {
-    renderTienda(<Footer />);
+  it("CP13 ofrece catálogo, información de la empresa y registro", async () => {
+    await renderTienda(<Footer />);
     const tienda = within(screen.getByRole("navigation", { name: "Tienda" }));
     expect(tienda.getByRole("link", { name: "Productos" })).toHaveAttribute(
       "href",

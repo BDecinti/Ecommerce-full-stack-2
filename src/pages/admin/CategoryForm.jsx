@@ -11,14 +11,20 @@ export default function CategoryForm() {
   const { id } = useParams();
   const editando = id !== undefined;
   const navigate = useNavigate();
-  const { categorias, principales, hijosDe, obtener, crear, editar } = useCategorias();
+  const { categorias, principales, hijosDe, obtener, crear, editar } =
+    useCategorias();
   const existente = editando ? obtener(id) : null;
 
-  useTitulo(editando ? "Administrador - Editar Categoría" : "Administrador - Nueva Categoría");
+  useTitulo(
+    editando
+      ? "Administrador - Editar Categoría"
+      : "Administrador - Nueva Categoría",
+  );
 
   const [nombre, setNombre] = useState(existente?.nombre ?? "");
   const [padreId, setPadreId] = useState(existente?.padreId ?? "");
   const [error, setError] = useState("");
+  const [enviando, setEnviando] = useState(false);
 
   if (editando && !existente) {
     return (
@@ -35,7 +41,7 @@ export default function CategoryForm() {
   // Posibles padres: categorías principales, sin contar la que se está editando
   const posiblesPadres = principales.filter((c) => c.id !== existente?.id);
 
-  const enviar = (e) => {
+  const enviar = async (e) => {
     e.preventDefault();
     const limpio = nombre.trim();
     const padre = padreId === "" ? null : Number(padreId);
@@ -51,9 +57,17 @@ export default function CategoryForm() {
       return;
     }
 
-    if (editando) editar(existente.id, { nombre: limpio, padreId: padre });
-    else crear({ nombre: limpio, padreId: padre });
-    navigate("/admin/categories");
+    if (enviando) return;
+    setEnviando(true);
+    try {
+      if (editando)
+        await editar(existente.id, { nombre: limpio, padreId: padre });
+      else await crear({ nombre: limpio, padreId: padre });
+      navigate("/admin/categories");
+    } catch (e) {
+      setError(e.message);
+      setEnviando(false);
+    }
   };
 
   return (
@@ -86,12 +100,17 @@ export default function CategoryForm() {
             ))}
           </select>
           {tieneSubcategorias && (
-            <small>Tiene subcategorías, por eso debe seguir siendo una categoría principal.</small>
+            <small>
+              Tiene subcategorías, por eso debe seguir siendo una categoría
+              principal.
+            </small>
           )}
         </div>
         {error && <p className="alert alert-error">{error}</p>}
         <div className="actions">
-          <button type="submit">{editando ? "Guardar cambios" : "Crear categoría"}</button>
+          <button type="submit" disabled={enviando}>
+            {editando ? "Guardar cambios" : "Crear categoría"}
+          </button>
           <Link className="btn btn-secondary" to="/admin/categories">
             Cancelar
           </Link>

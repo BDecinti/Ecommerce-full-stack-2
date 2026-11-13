@@ -33,7 +33,9 @@
   padding-bottom: 4px;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 0.2s, background 0.2s;
+  transition:
+    opacity 0.2s,
+    background 0.2s;
 }
 .hero-carousel:hover .hero-carousel-flecha,
 .hero-carousel-flecha:focus-visible {
@@ -69,7 +71,9 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.5);
   cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
+  transition:
+    background 0.2s,
+    transform 0.2s;
 }
 .hero-carousel-puntos button.activo {
   background: #fff;

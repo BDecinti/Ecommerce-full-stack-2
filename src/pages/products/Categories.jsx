@@ -8,7 +8,11 @@ import useTitulo from "../../hooks/useTitulo.js";
 import { useCategorias } from "../../context/CategoryContext.jsx";
 import { useProductos } from "../../context/ProductContext.jsx";
 import { CATEGORIAS_BANNERS, OFERTAS_ID } from "../../data/categorias.js";
-import { filtrarProductos, filtrosIniciales, marcasDe } from "../../utils/filtrarProductos.js";
+import {
+  filtrarProductos,
+  filtrosIniciales,
+  marcasDe,
+} from "../../utils/filtrarProductos.js";
 import "../../styles/styles.css";
 import "../../styles/categories.css";
 
@@ -28,14 +32,20 @@ export default function Categories() {
     setFiltros(filtrosIniciales);
   }
 
-  useTitulo(categoria ? `MiTienda - ${categoria.nombre}` : "MiTienda - Categorías");
+  useTitulo(
+    categoria ? `MiTienda - ${categoria.nombre}` : "MiTienda - Categorías",
+  );
 
   if (id && !categoria) return <Navigate to="/categories" replace />;
 
   const ids = categoria ? idsConSubcategorias(categoria.id) : null;
   let deLaCategoria = productos;
-  if (categoria?.id === OFERTAS_ID) deLaCategoria = productos.filter((p) => p.destacado || CATEGORIAS_BANNERS.includes(p.categoriaId));
-  else if (ids) deLaCategoria = productos.filter((p) => ids.includes(p.categoriaId));
+  if (categoria?.id === OFERTAS_ID)
+    deLaCategoria = productos.filter(
+      (p) => p.destacado || CATEGORIAS_BANNERS.includes(p.categoriaId),
+    );
+  else if (ids)
+    deLaCategoria = productos.filter((p) => ids.includes(p.categoriaId));
   const visibles = filtrarProductos(deLaCategoria, filtros);
 
   const migas = [
@@ -50,10 +60,16 @@ export default function Categories() {
       <section className="container categories-layout">
         <div className="categories-lateral">
           <CategoryMenu activaId={id} />
-          <ProductFilters filtros={filtros} onChange={setFiltros} marcas={marcasDe(deLaCategoria)} />
+          <ProductFilters
+            filtros={filtros}
+            onChange={setFiltros}
+            marcas={marcasDe(deLaCategoria)}
+          />
         </div>
         <div>
-          <h1 className="categories-titulo">{categoria ? categoria.nombre : "Todas las categorías"}</h1>
+          <h1 className="categories-titulo">
+            {categoria ? categoria.nombre : "Todas las categorías"}
+          </h1>
           <p className="categories-cantidad">{visibles.length} producto(s)</p>
           {visibles.length === 0 ? (
             <p className="categories-vacio">

@@ -1,0 +1,222 @@
+[
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "pedidoManualCreaConPreciosDeServidor",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "jwtExpiradoEsRechazado",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "stockInsuficienteRevierteLaCompra",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "vendedorTienePermisosLimitados",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "repetirConfirmacionEsIdempotente",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "cantidadFraccionariaNoSeRedondea",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "clienteNoVePedidosDeOtroCliente",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "registroNoPermiteAsignarseRol",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "csrfBloqueaFormulariosSinToken",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "catalogoPublicoConDatosYSwagger",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "compraUmbralDeEnvioGratis",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "categoriaCrudYReglasDeJerarquia",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "crudUsuarioRetiraCuentaYSesiones",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "corsNoAutorizaOrigenAjeno",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "categoriaConProductosNoSeElimina",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "clienteNoPuedeCrearProductos",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "cambioDeRolRevocaJwtAnterior",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "rechazoNoDescuentaStockNiCreaPedido",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "renovarRotaCookieYRetiraTokenAnterior",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "noSePuedeEliminarUltimoAdmin",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "compraRequiereDireccionYCantidadesEnteras",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "productoValidaStockPrecioYCodigo",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "contactoPersisteYSoloAdminPuedeListarlo",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "registroRechazaContrasenaCorta",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "invitadoNoAccedeAUsuarios",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "jwtConAudienciaOEmisorAjenoEsRechazado",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "registroNormalizaYNoDevuelveContrasena",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "loginEntregaJwtYCookiesProtegidas",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "cancelarReponeUnaSolaVezYBloqueaCambios",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "logoutRevocaJwtYRefresh",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "clienteNoPuedeCambiarEstado",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "adminListaUsuariosSinHashes",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "renovacionInvalidaOExpiradaEsRechazada",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "jwtManipuladoNoEsValido",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "registroRechazaCorreoDuplicado",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "clienteNoAccedeAUsuarios",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "precioEnviadoPorClienteNoEsAceptado",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "cookieDeRenovacionNoEsTokenDeAcceso",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "csrfEndpointUsaCookieSinSesionDeServidor",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "crudProductoConservaRetiroHistorico",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "loginInvalidoEsGenerico",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "compraCalculaTotalEnServidorYNoGuardaTarjeta",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.ApiIntegrationTest",
+    "nombre": "concurrenciaNoSobrevendeLaUltimaUnidad",
+    "estado": "passed"
+  },
+  {
+    "clase": "cl.mitienda.MiTiendaApplicationTests",
+    "nombre": "contextLoads",
+    "estado": "passed"
+  }
+]

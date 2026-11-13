@@ -4,8 +4,8 @@ import { renderTienda } from "../test/render.jsx";
 import Breadcrumb from "./Breadcrumb.jsx";
 
 describe("Breadcrumb", () => {
-  it("CP01 enlaza los antecesores y marca la página actual", () => {
-    renderTienda(
+  it("CP01 enlaza los antecesores y marca la página actual", async () => {
+    await renderTienda(
       <Breadcrumb
         items={[
           { texto: "Inicio", to: "/" },

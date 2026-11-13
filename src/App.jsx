@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import TiendaLayout from "./layouts/TiendaLayout.jsx";
 import AdminLayout from "./layouts/AdminLayout.jsx";
+import RequireRole from "./components/RequireRole.jsx";
 
 import Home from "./pages/Home.jsx";
 import Products from "./pages/products/Products.jsx";
@@ -9,6 +10,7 @@ import ProductDetail from "./pages/products/ProductDetail.jsx";
 import Categories from "./pages/products/Categories.jsx";
 import Cart from "./pages/checkout/Cart.jsx";
 import Payment from "./pages/checkout/Payment.jsx";
+import MyOrders from "./pages/checkout/MyOrders.jsx";
 import Login from "./pages/auth/Login.jsx";
 import Signup from "./pages/auth/Signup.jsx";
 import About from "./pages/company/About.jsx";
@@ -62,8 +64,30 @@ export default function App() {
 
           {/* Compra */}
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Payment />} />
-          <Route path="/payment" element={<Payment />} />
+          <Route
+            path="/checkout"
+            element={
+              <RequireRole>
+                <Payment />
+              </RequireRole>
+            }
+          />
+          <Route
+            path="/payment"
+            element={
+              <RequireRole>
+                <Payment />
+              </RequireRole>
+            }
+          />
+          <Route
+            path="/my-orders"
+            element={
+              <RequireRole>
+                <MyOrders />
+              </RequireRole>
+            }
+          />
 
           <Route
             path="*"
@@ -90,7 +114,14 @@ export default function App() {
 
         {/* Panel de administración: solo accesible con sesión de rol admin */}
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<Dashboard />} />
+          <Route
+            index
+            element={
+              <RequireRole roles={["admin"]}>
+                <Dashboard />
+              </RequireRole>
+            }
+          />
 
           {/* Productos */}
           <Route path="products" element={<AdminProducts />} />
@@ -100,24 +131,94 @@ export default function App() {
           <Route path="products/:id/edit" element={<AdminProductForm />} />
 
           {/* Categorías */}
-          <Route path="categories" element={<AdminCategories />} />
-          <Route path="categories/new" element={<AdminCategoryForm />} />
-          <Route path="categories/:id/edit" element={<AdminCategoryForm />} />
+          <Route
+            path="categories"
+            element={
+              <RequireRole roles={["admin"]}>
+                <AdminCategories />
+              </RequireRole>
+            }
+          />
+          <Route
+            path="categories/new"
+            element={
+              <RequireRole roles={["admin"]}>
+                <AdminCategoryForm />
+              </RequireRole>
+            }
+          />
+          <Route
+            path="categories/:id/edit"
+            element={
+              <RequireRole roles={["admin"]}>
+                <AdminCategoryForm />
+              </RequireRole>
+            }
+          />
 
           {/* Pedidos */}
           <Route path="orders" element={<AdminOrders />} />
-          <Route path="orders/new" element={<AdminOrderForm />} />
+          <Route
+            path="orders/new"
+            element={
+              <RequireRole roles={["admin"]}>
+                <AdminOrderForm />
+              </RequireRole>
+            }
+          />
           <Route path="orders/:id" element={<AdminOrderDetail />} />
 
           {/* Usuarios */}
-          <Route path="users" element={<AdminUsers />} />
-          <Route path="users/new" element={<AdminUserForm />} />
-          <Route path="users/:id" element={<AdminUserDetail />} />
-          <Route path="users/:id/edit" element={<AdminUserForm />} />
-          <Route path="users/:id/orders" element={<AdminUserOrders />} />
+          <Route
+            path="users"
+            element={
+              <RequireRole roles={["admin"]}>
+                <AdminUsers />
+              </RequireRole>
+            }
+          />
+          <Route
+            path="users/new"
+            element={
+              <RequireRole roles={["admin"]}>
+                <AdminUserForm />
+              </RequireRole>
+            }
+          />
+          <Route
+            path="users/:id"
+            element={
+              <RequireRole roles={["admin"]}>
+                <AdminUserDetail />
+              </RequireRole>
+            }
+          />
+          <Route
+            path="users/:id/edit"
+            element={
+              <RequireRole roles={["admin"]}>
+                <AdminUserForm />
+              </RequireRole>
+            }
+          />
+          <Route
+            path="users/:id/orders"
+            element={
+              <RequireRole roles={["admin"]}>
+                <AdminUserOrders />
+              </RequireRole>
+            }
+          />
 
           {/* Reportes */}
-          <Route path="reports" element={<AdminReports />} />
+          <Route
+            path="reports"
+            element={
+              <RequireRole roles={["admin"]}>
+                <AdminReports />
+              </RequireRole>
+            }
+          />
 
           {/* Perfil */}
           <Route path="profile" element={<AdminProfile />} />

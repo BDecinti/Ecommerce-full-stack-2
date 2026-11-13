@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect } from "vitest";
 import { act } from "@testing-library/react";
 import {
   renderTienda,
@@ -7,23 +7,47 @@ import {
   Probe,
   api,
 } from "../test/render.jsx";
-
+import { authenticateAs, server } from "../test/server.js";
 describe("ProductContext", () => {
-  beforeEach(() => sembrar());
-  it("UI14 CRUD de producto y stock actualiza catálogo", () => {
-    renderTienda(<Probe />);
-    act(() =>
-      api.productos.crear({ ...producto, codigo: "NUEVO", nombre: "Nuevo" }),
-    );
-    const creado = api.productos.productos.find((p) => p.codigo === "NUEVO");
-    expect(creado.id).toBe(91);
-    act(() => api.productos.editar(91, { nombre: "Editado" }));
-    expect(api.productos.obtener(91).nombre).toBe("Editado");
-    act(() => api.productos.descontarStock([{ id: 91, cantidad: 2 }]));
-    expect(api.productos.obtener(91).stock).toBe(1);
-    act(() => api.productos.reponerStock([{ id: 91, cantidad: 2 }]));
-    expect(api.productos.obtener(91).stock).toBe(3);
-    act(() => api.productos.eliminar(91));
-    expect(api.productos.obtener(91)).toBeUndefined();
+  it("UI14 CRUD espera al servidor y actualiza el catálogo compartido", async () => {
+    sembrar();
+    authenticateAs("admin@duoc.cl");
+    await renderTienda(<Probe />);
+    let created;
+    await act(async () => {
+      created = await api.productos.crear({
+        ...producto,
+        codigo: "NUEVO",
+        nombre: "Nuevo",
+      });
+    });
+    expect(api.productos.obtener(created.id).nombre).toBe("Nuevo");
+    await act(async () => {
+      await api.productos.editar(created.id, {
+        ...created,
+        nombre: "Editado",
+        stock: 2,
+      });
+    });
+    expect(api.productos.obtener(created.id)).toMatchObject({
+      nombre: "Editado",
+      stock: 2,
+    });
+    await act(async () => {
+      await api.productos.eliminar(created.id);
+    });
+    expect(api.productos.obtener(created.id)).toBeUndefined();
+    expect(localStorage.getItem("productos")).toBeNull();
+  });
+  it("conserva el catálogo si la API rechaza una modificación", async () => {
+    sembrar();
+    await renderTienda(<Probe />);
+    await act(async () => {
+      await expect(api.productos.eliminar(90)).rejects.toMatchObject({
+        status: 401,
+      });
+    });
+    expect(server().productos).toHaveLength(1);
+    expect(api.productos.obtener(90)).toBeDefined();
   });
 });

@@ -30,7 +30,9 @@
   border-radius: 15px;
   background: var(--bg-panel-2);
   border: 1px solid var(--border-soft);
-  transition: background 0.2s, border-color 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
 }
 .admin-main .form-card .switch-pista::after {
   content: "";
@@ -41,7 +43,9 @@
   height: 22px;
   border-radius: 50%;
   background: var(--text-muted);
-  transition: transform 0.2s, background 0.2s;
+  transition:
+    transform 0.2s,
+    background 0.2s;
 }
 .admin-main .form-card .switch input:checked + .switch-pista {
   background: var(--gradient-brand);

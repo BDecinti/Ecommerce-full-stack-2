@@ -5,7 +5,7 @@ import Home from "./Home.jsx";
 
 describe("Home", () => {
   beforeEach(() => sembrar());
-  it("UI06 inicio limita las selecciones a ocho productos", () => {
+  it("UI06 inicio limita las selecciones a ocho productos", async () => {
     sembrar(
       Array.from({ length: 20 }, (_, i) => ({
         ...producto,
@@ -13,7 +13,7 @@ describe("Home", () => {
         destacado: i < 10,
       })),
     );
-    const { container } = renderTienda(<Home />);
+    const { container } = await renderTienda(<Home />);
     expect(container.querySelectorAll(".card-producto").length).toBe(8);
     expect(screen.getByRole("heading", { name: /Tu setup/ })).toBeTruthy();
   });

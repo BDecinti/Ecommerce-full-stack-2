@@ -1,8 +1,5 @@
 import { imagenesProductos } from "./imagenesProductos.js";
-
-// Productos iniciales: una sola fuente para la tienda y el panel de administración.
-// Solo se usan si localStorage está vacío o si cambia VERSION_CATALOGO (después manda ProductContext).
-// Si se agregan o cambian productos aquí, hay que subir VERSION_CATALOGO para que se vean en el navegador.
+// Fuente de semillas y datos de pruebas. El catalogo activo se obtiene desde REST.
 export const VERSION_CATALOGO = 4;
 
 // categoriaId viene de data/categorias.js (6 = Controles, 7 = Teclados y mouse, etc.).

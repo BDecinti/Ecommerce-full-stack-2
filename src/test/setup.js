@@ -1,6 +1,8 @@
 import "@testing-library/jest-dom/vitest";
 import { afterEach, beforeEach, vi } from "vitest";
 import { cleanup } from "@testing-library/react";
+import { resetServer } from "./server.js";
+import { resetApiState } from "../services/api.js";
 
 // JSDOM simula el DOM; no implementa desplazamiento ni diálogos nativos.
 Object.defineProperty(window, "scrollTo", {
@@ -17,6 +19,8 @@ HTMLDialogElement.prototype.close = function () {
 
 beforeEach(() => {
   localStorage.clear();
+  resetApiState();
+  resetServer();
   Object.defineProperty(window, "scrollY", { configurable: true, value: 0 });
 });
 afterEach(() => {

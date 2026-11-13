@@ -13,6 +13,7 @@ export default function Categories() {
   const { principales, hijosDe, eliminar } = useCategorias();
   const { productos } = useProductos();
   const [porEliminar, setPorEliminar] = useState(null);
+  const [error, setError] = useState("");
 
   const filas = principales.flatMap((cat) => [cat, ...hijosDe(cat.id)]);
   const cantidadProductos = (id) =>
@@ -24,13 +25,24 @@ export default function Categories() {
     return "";
   };
 
-  const confirmarEliminacion = () => {
-    eliminar(porEliminar.id);
-    setPorEliminar(null);
+  const confirmarEliminacion = async () => {
+    try {
+      await eliminar(porEliminar.id);
+      setPorEliminar(null);
+      setError("");
+    } catch (e) {
+      setPorEliminar(null);
+      setError(e.message);
+    }
   };
 
   return (
     <section className="container">
+      {error && (
+        <p role="alert" className="alert alert-error">
+          {error}
+        </p>
+      )}
       <AdminTitle
         titulo="Categorías"
         descripcion="Categorías y subcategorías de la tienda."

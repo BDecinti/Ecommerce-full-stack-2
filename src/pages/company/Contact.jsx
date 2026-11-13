@@ -1,12 +1,13 @@
 import { useState } from "react";
 import useTitulo from "../../hooks/useTitulo.js";
-import { leerJSON, guardarJSON } from "../../hooks/useLocalStorage.js";
+import { api } from "../../services/api.js";
 import "../../styles/contacto.css";
 export default function Contact() {
   useTitulo("MiTienda - Contacto");
   const [mensaje, setMensaje] = useState("");
   const [error, setError] = useState("");
-  const enviar = (e) => {
+  const [enviando, setEnviando] = useState(false);
+  const enviar = async (e) => {
     e.preventDefault();
     setError("");
     const form = e.currentTarget;
@@ -15,26 +16,27 @@ export default function Contact() {
       setError("Completa tu nombre y el mensaje.");
       return;
     }
+    if (enviando) return;
+    setEnviando(true);
+    setMensaje("");
     try {
-      const anteriores = leerJSON("consultas", []);
-      guardarJSON("consultas", [
-        ...(Array.isArray(anteriores) ? anteriores : []),
-        {
+      await api("/consultas", {
+        method: "POST",
+        anonymous: true,
+        body: {
           ...datos,
           nombre: datos.nombre.trim(),
           comentario: datos.comentario.trim(),
-          fecha: new Date().toISOString(),
-          id: crypto.randomUUID(),
         },
-      ]);
+      });
       setMensaje(
-        "Tu consulta de demostración quedó guardada en este navegador. No se envió ningún correo.",
+        "Tu consulta quedó registrada. El equipo podrá revisarla; no se envió ningún correo automático.",
       );
       form.reset();
-    } catch {
-      setError(
-        "No fue posible guardar la consulta. Revisa el espacio disponible en el navegador.",
-      );
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setEnviando(false);
     }
   };
   return (
@@ -49,7 +51,7 @@ export default function Contact() {
           <h2>Antes de escribirnos</h2>
           <p className="muted">
             Este formulario es parte de una demostración académica. Guarda tu
-            consulta localmente y muestra una confirmación.
+            consulta en la tienda y muestra una confirmación.
           </p>
           <div className="contact-faq">
             <h3>Preguntas frecuentes</h3>
@@ -116,7 +118,7 @@ export default function Contact() {
               maxLength={1000}
             />
           </div>
-          <button>Guardar consulta de demostración</button>
+          <button disabled={enviando}>Guardar consulta de demostración</button>
           {mensaje && (
             <p className="alert alert-success" role="status">
               {mensaje}

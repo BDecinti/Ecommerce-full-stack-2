@@ -5,8 +5,8 @@ import Signup from "./Signup.jsx";
 
 describe("Signup", () => {
   beforeEach(() => sembrar());
-  it("UI10 registro público no ofrece rol administrador", () => {
-    renderTienda(<Signup />);
+  it("UI10 registro público no ofrece rol administrador", async () => {
+    await renderTienda(<Signup />);
     expect(screen.queryByLabelText("Tipo de Usuario")).toBeNull();
   });
 });

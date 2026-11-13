@@ -5,8 +5,8 @@ import { renderTienda } from "../test/render.jsx";
 import PageTransition from "./PageTransition.jsx";
 
 describe("PageTransition", () => {
-  it("CP22 cambia el contenido de Outlet al navegar", () => {
-    renderTienda(
+  it("CP22 cambia el contenido de Outlet al navegar", async () => {
+    await renderTienda(
       <Routes>
         <Route element={<PageTransition />}>
           <Route path="/" element={<Link to="/destino">Continuar</Link>} />

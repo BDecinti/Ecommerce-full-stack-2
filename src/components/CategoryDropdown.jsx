@@ -20,7 +20,9 @@ export default function CategoryDropdown() {
   useEffect(() => {
     if (!abierto) return;
     const clicFuera = (e) => {
-      const dentro = contenedor.current?.contains(e.target) || panel.current?.contains(e.target);
+      const dentro =
+        contenedor.current?.contains(e.target) ||
+        panel.current?.contains(e.target);
       if (!dentro) setAbierto(false);
     };
     const tecla = (e) => {
@@ -30,7 +32,10 @@ export default function CategoryDropdown() {
     const posicionar = () => {
       const r = contenedor.current.getBoundingClientRect();
       const ancho = Math.min(300, window.innerWidth * 0.9);
-      setPosicion({ top: r.bottom + 10, left: Math.max(8, Math.min(r.left, window.innerWidth - ancho - 8)) });
+      setPosicion({
+        top: r.bottom + 10,
+        left: Math.max(8, Math.min(r.left, window.innerWidth - ancho - 8)),
+      });
     };
     posicionar();
     window.addEventListener("resize", posicionar);

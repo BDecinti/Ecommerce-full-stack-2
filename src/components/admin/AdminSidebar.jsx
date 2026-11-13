@@ -22,12 +22,23 @@ export default function AdminSidebar() {
     <aside className="admin-sidebar">
       <div className="admin-marca">
         <strong>MiTienda</strong>
-        <span>Admin</span>
+        <span>{usuario.rol === "vendedor" ? "Ventas" : "Admin"}</span>
       </div>
 
       <nav className="admin-menu">
-        {ENLACES.map(({ to, texto, icono, end }) => (
-          <NavLink key={to} to={to} end={end} className={({ isActive }) => (isActive ? "activo" : "")}>
+        {ENLACES.filter(
+          (e) =>
+            usuario.rol === "admin" ||
+            ["/admin/products", "/admin/orders", "/admin/profile"].includes(
+              e.to,
+            ),
+        ).map(({ to, texto, icono, end }) => (
+          <NavLink
+            key={to}
+            to={to}
+            end={end}
+            className={({ isActive }) => (isActive ? "activo" : "")}
+          >
             <AdminIcon nombre={icono} />
             {texto}
           </NavLink>
@@ -40,10 +51,16 @@ export default function AdminSidebar() {
           Volver a la tienda
         </NavLink>
         <div className="admin-user-box">
-          <span className="admin-avatar">{usuario.nombre.charAt(0).toUpperCase()}</span>
+          <span className="admin-avatar">
+            {usuario.nombre.charAt(0).toUpperCase()}
+          </span>
           <div>
             <div id="admin-user-name">{usuario.nombre}</div>
-            <button type="button" className="admin-logout" onClick={cerrarSesion}>
+            <button
+              type="button"
+              className="admin-logout"
+              onClick={cerrarSesion}
+            >
               Cerrar sesión
             </button>
           </div>

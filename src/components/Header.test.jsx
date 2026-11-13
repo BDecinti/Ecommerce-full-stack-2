@@ -5,9 +5,9 @@ import { adminUsuariosPorDefecto } from "../data/adminPorDefecto.js";
 import Header from "./Header.jsx";
 
 describe("Header", () => {
-  it("CP14 refleja las unidades del carrito y abre/cierra el inicio de sesión", () => {
+  it("CP14 refleja las unidades del carrito y abre/cierra el inicio de sesión", async () => {
     sembrar([producto], [{ id: 90, cantidad: 2 }]);
-    renderTienda(<Header />);
+    await renderTienda(<Header />);
     expect(screen.getByRole("link", { name: "Carrito (2)" })).toHaveAttribute(
       "href",
       "/cart",
@@ -19,24 +19,24 @@ describe("Header", () => {
     );
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
-  it("CP15 administrador ve su panel y cerrar sesión actualiza el header", () => {
+  it("CP15 administrador ve su panel y cerrar sesión actualiza el header", async () => {
     localStorage.setItem(
       "usuarioLogueado",
       JSON.stringify(adminUsuariosPorDefecto[0]),
     );
-    renderTienda(<Header />);
+    await renderTienda(<Header />);
     expect(screen.getByRole("link", { name: "Panel admin" })).toHaveAttribute(
       "href",
       "/admin",
     );
     fireEvent.click(screen.getByRole("link", { name: "Cerrar sesión" }));
     expect(
-      screen.getByRole("button", { name: "Iniciar sesión" }),
+      await screen.findByRole("button", { name: "Iniciar sesión" }),
     ).toBeInTheDocument();
     expect(localStorage.getItem("usuarioLogueado")).toBeNull();
   });
-  it("CP16 se oculta al bajar y reaparece al subir", () => {
-    renderTienda(<Header />);
+  it("CP16 se oculta al bajar y reaparece al subir", async () => {
+    await renderTienda(<Header />);
     Object.defineProperty(window, "scrollY", {
       configurable: true,
       value: 200,

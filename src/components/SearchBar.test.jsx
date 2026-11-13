@@ -9,8 +9,8 @@ function Ruta() {
   return <output>{r.pathname + r.search}</output>;
 }
 describe("SearchBar", () => {
-  it("CP08 precarga q y envía la búsqueda recortada y codificada", () => {
-    renderTienda(
+  it("CP08 precarga q y envía la búsqueda recortada y codificada", async () => {
+    await renderTienda(
       <>
         <SearchBar />
         <Ruta />
@@ -26,8 +26,8 @@ describe("SearchBar", () => {
       "/products?q=teclado%20%26%20mouse",
     );
   });
-  it("CP09 búsqueda vacía navega al catálogo sin q", () => {
-    renderTienda(
+  it("CP09 búsqueda vacía navega al catálogo sin q", async () => {
+    await renderTienda(
       <>
         <SearchBar />
         <Ruta />

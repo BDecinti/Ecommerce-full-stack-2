@@ -4,8 +4,8 @@ import { renderTienda } from "../test/render.jsx";
 import CategoryDropdown from "./CategoryDropdown.jsx";
 
 describe("CategoryDropdown", () => {
-  it("CP10 abre el portal y Escape lo cierra", () => {
-    renderTienda(<CategoryDropdown />);
+  it("CP10 abre el portal y Escape lo cierra", async () => {
+    await renderTienda(<CategoryDropdown />);
     const boton = screen.getByRole("button", { name: "Categoría" });
     expect(boton).toHaveAttribute("aria-expanded", "false");
     fireEvent.click(boton);
@@ -17,8 +17,8 @@ describe("CategoryDropdown", () => {
     fireEvent.keyDown(document, { key: "Escape" });
     expect(boton).toHaveAttribute("aria-expanded", "false");
   });
-  it("CP11 cierra al elegir categoría y al pulsar fuera", () => {
-    renderTienda(<CategoryDropdown />);
+  it("CP11 cierra al elegir categoría y al pulsar fuera", async () => {
+    await renderTienda(<CategoryDropdown />);
     const boton = screen.getByRole("button", { name: "Categoría" });
     fireEvent.click(boton);
     fireEvent.click(screen.getByRole("link", { name: "Teclados y mouse" }));

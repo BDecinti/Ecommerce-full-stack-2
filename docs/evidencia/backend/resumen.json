@@ -1,0 +1,142 @@
+{
+  "fecha": "2026-11-13T02:30:19.236836+00:00",
+  "frontend": {
+    "pruebas": 138,
+    "aprobadas": 138,
+    "fallidas": 0,
+    "archivos": 47,
+    "cobertura": {
+      "lines": {
+        "total": 1243,
+        "covered": 999,
+        "skipped": 0,
+        "pct": 80.37
+      },
+      "statements": {
+        "total": 1399,
+        "covered": 1118,
+        "skipped": 0,
+        "pct": 79.91
+      },
+      "functions": {
+        "total": 475,
+        "covered": 376,
+        "skipped": 0,
+        "pct": 79.15
+      },
+      "branches": {
+        "total": 849,
+        "covered": 595,
+        "skipped": 0,
+        "pct": 70.08
+      },
+      "branchesTrue": {
+        "total": 0,
+        "covered": 0,
+        "skipped": 0,
+        "pct": 100
+      }
+    }
+  },
+  "backend": {
+    "pruebas": 44,
+    "aprobadas": 44,
+    "cobertura": {
+      "INSTRUCTION": {
+        "covered": 3012,
+        "missed": 232,
+        "pct": 92.85
+      },
+      "BRANCH": {
+        "covered": 142,
+        "missed": 64,
+        "pct": 68.93
+      },
+      "LINE": {
+        "covered": 622,
+        "missed": 43,
+        "pct": 93.53
+      },
+      "COMPLEXITY": {
+        "covered": 186,
+        "missed": 77,
+        "pct": 70.72
+      },
+      "METHOD": {
+        "covered": 140,
+        "missed": 20,
+        "pct": 87.5
+      },
+      "CLASS": {
+        "covered": 42,
+        "missed": 0,
+        "pct": 100.0
+      }
+    }
+  },
+  "navegador": {
+    "fecha": "2026-11-13T02:20:47.668Z",
+    "pruebas": [
+      {
+        "nombre": "Inicio conserva diseño y carga 32 productos desde REST",
+        "estado": "passed"
+      },
+      {
+        "nombre": "Cliente inicia sesión y conserva sesión después de recargar",
+        "estado": "passed"
+      },
+      {
+        "nombre": "Cliente no accede a panel y API privada exige JWT",
+        "estado": "passed"
+      },
+      {
+        "nombre": "Tarjeta rechazada conserva carrito y stock",
+        "estado": "passed"
+      },
+      {
+        "nombre": "Compra aprobada queda en servidor y en Mis compras",
+        "estado": "passed"
+      },
+      {
+        "nombre": "Cerrar sesión y falsificar localStorage no concede acceso",
+        "estado": "passed"
+      },
+      {
+        "nombre": "Vendedor tiene menú limitado y no entra a usuarios",
+        "estado": "passed"
+      },
+      {
+        "nombre": "Administrador carga CRUD de usuarios y dashboard",
+        "estado": "passed"
+      },
+      {
+        "nombre": "CRUD de categoría se persiste y vuelve a cargar",
+        "estado": "passed"
+      },
+      {
+        "nombre": "Producto creado, editado y retirado desde el panel REST",
+        "estado": "passed"
+      },
+      {
+        "nombre": "Usuario creado, editado y desactivado sin exponer contraseña",
+        "estado": "passed"
+      },
+      {
+        "nombre": "JAR sirve frontend y Swagger en un solo puerto",
+        "estado": "passed"
+      },
+      {
+        "nombre": "Vista móvil sin desbordamiento horizontal",
+        "estado": "passed"
+      },
+      {
+        "nombre": "Navegación sin errores JavaScript",
+        "estado": "passed"
+      },
+      {
+        "nombre": "Persistencia de sesión y pedidos tras reiniciar el backend",
+        "estado": "passed"
+      }
+    ]
+  }
+}

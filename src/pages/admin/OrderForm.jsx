@@ -1,162 +1,182 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useTitulo from "../../hooks/useTitulo.js";
-import { leerJSON } from "../../hooks/useLocalStorage.js";
 import { usePedidos } from "../../context/PedidoContext.jsx";
 import { useProductos } from "../../context/ProductContext.jsx";
-import { adminUsuariosPorDefecto } from "../../data/adminPorDefecto.js";
+import { useUsuarios } from "../../context/UsuariosContext.jsx";
 import { formatearPrecio } from "../../data/productos.js";
+import { costoEnvio } from "../../utils/checkout.js";
 import AdminTitle from "../../components/admin/AdminTitle.jsx";
 import OrderProductPicker from "../../components/admin/OrderProductPicker.jsx";
 import "../../styles/admin-form.css";
 import "../../styles/admin-orders.css";
 
-const OTRO_CLIENTE = "__otro__";
-
-// Crea un pedido a mano (ventas por teléfono, en el local, etc.). Usa los mismos contextos que el pago:
-// PedidoContext para registrar el pedido y ProductContext para descontar el stock.
 export default function OrderForm() {
-  useTitulo("Administrador - Nuevo Pedido");
+  useTitulo("Administrador - Nuevo pedido");
   const navigate = useNavigate();
-  const { crear } = usePedidos();
-  const { productos, descontarStock } = useProductos();
-  const usuarios = leerJSON("usuarios", null) || adminUsuariosPorDefecto;
-
-  const [cliente, setCliente] = useState(usuarios[0]?.email ?? OTRO_CLIENTE);
-  const [clienteLibre, setClienteLibre] = useState("");
-  const [cantidades, setCantidades] = useState({});
-  const [tipoEntrega, setTipoEntrega] = useState("presencial");
-  const [direccion, setDireccion] = useState("");
-  const [comuna, setComuna] = useState("");
-  const [telefono, setTelefono] = useState("");
-  const [metodoPago, setMetodoPago] = useState("efectivo");
-  const [error, setError] = useState("");
-
+  const { crear } = usePedidos(),
+    { productos } = useProductos(),
+    { usuarios } = useUsuarios();
+  const [cliente, setCliente] = useState(
+    usuarios.find((u) => u.rol === "cliente")?.email ??
+      usuarios[0]?.email ??
+      "",
+  );
+  const [cantidades, setCantidades] = useState({}),
+    [tipoEntrega, setTipoEntrega] = useState("presencial");
+  const [direccion, setDireccion] = useState(""),
+    [comuna, setComuna] = useState(""),
+    [region, setRegion] = useState("");
+  const [telefono, setTelefono] = useState(""),
+    [metodoPago, setMetodoPago] = useState("efectivo"),
+    [error, setError] = useState(""),
+    [enviando, setEnviando] = useState(false);
+  const key = useRef(crypto.randomUUID());
+  const usuario = usuarios.find((u) => u.email === cliente);
   const items = productos
     .filter((p) => cantidades[p.id] > 0)
-    .map((p) => ({
-      id: p.id,
-      nombre: p.nombre,
-      precio: p.precio,
-      cantidad: cantidades[p.id],
-      imagen: p.imagen,
-    }));
-  const total = items.reduce((acc, i) => acc + i.precio * i.cantidad, 0);
-
-  const enviar = (e) => {
+    .map((p) => ({ id: p.id, cantidad: cantidades[p.id] }));
+  const subtotal = productos.reduce(
+    (sum, p) => sum + p.precio * (cantidades[p.id] || 0),
+    0,
+  );
+  const enviar = async (e) => {
     e.preventDefault();
-    const usuario = cliente === OTRO_CLIENTE ? clienteLibre.trim() : cliente;
-    const esEnvio = tipoEntrega === "envio";
-
-    if (!usuario) return setError("Indica el cliente (nombre o correo).");
-    if (items.length === 0) return setError("Agrega al menos un producto al pedido.");
-    if (esEnvio && (!direccion.trim() || !comuna.trim()))
-      return setError("Para un envío indica la dirección y la comuna.");
-
-    const pedido = crear({
-      fecha: new Date().toISOString(),
-      items,
-      total,
-      tipoEntrega,
-      metodoPago,
-      direccion: esEnvio ? direccion.trim() : "",
-      comuna: esEnvio ? comuna.trim() : "",
-      telefono: esEnvio ? telefono.trim() : "",
-      usuario,
-    });
-    descontarStock(items);
-    navigate(`/admin/orders/${pedido.id}`);
+    if (enviando) return;
+    if (!items.length) {
+      setError("Agrega al menos un producto al pedido.");
+      return;
+    }
+    setEnviando(true);
+    setError("");
+    try {
+      const p = await crear(
+        {
+          items,
+          usuario: cliente,
+          metodoPago,
+          entrega: {
+            nombre: usuario.nombre,
+            email: cliente,
+            telefono,
+            tipoEntrega,
+            direccion,
+            comuna,
+            region,
+          },
+        },
+        key.current,
+      );
+      navigate(`/admin/orders/${p.id}`);
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setEnviando(false);
+    }
   };
-
   return (
     <section className="container">
-      <AdminTitle titulo="Nuevo pedido" descripcion="Registra una venta realizada fuera de la web.">
+      <AdminTitle
+        titulo="Nuevo pedido"
+        descripcion="Registra una venta a un cliente de la tienda."
+      >
         <Link className="btn btn-secondary" to="/admin/orders">
           Cancelar
         </Link>
       </AdminTitle>
-
-      <form onSubmit={enviar}>
-        <article className="card orders-entrega">
-          <h2 className="orders-subtitulo">Cliente</h2>
-          <div className="form-group">
-            <label htmlFor="cliente">Cliente</label>
-            <select id="cliente" value={cliente} onChange={(e) => setCliente(e.target.value)}>
-              {usuarios.map((u) => (
-                <option key={u.email} value={u.email}>
-                  {u.nombre} {u.apellidos} ({u.email})
-                </option>
-              ))}
-              <option value={OTRO_CLIENTE}>Cliente sin registrar</option>
-            </select>
-          </div>
-          {cliente === OTRO_CLIENTE && (
-            <div className="form-group">
-              <label htmlFor="cliente-libre">Nombre o correo del cliente</label>
-              <input
-                id="cliente-libre"
-                value={clienteLibre}
-                onChange={(e) => setClienteLibre(e.target.value)}
-              />
-            </div>
-          )}
-        </article>
-
-        <article className="card">
-          <h2 className="orders-subtitulo">Productos</h2>
-          <OrderProductPicker
-            productos={productos}
-            cantidades={cantidades}
-            onChange={(id, n) => setCantidades({ ...cantidades, [id]: n })}
+      <form className="card" onSubmit={enviar}>
+        <div className="form-group">
+          <label htmlFor="cliente">Cliente registrado</label>
+          <select
+            id="cliente"
+            value={cliente}
+            onChange={(e) => setCliente(e.target.value)}
+            required
+          >
+            {usuarios.map((u) => (
+              <option key={u.id} value={u.email}>
+                {u.nombre} · {u.email}
+              </option>
+            ))}
+          </select>
+        </div>
+        <OrderProductPicker
+          productos={productos}
+          cantidades={cantidades}
+          onChange={(id, cantidad) =>
+            setCantidades((prev) => ({ ...prev, [id]: cantidad }))
+          }
+        />
+        <div className="form-group">
+          <label htmlFor="telefono">Celular de contacto</label>
+          <input
+            id="telefono"
+            required
+            value={telefono}
+            onChange={(e) => setTelefono(e.target.value)}
+            placeholder="+56 9 1234 5678"
           />
-          <p className="orders-total">
-            Total: <strong>{formatearPrecio(total)}</strong>
-          </p>
-        </article>
-
-        <article className="card orders-entrega">
-          <h2 className="orders-subtitulo">Entrega y pago</h2>
-          <div className="form-group">
-            <label htmlFor="entrega">Entrega</label>
-            <select id="entrega" value={tipoEntrega} onChange={(e) => setTipoEntrega(e.target.value)}>
-              <option value="presencial">Retiro presencial en tienda</option>
-              <option value="envio">Envío a domicilio</option>
-            </select>
-          </div>
-          {tipoEntrega === "envio" && (
-            <>
-              <div className="form-group">
-                <label htmlFor="direccion">Dirección de envío</label>
-                <input id="direccion" value={direccion} onChange={(e) => setDireccion(e.target.value)} />
-              </div>
-              <div className="form-group">
-                <label htmlFor="comuna">Comuna</label>
-                <input id="comuna" value={comuna} onChange={(e) => setComuna(e.target.value)} />
-              </div>
-              <div className="form-group">
-                <label htmlFor="telefono">Teléfono de contacto</label>
+        </div>
+        <div className="form-group">
+          <label htmlFor="entrega">Entrega</label>
+          <select
+            id="entrega"
+            value={tipoEntrega}
+            onChange={(e) => setTipoEntrega(e.target.value)}
+          >
+            <option value="presencial">Retiro en tienda</option>
+            <option value="envio">Envío a domicilio</option>
+          </select>
+        </div>
+        {tipoEntrega === "envio" && (
+          <>
+            {[
+              ["direccion", "Dirección", direccion, setDireccion],
+              ["comuna", "Comuna", comuna, setComuna],
+              ["region", "Región", region, setRegion],
+            ].map(([id, label, value, setter]) => (
+              <div key={id} className="form-group">
+                <label htmlFor={id}>{label}</label>
                 <input
-                  id="telefono"
-                  type="tel"
-                  value={telefono}
-                  onChange={(e) => setTelefono(e.target.value)}
+                  id={id}
+                  value={value}
+                  onChange={(e) => setter(e.target.value)}
+                  required
                 />
               </div>
-            </>
-          )}
-          <div className="form-group">
-            <label htmlFor="metodo-pago">Método de pago</label>
-            <select id="metodo-pago" value={metodoPago} onChange={(e) => setMetodoPago(e.target.value)}>
-              <option value="tarjeta">Tarjeta de crédito / débito</option>
-              <option value="transferencia">Transferencia bancaria</option>
-              <option value="efectivo">Efectivo</option>
-            </select>
-          </div>
-        </article>
-
-        {error && <p className="alert alert-error">{error}</p>}
+            ))}
+          </>
+        )}
+        <div className="form-group">
+          <label htmlFor="metodo">Método de pago</label>
+          <select
+            id="metodo"
+            value={metodoPago}
+            onChange={(e) => setMetodoPago(e.target.value)}
+          >
+            <option value="efectivo">Efectivo</option>
+            <option value="debito">Débito</option>
+            <option value="transferencia">Transferencia</option>
+          </select>
+        </div>
+        <p>
+          Total estimado:{" "}
+          <strong>
+            {formatearPrecio(subtotal + costoEnvio(tipoEntrega, subtotal))}
+          </strong>
+        </p>
+        {error && (
+          <p className="alert alert-error" role="alert">
+            {error}
+          </p>
+        )}
         <div className="actions">
-          <button type="submit">Crear pedido</button>
+          <button disabled={enviando || !usuario} type="submit">
+            {enviando ? "Guardando…" : "Crear pedido"}
+          </button>
+          <Link className="btn btn-secondary" to="/admin/orders">
+            Cancelar
+          </Link>
         </div>
       </form>
     </section>

@@ -1,51 +1,39 @@
-MITIENDA - ENTREGA PARA COMPARTIR
+MITIENDA - FULL STACK
 
-1. EXTRAER EL ZIP COMPLETO
-No abras los archivos desde dentro del ZIP. Usa "Extraer todo" primero.
+1. Extrae el ZIP completo. No ejecutes archivos desde dentro del ZIP.
+2. Instala Node.js 24 o superior desde https://nodejs.org/
+3. En Windows abre INICIAR_TIENDA.cmd. Se preparan las dependencias y Java 21
+   portatil si hace falta. La primera vez necesitas Internet y paciencia.
+4. Abre http://127.0.0.1:5173/ y manten la ventana de inicio abierta.
 
-2. VER LA TIENDA SIN INSTALAR NADA
-Abre VER_TIENDA.html con Chrome, Edge o Firefox.
-Incluye las imagenes y permite navegar, usar el carrito y probar la compra.
-Funciona sin Internet. Cada navegador guarda sus propios datos de demostracion.
-No es necesario abrir Visual Studio ni instalar Node para esta opcion.
+En Visual Studio Code: npm ci y luego npm run dev:full.
+En macOS o Linux instala tambien JDK 21 y ejecuta sh iniciar.sh.
+Maven se descarga automaticamente mediante el wrapper incluido.
 
-3. EJECUTAR Y EDITAR EL PROYECTO COMPLETO
-Instala Node.js 24 o superior desde https://nodejs.org/
-En Windows: doble clic en INICIAR_TIENDA.cmd.
-En macOS o Linux: abrir una terminal en esta carpeta y ejecutar sh iniciar.sh.
-La primera ejecucion necesita Internet para descargar las dependencias.
+CUENTAS LOCALES
+Administrador: admin@duoc.cl / Admin123!
+Cliente: cliente@duoc.cl / Cliente123!
+Vendedor: vendedor@duoc.cl / Vendedor123!
 
-Tambien puedes abrir esta carpeta en Visual Studio Code y usar:
-  npm ci
-  npm run dev
+SWAGGER
+http://127.0.0.1:8080/swagger-ui.html
 
-Usa la direccion que imprime Vite, normalmente http://localhost:5173/
-Mantener la terminal abierta mientras se utiliza la tienda.
-Cerrar con Ctrl+C.
+PAGO SIMULADO
+Aprobado: 4242 4242 4242 4242
+Rechazado: 4000 0000 0000 0002
+Titular ficticio, vencimiento futuro como 12/30 y CVV 123.
+Celular de ejemplo: +56 9 1234 5678.
+No ingreses tarjetas reales. No se realiza ningun cobro ni envio.
 
-4. USUARIOS DE PRUEBA
-Administrador: admin@duoc.cl / 12345
-Cliente: cliente@duoc.cl / 123
+La base de datos se guarda en backend/data y conserva los cambios al reiniciar.
+Los datos no se comparten automaticamente con otros equipos.
+Esta version necesita backend. VER_TIENDA.html es una guia para abrirla.
 
-5. COMPRA DE DEMOSTRACION
-Tarjeta aprobada: 4242 4242 4242 4242
-Tarjeta rechazada: 4000 0000 0000 0002
-Titular ficticio, vencimiento futuro (ejemplo 12/30) y CVV de prueba 123.
-No ingreses datos reales. No se realiza ningun cobro ni envio real.
-Ejemplo de celular para recorrer el formulario: +56 9 1234 5678.
+PRUEBAS
+npm test
+npm run test:coverage
+npm run test:backend
+npm run build:full
 
-6. PRUEBAS Y DOCUMENTOS
-  npm test
-  npm run test:coverage
-  npm run build
-
-La carpeta docs incluye los tres informes Word y la evidencia de las pruebas.
-Las pruebas usan Vitest. Cada archivo .test.jsx esta al lado de su componente.
-Ejemplo: src/components/ProductCard.jsx y ProductCard.test.jsx.
-Para repetir las pruebas al editar: npm run test:watch.
-
-La vista HTML es una copia portatil para revisar el resultado.
-Si modificas el codigo, vuelve a crearla con:
-  npm run vista:portatil
-
-Los cambios locales no se sincronizan con otros equipos.
+Los informes Word y la evidencia estan en docs.
+Consulta README.md para configurar PostgreSQL y ejecutar el JAR completo.

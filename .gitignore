@@ -3,3 +3,10 @@ dist/
 coverage/
 reports/
 .qa/
+.devtools/
+backend/target/
+backend/data/
+.env
+.env.*
+!.env.example
+*.log

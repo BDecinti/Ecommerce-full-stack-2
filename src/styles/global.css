@@ -13,7 +13,11 @@
   --accent-red: #ef4444;
   --text-light: #eef0ff;
   --text-muted: #9aa0c3;
-  --gradient-brand: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+  --gradient-brand: linear-gradient(
+    90deg,
+    var(--accent-purple),
+    var(--accent-cyan)
+  );
 }
 
 * {
@@ -28,7 +32,11 @@ body {
   font-family: "Rajdhani", Arial, Helvetica, sans-serif;
   background: var(--bg-dark);
   background-image:
-    radial-gradient(circle at 15% 0%, rgba(139, 92, 246, 0.12), transparent 40%),
+    radial-gradient(
+      circle at 15% 0%,
+      rgba(139, 92, 246, 0.12),
+      transparent 40%
+    ),
     radial-gradient(circle at 85% 20%, rgba(34, 211, 238, 0.1), transparent 40%);
   background-attachment: fixed;
   color: var(--text-light);
@@ -423,7 +431,9 @@ th {
   color: #fff;
   font-weight: 700;
   text-decoration: none;
-  transition: transform 0.15s ease, opacity 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease;
 }
 .footer-promo-btn:hover {
   transform: translateY(-2px);
