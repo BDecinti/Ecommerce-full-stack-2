@@ -4,7 +4,7 @@ Tienda de tecnología y gaming con React, Spring Boot, una base de datos relacio
 
 ## Ejecutar en tu equipo
 
-Extrae el ZIP completo. Instala [Node.js 24 o superior](https://nodejs.org/).
+Extrae el ZIP completo y no ejecutes archivos desde dentro del ZIP. Instala [Node.js 24 o superior](https://nodejs.org/).
 
 En Windows puedes abrir **INICIAR_TIENDA.cmd**. Instala las dependencias, prepara Java 21 portátil si hace falta e inicia la tienda y el backend. La primera ejecución necesita Internet y puede tardar varios minutos. Mantén la ventana abierta mientras revisas el proyecto.
 
@@ -80,11 +80,12 @@ Entonces toda la tienda y Swagger funcionan en el puerto **8080**, incluso al re
 
 ## Documentos para la evaluación
 
-- [ERS actualizado](docs/ERS_v3.md) y `docs/ERS_v3.docx`.
-- [Backend y seguridad con los doce indicadores](docs/Backend_y_seguridad.md) y su Word.
-- [Cobertura de testing](docs/Cobertura_testing.md) y su Word.
-- [Propuesta de pruebas con Vitest](docs/Propuesta_pruebas_Vitest.md) y su Word.
-- [Guion de demostración local](docs/REVISION_LOCAL.md).
-- Evidencia automática y capturas en `docs/evidencia/backend/`.
+- [ERS actualizado](docs/entrega/ERS_v3.md) y `docs/entrega/ERS_v3.docx`.
+- [Backend y seguridad con los doce indicadores](docs/entrega/Backend_y_seguridad.md) y su Word.
+- [Cobertura de testing](docs/entrega/Cobertura_testing.md) y su Word.
+- [Propuesta de pruebas con Vitest](docs/entrega/Propuesta_pruebas_Vitest.md) y su Word.
+- [Guion de demostración local](docs/notas/REVISION_LOCAL.md).
+- Evidencia automática y capturas en `docs/evidencia/backend/`; la de octubre está en `docs/historico/`.
+- Notas internas (requisitos de la pauta y fuentes de imágenes) en `docs/notas/`.
 
 Los archivos de `src/data` sirven como fuente de las semillas del catálogo y como datos ficticios para pruebas; la aplicación obtiene los datos activos desde REST. Si se cambia esa fuente, `node scripts/exportar-semillas.mjs` actualiza el JSON de semillas antes de iniciar una base nueva. Una base existente se modifica desde el panel o mediante nuevas migraciones.
