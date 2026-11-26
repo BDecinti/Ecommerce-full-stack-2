@@ -12,6 +12,8 @@ from docx.oxml.ns import qn
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
+ENTREGA = DOCS / "entrega"
+ENTREGA.mkdir(parents=True, exist_ok=True)
 EVIDENCE = DOCS / "evidencia/backend"
 EVIDENCE.mkdir(parents=True, exist_ok=True)
 front = json.loads((ROOT / "reports/vitest-results.json").read_text(encoding="utf-8-sig"))
@@ -115,11 +117,11 @@ def make_document(name, text):
     doc.core_properties.subject = "MiTienda Full Stack II"
     doc.core_properties.author = "Equipo MiTienda"; doc.core_properties.last_modified_by = "Equipo MiTienda"
     doc.core_properties.keywords = "MiTienda, Spring Boot, React, JWT, Vitest"
-    doc.save(DOCS / f"{name}.docx")
+    doc.save(ENTREGA / f"{name}.docx")
 
 for name in ["ERS_v3", "Backend_y_seguridad", "Cobertura_testing", "Propuesta_pruebas_Vitest"]:
-    text = (ROOT / "scripts/documentos" / f"{name}.md").read_text(encoding="utf-8")
+    text = (ROOT / "scripts/plantillas-docs" / f"{name}.md").read_text(encoding="utf-8")
     for key, value in values.items(): text = text.replace("{{" + key + "}}", value)
-    (DOCS / f"{name}.md").write_text(text, encoding="utf-8")
+    (ENTREGA / f"{name}.md").write_text(text, encoding="utf-8")
     make_document(name, text)
 print(json.dumps({"frontend": values["FRONT_TESTS"], "backend": values["BACK_TESTS"], "documentos": 4, "cobertura_frontend": values["FRONT_LINES"], "cobertura_backend": values["BACK_LINES"]}, ensure_ascii=False))
