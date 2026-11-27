@@ -1,14 +1,23 @@
 <!doctype html>
 <html lang="es">
   <head>
+    <!-- Codificacion UTF-8: permite tildes y la letra n con tilde. -->
     <meta charset="UTF-8" />
+    <!-- Hace que la pagina se adapte al ancho de un celular. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Descripcion de la pagina (la leen buscadores y redes sociales). -->
     <meta name="description" content="Explora periféricos, consolas y tecnología en MiTienda. Proyecto académico con compra de demostración y administración local." />
+    <!-- Color de la barra del navegador en celulares. -->
     <meta name="theme-color" content="#0d1014" />
+    <!-- Texto de la pestana. Cada pagina lo cambia despues con useTitulo(). -->
     <title>MiTienda</title>
   </head>
   <body>
+    <!-- Este es el PRIMER archivo que recibe el navegador al abrir http://127.0.0.1:5173/ -->
+    <!-- ESCENARIO VACIO: React dibuja aqui adentro toda la tienda (lo hace main.jsx). -->
     <div id="root"></div>
+    <!-- LINEA CLAVE: el navegador descarga y ejecuta src/main.jsx, el punto de entrada de React. -->
+    <!-- type="module" permite que ese archivo use "import". -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

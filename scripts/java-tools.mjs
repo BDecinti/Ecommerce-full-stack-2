@@ -3,11 +3,14 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawn, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
+// "root" = carpeta raiz del proyecto (una carpeta arriba de scripts/).
 export const root = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "..",
 );
+// "backend" = la carpeta backend/ (el proyecto Spring Boot).
 export const backend = path.join(root, "backend");
+// run(): ejecuta un programa y espera a que termine; falla si el codigo de salida no es 0.
 export function run(command, args, options = {}) {
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, { stdio: "inherit", ...options });
@@ -19,6 +22,9 @@ export function run(command, args, options = {}) {
     );
   });
 }
+// javaEnvironment(): busca un Java 21 o superior y devuelve las variables de entorno para usarlo.
+// Orden de busqueda: 1) JAVA_HOME o un Java portatil en .devtools/java, 2) el Java instalado en el sistema,
+// 3) solo en Windows, lo descarga de Eclipse Adoptium y verifica su firma SHA-256.
 export async function javaEnvironment() {
   const portable = path.join(root, ".devtools/java");
   const dirs = await fs.readdir(portable).catch(() => []);
@@ -88,6 +94,8 @@ export async function javaEnvironment() {
   await fs.unlink(zip);
   return javaEnvironment();
 }
+// maven(args): ejecuta Maven con el "wrapper" (mvnw.cmd en Windows, mvnw en otros) dentro de backend/.
+// El wrapper descarga Maven solo, por eso no hay que instalarlo. Ej.: maven(["clean","package"]).
 export async function maven(args) {
   const env = await javaEnvironment();
   if (process.platform === "win32")
