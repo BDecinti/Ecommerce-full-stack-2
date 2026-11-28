@@ -1,14 +1,14 @@
 import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
-import useTitulo from "../../hooks/useTitulo.js";
-import { usePedidos } from "../../context/PedidoContext.jsx";
-import AdminTitle from "../../components/admin/AdminTitle.jsx";
-import EstadoBadge from "../../components/admin/EstadoBadge.jsx";
-import EstadoSelect from "../../components/admin/EstadoSelect.jsx";
-import OrderInfo from "../../components/admin/OrderInfo.jsx";
-import OrderItemsTable from "../../components/admin/OrderItemsTable.jsx";
-import "../../styles/admin-detail.css";
-import "../../styles/admin-orders.css";
+import useTitulo from "../../../hooks/useTitulo.js";
+import { usePedidos } from "../../../context/PedidoContext.jsx";
+import AdminTitle from "../../../components/admin/AdminTitle.jsx";
+import EstadoBadge from "../../../components/pedidos/EstadoBadge.jsx";
+import EstadoSelect from "../../../components/pedidos/EstadoSelect.jsx";
+import OrderInfo from "../../../components/pedidos/OrderInfo.jsx";
+import OrderItemsTable from "../../../components/pedidos/OrderItemsTable.jsx";
+import "../../../styles/admin-detail.css";
+import "../../../styles/admin-orders.css";
 
 export default function OrderDetail() {
   const { id } = useParams();

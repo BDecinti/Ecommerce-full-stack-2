@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import useTitulo from "../../hooks/useTitulo.js";
-import { useCategorias } from "../../context/CategoryContext.jsx";
-import "../../styles/admin-form.css";
+import useTitulo from "../../../hooks/useTitulo.js";
+import { useCategorias } from "../../../context/CategoryContext.jsx";
+import "../../../styles/admin-form.css";
 
 // Formulario para crear (/admin/categories/new) o editar (/admin/categories/:id/edit) una categoría.
 // Si se elige una categoría padre, se crea una subcategoría. Hay solo dos niveles: una categoría

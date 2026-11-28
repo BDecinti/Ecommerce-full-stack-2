@@ -1,12 +1,12 @@
 import { useState } from "react";
-import useTitulo from "../../hooks/useTitulo.js";
-import { usePedidos } from "../../context/PedidoContext.jsx";
+import useTitulo from "../../../hooks/useTitulo.js";
+import { usePedidos } from "../../../context/PedidoContext.jsx";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext.jsx";
-import AdminTitle from "../../components/admin/AdminTitle.jsx";
-import EstadoSelect from "../../components/admin/EstadoSelect.jsx";
-import OrderTable from "../../components/admin/OrderTable.jsx";
-import "../../styles/admin-orders.css";
+import { useAuth } from "../../../context/AuthContext.jsx";
+import AdminTitle from "../../../components/admin/AdminTitle.jsx";
+import EstadoSelect from "../../../components/pedidos/EstadoSelect.jsx";
+import OrderTable from "../../../components/pedidos/OrderTable.jsx";
+import "../../../styles/admin-orders.css";
 
 // Listado de pedidos, del más nuevo al más antiguo, con filtro por estado.
 export default function Orders() {

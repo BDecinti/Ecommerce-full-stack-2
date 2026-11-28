@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import useTitulo from "../../hooks/useTitulo.js";
-import { useProductos } from "../../context/ProductContext.jsx";
-import { formatearPrecio } from "../../data/productos.js";
+import useTitulo from "../../../hooks/useTitulo.js";
+import { useProductos } from "../../../context/ProductContext.jsx";
+import { formatearPrecio } from "../../../data/productos.js";
 
 export default function Products() {
   useTitulo("Administrador - Productos");

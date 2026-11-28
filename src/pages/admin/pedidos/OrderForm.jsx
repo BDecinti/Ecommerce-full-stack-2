@@ -1,15 +1,15 @@
 import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useTitulo from "../../hooks/useTitulo.js";
-import { usePedidos } from "../../context/PedidoContext.jsx";
-import { useProductos } from "../../context/ProductContext.jsx";
-import { useUsuarios } from "../../context/UsuariosContext.jsx";
-import { formatearPrecio } from "../../data/productos.js";
-import { costoEnvio } from "../../utils/checkout.js";
-import AdminTitle from "../../components/admin/AdminTitle.jsx";
-import OrderProductPicker from "../../components/admin/OrderProductPicker.jsx";
-import "../../styles/admin-form.css";
-import "../../styles/admin-orders.css";
+import useTitulo from "../../../hooks/useTitulo.js";
+import { usePedidos } from "../../../context/PedidoContext.jsx";
+import { useProductos } from "../../../context/ProductContext.jsx";
+import { useUsuarios } from "../../../context/UsuariosContext.jsx";
+import { formatearPrecio } from "../../../data/productos.js";
+import { costoEnvio } from "../../../utils/checkout.js";
+import AdminTitle from "../../../components/admin/AdminTitle.jsx";
+import OrderProductPicker from "../../../components/pedidos/OrderProductPicker.jsx";
+import "../../../styles/admin-form.css";
+import "../../../styles/admin-orders.css";
 
 export default function OrderForm() {
   useTitulo("Administrador - Nuevo pedido");

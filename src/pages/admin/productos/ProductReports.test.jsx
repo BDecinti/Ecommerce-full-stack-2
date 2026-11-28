@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { fireEvent, screen } from "@testing-library/react";
-import { renderTienda, sembrar, producto } from "../../test/render.jsx";
+import { renderTienda, sembrar, producto } from "../../../test/render.jsx";
 import ProductReports from "./ProductReports.jsx";
 
 describe("ProductReports", () => {

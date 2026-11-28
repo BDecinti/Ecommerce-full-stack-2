@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import useTitulo from "../../hooks/useTitulo.js";
-import { useUsuarios } from "../../context/UsuariosContext.jsx";
+import useTitulo from "../../../hooks/useTitulo.js";
+import { useUsuarios } from "../../../context/UsuariosContext.jsx";
 
 export default function Users() {
   useTitulo("Administrador - Usuarios");

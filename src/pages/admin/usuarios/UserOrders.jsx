@@ -1,11 +1,11 @@
 import { Link, useParams } from "react-router-dom";
-import useTitulo from "../../hooks/useTitulo.js";
-import { useUsuarios } from "../../context/UsuariosContext.jsx";
-import { usePedidos } from "../../context/PedidoContext.jsx";
-import AdminTitle from "../../components/admin/AdminTitle.jsx";
-import OrderTable from "../../components/admin/OrderTable.jsx";
-import { formatearPrecio } from "../../data/productos.js";
-import "../../styles/admin-home.css";
+import useTitulo from "../../../hooks/useTitulo.js";
+import { useUsuarios } from "../../../context/UsuariosContext.jsx";
+import { usePedidos } from "../../../context/PedidoContext.jsx";
+import AdminTitle from "../../../components/admin/AdminTitle.jsx";
+import OrderTable from "../../../components/pedidos/OrderTable.jsx";
+import { formatearPrecio } from "../../../data/productos.js";
+import "../../../styles/admin-home.css";
 
 // Historial de compras de un usuario: sus pedidos (se asocian por correo) con un resumen arriba.
 export default function UserOrders() {

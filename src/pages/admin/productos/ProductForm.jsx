@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import useTitulo from "../../hooks/useTitulo.js";
-import { useProductos } from "../../context/ProductContext.jsx";
-import { useCategorias } from "../../context/CategoryContext.jsx";
-import "../../styles/admin-form.css";
+import useTitulo from "../../../hooks/useTitulo.js";
+import { useProductos } from "../../../context/ProductContext.jsx";
+import { useCategorias } from "../../../context/CategoryContext.jsx";
+import "../../../styles/admin-form.css";
 
 const CAMPOS = [
   "codigo",

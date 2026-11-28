@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useProductos } from "../../context/ProductContext.jsx";
-import { formatearPrecio } from "../../data/productos.js";
+import { useProductos } from "../../../context/ProductContext.jsx";
+import { formatearPrecio } from "../../../data/productos.js";
 import {
   resumenInventario,
   descargarInventario,
-} from "../../utils/inventario.js";
-import useTitulo from "../../hooks/useTitulo.js";
+} from "../../../utils/inventario.js";
+import useTitulo from "../../../hooks/useTitulo.js";
 export default function ProductReports() {
   useTitulo("Administrador - Reporte de inventario");
   const { productos } = useProductos();

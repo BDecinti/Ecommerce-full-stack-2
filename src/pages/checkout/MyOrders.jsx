@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { usePedidos } from "../../context/PedidoContext.jsx";
 import { formatearPrecio } from "../../data/productos.js";
-import OrderInfo from "../../components/admin/OrderInfo.jsx";
-import OrderItemsTable from "../../components/admin/OrderItemsTable.jsx";
-import EstadoBadge from "../../components/admin/EstadoBadge.jsx";
+import OrderInfo from "../../components/pedidos/OrderInfo.jsx";
+import OrderItemsTable from "../../components/pedidos/OrderItemsTable.jsx";
+import EstadoBadge from "../../components/pedidos/EstadoBadge.jsx";
 import useTitulo from "../../hooks/useTitulo.js";
 export default function MyOrders() {
   useTitulo("MiTienda - Mis compras");

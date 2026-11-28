@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import ConfirmDialog from "../../components/common/ConfirmDialog.jsx";
-import AdminTitle from "../../components/admin/AdminTitle.jsx";
-import useTitulo from "../../hooks/useTitulo.js";
-import { useCategorias } from "../../context/CategoryContext.jsx";
-import { useProductos } from "../../context/ProductContext.jsx";
+import ConfirmDialog from "../../../components/common/ConfirmDialog.jsx";
+import AdminTitle from "../../../components/admin/AdminTitle.jsx";
+import useTitulo from "../../../hooks/useTitulo.js";
+import { useCategorias } from "../../../context/CategoryContext.jsx";
+import { useProductos } from "../../../context/ProductContext.jsx";
 
 // Listado de categorías con sus subcategorías debajo. Solo se puede eliminar una categoría
 // que no tenga subcategorías ni productos.

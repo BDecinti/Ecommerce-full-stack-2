@@ -1,10 +1,10 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useAuth } from "../../context/AuthContext.jsx";
-import ConfirmDialog from "../../components/common/ConfirmDialog.jsx";
-import useTitulo from "../../hooks/useTitulo.js";
-import { useUsuarios } from "../../context/UsuariosContext.jsx";
-import "../../styles/admin-detail.css";
+import { useAuth } from "../../../context/AuthContext.jsx";
+import ConfirmDialog from "../../../components/common/ConfirmDialog.jsx";
+import useTitulo from "../../../hooks/useTitulo.js";
+import { useUsuarios } from "../../../context/UsuariosContext.jsx";
+import "../../../styles/admin-detail.css";
 
 export default function UserDetail() {
   useTitulo("Administrador - Mostrar Usuario");
