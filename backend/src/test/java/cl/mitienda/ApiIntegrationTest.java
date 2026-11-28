@@ -4,6 +4,9 @@ import static org.assertj.core.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import cl.mitienda.dto.request.CompraRequest;
+import cl.mitienda.exception.ApiException;
+import cl.mitienda.service.PedidosService;
 import jakarta.servlet.http.Cookie;
 import java.time.*;
 import java.util.*;
@@ -642,7 +645,7 @@ class ApiIntegrationTest {
   @Test
   void concurrenciaNoSobrevendeLaUltimaUnidad() throws Exception {
     jdbc.update("update productos set stock=1 where id=3");
-    var request = json.readValue(compra(1, "4242424242424242"), ApiDtos.CompraRequest.class);
+    var request = json.readValue(compra(1, "4242424242424242"), CompraRequest.class);
     CountDownLatch start = new CountDownLatch(1);
     try (ExecutorService executor = Executors.newFixedThreadPool(2)) {
       Callable<Boolean> task =

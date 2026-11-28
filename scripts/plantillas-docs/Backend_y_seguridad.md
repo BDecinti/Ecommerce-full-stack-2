@@ -18,12 +18,12 @@ Los controladores reciben objetos de transferencia validados. Los servicios apli
 | --- | --- | --- |
 | Presentación | Formularios, navegación y estados de carga | src/pages y src/components |
 | Integración | REST, errores, CSRF y renovación | src/services/api.js |
-| Controladores | Contratos y permisos de endpoints | ApiController.java y AuthController.java |
-| Servicios | Compras, catálogo, usuarios y autenticación | PedidosService.java y AuthService.java |
-| Persistencia | Entidades y consultas JPA | Repositorios.java y entidades Java |
+| Controladores | Contratos y permisos de endpoints | controller/ (un controlador por recurso, más AuthController) |
+| Servicios | Compras, catálogo, usuarios y autenticación | service/PedidosService.java y service/AuthService.java |
+| Persistencia | Entidades y consultas JPA | interfaces de repository/ y entidades de model/ |
 | Migraciones | Esquema reproducible de la base | V1__esquema_inicial.sql |
 
-Los archivos Java se encuentran en backend/src/main/java/cl/mitienda. La migración está en backend/src/main/resources/db/migration.
+Los archivos Java se encuentran en backend/src/main/java/cl/mitienda, ordenados en los paquetes config, controller, service, repository, model, dto, security y exception. La migración está en backend/src/main/resources/db/migration.
 
 ## Modelo relacional
 
