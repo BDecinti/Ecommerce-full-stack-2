@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import TiendaLayout from "./layouts/TiendaLayout.jsx";
 import AdminLayout from "./layouts/AdminLayout.jsx";
-import RequireRole from "./components/RequireRole.jsx";
+import RequireRole from "./components/auth/RequireRole.jsx";
 
 import Home from "./pages/Home.jsx";
 import Products from "./pages/products/Products.jsx";

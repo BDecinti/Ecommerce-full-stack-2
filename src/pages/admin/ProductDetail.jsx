@@ -1,7 +1,7 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext.jsx";
-import ConfirmDialog from "../../components/ConfirmDialog.jsx";
+import ConfirmDialog from "../../components/common/ConfirmDialog.jsx";
 import useTitulo from "../../hooks/useTitulo.js";
 import { useProductos } from "../../context/ProductContext.jsx";
 import { useCategorias } from "../../context/CategoryContext.jsx";

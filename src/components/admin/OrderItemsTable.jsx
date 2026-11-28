@@ -1,5 +1,5 @@
 import { formatearPrecio } from "../../data/productos.js";
-import ProductImage from "../ProductImage.jsx";
+import ProductImage from "../products/ProductImage.jsx";
 
 // Productos de un pedido con su cantidad y subtotal, más el total al final.
 export default function OrderItemsTable({ items, total }) {

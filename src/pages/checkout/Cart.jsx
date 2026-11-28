@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import ConfirmDialog from "../../components/ConfirmDialog.jsx";
+import ConfirmDialog from "../../components/common/ConfirmDialog.jsx";
 import { useCart } from "../../context/CartContext.jsx";
 import useTitulo from "../../hooks/useTitulo.js";
 import { formatearPrecio } from "../../data/productos.js";
-import ProductImage from "../../components/ProductImage.jsx";
+import ProductImage from "../../components/products/ProductImage.jsx";
 import "../../styles/styles.css";
 
 export default function Cart() {

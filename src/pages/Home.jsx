@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import ProductCard from "../components/ProductCard.jsx";
+import ProductCard from "../components/products/ProductCard.jsx";
 import useTitulo from "../hooks/useTitulo.js";
 import { useProductos } from "../context/ProductContext.jsx";
-import ProductImage from "../components/ProductImage.jsx";
+import ProductImage from "../components/products/ProductImage.jsx";
 import { OFERTAS_ID } from "../data/categorias.js";
 import { imagenesCategorias } from "../data/imagenesCategorias.js";
 import "../styles/styles.css";

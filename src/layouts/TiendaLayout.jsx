@@ -1,7 +1,7 @@
-import PageTransition from "../components/PageTransition.jsx";
-import Header from "../components/Header.jsx";
-import Footer from "../components/Footer.jsx";
-import CartMessage from "../components/CartMessage.jsx";
+import PageTransition from "../components/layout/PageTransition.jsx";
+import Header from "../components/layout/Header.jsx";
+import Footer from "../components/layout/Footer.jsx";
+import CartMessage from "../components/layout/CartMessage.jsx";
 
 // Estructura común de las páginas de la tienda: header + contenido de la ruta (Outlet) + footer
 export default function TiendaLayout() {

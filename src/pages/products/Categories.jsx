@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import Breadcrumb from "../../components/Breadcrumb.jsx";
-import CategoryMenu from "../../components/CategoryMenu.jsx";
-import ProductCard from "../../components/ProductCard.jsx";
-import ProductFilters from "../../components/ProductFilters.jsx";
+import Breadcrumb from "../../components/navigation/Breadcrumb.jsx";
+import CategoryMenu from "../../components/navigation/CategoryMenu.jsx";
+import ProductCard from "../../components/products/ProductCard.jsx";
+import ProductFilters from "../../components/products/ProductFilters.jsx";
 import useTitulo from "../../hooks/useTitulo.js";
 import { useCategorias } from "../../context/CategoryContext.jsx";
 import { useProductos } from "../../context/ProductContext.jsx";

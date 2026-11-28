@@ -11,7 +11,7 @@ import { PedidoProvider } from "../context/PedidoContext.jsx";
 import { CartProvider } from "../context/CartContext.jsx";
 import { VERSION_CATALOGO } from "../data/productos.js";
 import { UsuariosProvider } from "../context/UsuariosContext.jsx";
-import ConnectionBoundary from "../components/ConnectionBoundary.jsx";
+import ConnectionBoundary from "../components/layout/ConnectionBoundary.jsx";
 import { server, seedServer, authenticateAs } from "./server.js";
 export async function renderTienda(ui, ruta = "/") {
   const saved = JSON.parse(localStorage.getItem("usuarioLogueado") || "null");

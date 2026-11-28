@@ -1,11 +1,11 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Breadcrumb from "../../components/Breadcrumb.jsx";
+import Breadcrumb from "../../components/navigation/Breadcrumb.jsx";
 import { useCategorias } from "../../context/CategoryContext.jsx";
 import { useCart } from "../../context/CartContext.jsx";
 import useTitulo from "../../hooks/useTitulo.js";
 import { useProductos } from "../../context/ProductContext.jsx";
 import { formatearPrecio } from "../../data/productos.js";
-import ProductImage from "../../components/ProductImage.jsx";
+import ProductImage from "../../components/products/ProductImage.jsx";
 import "../../styles/producto-detalle.css";
 
 // Una sola página para todos los productos: el id viene de la URL (/products/3).

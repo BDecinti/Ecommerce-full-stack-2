@@ -21,9 +21,9 @@ import { PedidoProvider } from "./context/PedidoContext.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
 import { UsuariosProvider } from "./context/UsuariosContext.jsx";
 // ConnectionBoundary: muestra "Preparando tu tienda..." mientras carga y un error si el backend no responde.
-import ConnectionBoundary from "./components/ConnectionBoundary.jsx";
+import ConnectionBoundary from "./components/layout/ConnectionBoundary.jsx";
 // ScrollToTop: el boton flotante para volver arriba.
-import ScrollToTop from "./components/ScrollToTop.jsx";
+import ScrollToTop from "./components/layout/ScrollToTop.jsx";
 // Estilos CSS globales: Vite los agrega a la pagina.
 import "./styles/global.css";
 import "./styles/refinements.css";

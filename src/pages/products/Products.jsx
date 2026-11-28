@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import Breadcrumb from "../../components/Breadcrumb.jsx";
-import ProductCard from "../../components/ProductCard.jsx";
-import ProductFilters from "../../components/ProductFilters.jsx";
+import Breadcrumb from "../../components/navigation/Breadcrumb.jsx";
+import ProductCard from "../../components/products/ProductCard.jsx";
+import ProductFilters from "../../components/products/ProductFilters.jsx";
 import useTitulo from "../../hooks/useTitulo.js";
 import { useProductos } from "../../context/ProductContext.jsx";
 import {

@@ -1,5 +1,5 @@
-import PageTransition from "../components/PageTransition.jsx";
-import RequireRole from "../components/RequireRole.jsx";
+import PageTransition from "../components/layout/PageTransition.jsx";
+import RequireRole from "../components/auth/RequireRole.jsx";
 import AdminSidebar from "../components/admin/AdminSidebar.jsx";
 import { usePedidos } from "../context/PedidoContext.jsx";
 import { useUsuarios } from "../context/UsuariosContext.jsx";
