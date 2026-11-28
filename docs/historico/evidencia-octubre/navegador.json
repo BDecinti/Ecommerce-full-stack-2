@@ -1,0 +1,106 @@
+{
+  "fecha": "2026-10-22T02:39:30.250Z",
+  "resultado": "passed",
+  "rutas": [
+    {
+      "ruta": "/products",
+      "titulo": "MiTienda - Productos"
+    },
+    {
+      "ruta": "/categories",
+      "titulo": "MiTienda - Categorías"
+    },
+    {
+      "ruta": "/categories/1",
+      "titulo": "MiTienda - Tecnología"
+    },
+    {
+      "ruta": "/categories/14",
+      "titulo": "MiTienda - Ofertas"
+    },
+    {
+      "ruta": "/about",
+      "titulo": "MiTienda - Nosotros"
+    },
+    {
+      "ruta": "/blog",
+      "titulo": "MiTienda - Blogs"
+    },
+    {
+      "ruta": "/blog/1",
+      "titulo": "MiTienda - Cómo elegir periféricos para tu forma de jugar"
+    },
+    {
+      "ruta": "/blog/2",
+      "titulo": "MiTienda - Prepara tu compra sin sorpresas"
+    },
+    {
+      "ruta": "/contact",
+      "titulo": "MiTienda - Contacto"
+    },
+    {
+      "ruta": "/signup",
+      "titulo": "Registro de Usuario"
+    },
+    {
+      "ruta": "/login",
+      "titulo": "Iniciar Sesión"
+    },
+    {
+      "ruta": "/cart",
+      "titulo": "MiTienda - Carrito"
+    },
+    {
+      "ruta": "/payment",
+      "titulo": "MiTienda - Finalizar compra"
+    },
+    {
+      "ruta": "/ruta-inexistente",
+      "titulo": "MiTienda"
+    },
+    {
+      "ruta": "/admin",
+      "titulo": "Administrador - Dashboard"
+    },
+    {
+      "ruta": "/admin/orders",
+      "titulo": "Administrador - Pedidos"
+    },
+    {
+      "ruta": "/admin/orders/1",
+      "titulo": "Administrador - Pedido #1"
+    },
+    {
+      "ruta": "/admin/products",
+      "titulo": "Administrador - Productos"
+    },
+    {
+      "ruta": "/admin/products/reports",
+      "titulo": "Administrador - Reporte de inventario"
+    },
+    {
+      "ruta": "/admin/categories",
+      "titulo": "Administrador - Categorías"
+    },
+    {
+      "ruta": "/admin/users",
+      "titulo": "Administrador - Usuarios"
+    },
+    {
+      "ruta": "/admin/reports",
+      "titulo": "Administrador - Reportes"
+    },
+    {
+      "ruta": "/admin/profile",
+      "titulo": "Administrador - Perfil"
+    }
+  ],
+  "pagoRechazado": true,
+  "pagoAprobado": true,
+  "csv": true,
+  "mobile": {
+    "viewport": 390,
+    "documento": 390
+  },
+  "errores": []
+}

@@ -1,0 +1,76 @@
+.product-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+}
+.product-filters-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.product-filters h2 {
+  font-size: 1.1rem;
+}
+.product-filters-limpiar {
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.product-filters-limpiar:hover {
+  color: var(--accent-cyan);
+}
+.product-filters-grupo {
+  border: none;
+  min-width: 0;
+}
+.product-filters-grupo > label,
+.product-filters-grupo > legend {
+  margin-bottom: 8px;
+  padding: 0;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.product-filters-precio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.product-filters-precio input {
+  min-width: 0;
+  padding: 8px;
+}
+
+/* Casillas: se anula el ancho completo y el recuadro de foco que reciben los inputs */
+.product-filters-opcion {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  color: var(--text-light);
+  font-weight: 500;
+  cursor: pointer;
+}
+.product-filters-opcion input {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  accent-color: var(--accent-purple);
+  cursor: pointer;
+}
+.product-filters-opcion input:focus {
+  box-shadow: none;
+}
+.product-filters-opcion span {
+  flex: 1;
+}
+.product-filters-opcion small {
+  color: var(--text-muted);
+}

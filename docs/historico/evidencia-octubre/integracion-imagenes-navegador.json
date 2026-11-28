@@ -1,0 +1,33 @@
+{
+  "fecha": "2026-10-23T16:15:51.417Z",
+  "verificaciones": [
+    {
+      "vista": "escritorio",
+      "ruta": "/",
+      "ancho": 1440,
+      "tarjetas": 8,
+      "fotos": 12
+    },
+    {
+      "vista": "escritorio",
+      "ruta": "/products/1",
+      "ancho": 1440,
+      "separacion": 10
+    },
+    {
+      "vista": "movil",
+      "ruta": "/",
+      "ancho": 390,
+      "tarjetas": 8,
+      "fotos": 12
+    },
+    {
+      "vista": "movil",
+      "ruta": "/products/1",
+      "ancho": 390,
+      "separacion": 10
+    }
+  ],
+  "errores": [],
+  "vistaPortatil": "Inicio y catálogo verificados sin conexión"
+}

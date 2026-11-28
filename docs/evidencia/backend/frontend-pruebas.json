@@ -1,0 +1,692 @@
+[
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI18 muestra /about",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI19 muestra /blog",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI20 muestra /blog/1",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI21 muestra /categories/7",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI22 muestra /products/90",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI23 muestra /cart",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI24 muestra /ruta-no-existe",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI25 muestra /admin",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI26 renderiza /admin para administrador",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI27 renderiza /admin/products para administrador",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI28 renderiza /admin/categories para administrador",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI29 renderiza /admin/users para administrador",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI30 renderiza /admin/orders para administrador",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI31 renderiza /admin/reports para administrador",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI32 renderiza /admin/profile para administrador",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI33 cliente no accede al panel",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI34 login emergente se abre desde la tienda",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI35 categoría nueva se crea y navega al listado",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI36 producto nuevo valida código duplicado",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/App.test.jsx",
+    "nombre": "Rutas y administración UI37 cancelar pedido devuelve stock una sola vez",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/AuthDialog.test.jsx",
+    "nombre": "AuthDialog CP05 abre el diálogo nativo y presenta el formulario",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/AuthDialog.test.jsx",
+    "nombre": "AuthDialog CP06 cerrar, cancelar nativo y fondo notifican sin cerrar por clic interno",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/AuthDialog.test.jsx",
+    "nombre": "AuthDialog CP07 cerrado no muestra un formulario interactivo",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/Breadcrumb.test.jsx",
+    "nombre": "Breadcrumb CP01 enlaza los antecesores y marca la página actual",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/CartMessage.test.jsx",
+    "nombre": "CartMessage CP17 confirma el añadido y desaparece después de tres segundos",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/CartMessage.test.jsx",
+    "nombre": "CartMessage CP18 otro añadido reinicia el tiempo y el enlace cierra el aviso",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/CategoryDropdown.test.jsx",
+    "nombre": "CategoryDropdown CP10 abre el portal y Escape lo cierra",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/CategoryDropdown.test.jsx",
+    "nombre": "CategoryDropdown CP11 cierra al elegir categoría y al pulsar fuera",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/CategoryMenu.test.jsx",
+    "nombre": "CategoryMenu CP12 muestra enlaces de categorías y resalta la categoría activa",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/ConfirmDialog.test.jsx",
+    "nombre": "ConfirmDialog CP02 oculto no presenta acciones",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/ConfirmDialog.test.jsx",
+    "nombre": "ConfirmDialog CP03 presenta las props, enfoca cancelar y confirma al pulsar",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/ConfirmDialog.test.jsx",
+    "nombre": "ConfirmDialog CP04 cancelar, Escape y fondo cancelan; el contenido no cancela",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/ConnectionBoundary.test.jsx",
+    "nombre": "ConnectionBoundary ofrece reintento si el catálogo no responde y recupera la tienda",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/Footer.test.jsx",
+    "nombre": "Footer CP13 ofrece catálogo, información de la empresa y registro",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/Header.test.jsx",
+    "nombre": "Header CP14 refleja las unidades del carrito y abre/cierra el inicio de sesión",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/Header.test.jsx",
+    "nombre": "Header CP15 administrador ve su panel y cerrar sesión actualiza el header",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/Header.test.jsx",
+    "nombre": "Header CP16 se oculta al bajar y reaparece al subir",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/HeroCarousel.test.jsx",
+    "nombre": "HeroCarousel CP19 flechas y puntos cambian el banner y vuelven al principio",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/HeroCarousel.test.jsx",
+    "nombre": "HeroCarousel CP20 avanza automáticamente, pausa con el puntero y reanuda",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/PageTransition.test.jsx",
+    "nombre": "PageTransition CP22 cambia el contenido de Outlet al navegar",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/ProductCard.test.jsx",
+    "nombre": "ProductCard UI01 renderiza las props y la insignia de producto",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/ProductCard.test.jsx",
+    "nombre": "ProductCard UI02 clic añade al carrito y actualiza estado",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/ProductCard.test.jsx",
+    "nombre": "ProductCard UI03 no permite agregar más unidades que el stock",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/ProductCard.test.jsx",
+    "nombre": "ProductCard UI04 producto agotado deshabilita compra",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/ProductFilters.test.jsx",
+    "nombre": "ProductFilters UI05 filtros notifican eventos y props",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/ProductFilters.test.jsx",
+    "nombre": "ProductFilters CP35 combina marca, orden y límites de precio mediante sus eventos",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/ProductFilters.test.jsx",
+    "nombre": "ProductFilters CP36 muestra límites incompatibles y permite quitar una marca seleccionada",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/ProductImage.test.jsx",
+    "nombre": "ProductImage CP37 presenta la ruta local y las propiedades de accesibilidad y carga",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/ProductImage.test.jsx",
+    "nombre": "ProductImage CP38 conserva la URL HTTPS de una imagen externa",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/ProductImage.test.jsx",
+    "nombre": "ProductImage CP39 reemplaza la imagen fallida por el respaldo local y tolera otro error",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/ProductImage.test.jsx",
+    "nombre": "ProductImage CP40 usa el respaldo sin src y actualiza la imagen al recibir otras props",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/RequireRole.test.jsx",
+    "nombre": "RequireRole redirige al invitado antes de renderizar contenido privado",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/RequireRole.test.jsx",
+    "nombre": "RequireRole rechaza al vendedor aunque escriba una ruta de administrador",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/RequireRole.test.jsx",
+    "nombre": "RequireRole permite al administrador restaurado por el servidor",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/ScrollToTop.test.jsx",
+    "nombre": "ScrollToTop CP21 activa el botón al superar el umbral y desplaza hasta arriba",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/SearchBar.test.jsx",
+    "nombre": "SearchBar CP08 precarga q y envía la búsqueda recortada y codificada",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/SearchBar.test.jsx",
+    "nombre": "SearchBar CP09 búsqueda vacía navega al catálogo sin q",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/context/AuthContext.test.jsx",
+    "nombre": "AuthContext UI11 registro normaliza correo, omite roles y muestra errores del servidor",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/context/AuthContext.test.jsx",
+    "nombre": "AuthContext restaura la sesión del servidor y descarta el rol guardado en el navegador",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/context/AuthContext.test.jsx",
+    "nombre": "AuthContext no cierra la sesión visualmente si el servidor no puede revocarla",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/context/CartContext.test.jsx",
+    "nombre": "CartContext descarta un carrito guardado con estructura inválida sin bloquear la tienda",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/context/CartContext.test.jsx",
+    "nombre": "CartContext UI15 carrito reduce elimina y vacía sin superar stock",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/context/CartContext.test.jsx",
+    "nombre": "CartContext UI16 catálogo eliminado retira el producto del carrito",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/context/PedidoContext.test.jsx",
+    "nombre": "PedidoContext UI17 compra usa el identificador del servidor y cancelar repone stock una sola vez",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/context/ProductContext.test.jsx",
+    "nombre": "ProductContext UI14 CRUD espera al servidor y actualiza el catálogo compartido",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/context/ProductContext.test.jsx",
+    "nombre": "ProductContext conserva el catálogo si la API rechaza una modificación",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/context/UsuariosContext.test.jsx",
+    "nombre": "UsuariosContext solo solicita el listado para una cuenta administradora",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/context/UsuariosContext.test.jsx",
+    "nombre": "UsuariosContext crea, modifica y retira usuarios con identificadores estables del servidor",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/hooks/useLocalStorage.test.js",
+    "nombre": "useLocalStorage UT26 JSON corrupto usa el valor por defecto",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/hooks/useLocalStorage.test.js",
+    "nombre": "useLocalStorage UT27 guarda y recupera datos versionados",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/pages/Home.test.jsx",
+    "nombre": "Home UI06 inicio limita las selecciones a ocho productos",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/services/api.test.js",
+    "nombre": "Cliente REST y sesiones obtiene un CSRF vigente antes de cada formulario después de cambiar la sesión",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/services/api.test.js",
+    "nombre": "Cliente REST y sesiones envía CSRF y cookies, conserva el JWT únicamente en memoria",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/services/api.test.js",
+    "nombre": "Cliente REST y sesiones agrupa renovaciones simultáneas y reintenta peticiones con el nuevo JWT",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/services/api.test.js",
+    "nombre": "Cliente REST y sesiones un 403 no renueva la sesión ni eleva permisos",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/services/api.test.js",
+    "nombre": "Cliente REST y sesiones una sesión vencida avisa a los proveedores y devuelve un error comprensible",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/services/api.test.js",
+    "nombre": "Cliente REST y sesiones logout revoca la sesión antes de quitar el usuario del frontend",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/services/api.test.js",
+    "nombre": "Cliente REST y sesiones no pierde errores de validación y permite recuperar una caída de red",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/services/api.test.js",
+    "nombre": "Cliente REST y sesiones restaura con la cookie y borrar la memoria no guarda credenciales",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/checkout.test.js",
+    "nombre": "checkout UT01 aplica envío y umbral de gratuidad",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/checkout.test.js",
+    "nombre": "checkout UT02 acepta dirección y contacto válidos",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/checkout.test.js",
+    "nombre": "checkout UT03 rechaza entrega con nombre inválido",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/checkout.test.js",
+    "nombre": "checkout UT04 rechaza entrega con email inválido",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/checkout.test.js",
+    "nombre": "checkout UT05 rechaza entrega con telefono inválido",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/checkout.test.js",
+    "nombre": "checkout UT06 rechaza entrega con direccion inválido",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/checkout.test.js",
+    "nombre": "checkout UT07 rechaza entrega con comuna inválido",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/checkout.test.js",
+    "nombre": "checkout UT08 rechaza entrega con region inválido",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/checkout.test.js",
+    "nombre": "checkout UT09 retiro no exige dirección",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/checkout.test.js",
+    "nombre": "checkout UT10 acepta ambas tarjetas demo y números con espacios",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/checkout.test.js",
+    "nombre": "checkout UT11 rechaza tarjeta con numero inválido",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/checkout.test.js",
+    "nombre": "checkout UT12 rechaza tarjeta con titular inválido",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/checkout.test.js",
+    "nombre": "checkout UT13 rechaza tarjeta con vencimiento inválido",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/checkout.test.js",
+    "nombre": "checkout UT14 rechaza tarjeta con vencimiento inválido",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/checkout.test.js",
+    "nombre": "checkout UT15 rechaza tarjeta con cvv inválido",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/checkout.test.js",
+    "nombre": "checkout UT16 valida disponibilidad e integridad de las cantidades",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/checkout.test.js",
+    "nombre": "checkout UT17 construye pedido con envío sin persistir la tarjeta",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/checkout.test.js",
+    "nombre": "checkout UT18 omite dirección en pedido de retiro",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/filtrarProductos.test.js",
+    "nombre": "filtrarProductos UT19 busca sin tildes y por código",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/filtrarProductos.test.js",
+    "nombre": "filtrarProductos UT20 combina marca precio y disponibilidad",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/filtrarProductos.test.js",
+    "nombre": "filtrarProductos UT21 ordena sin mutar el catálogo",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/filtrarProductos.test.js",
+    "nombre": "filtrarProductos UT22 devuelve vacío para límites incompatibles",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/filtrarProductos.test.js",
+    "nombre": "filtrarProductos UT23 cuenta marcas y agrupa productos sin marca",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/inventario.test.js",
+    "nombre": "inventario UT24 calcula valor unidades y productos críticos",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/inventario.test.js",
+    "nombre": "inventario UT25 CSV escapa comillas separadores y fórmulas",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/permisos.test.js",
+    "nombre": "Destino después de iniciar sesión devuelve al cliente a la compra pendiente",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/permisos.test.js",
+    "nombre": "Destino después de iniciar sesión envía al vendedor a pedidos si la ruta anterior requiere administrador",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/permisos.test.js",
+    "nombre": "Destino después de iniciar sesión respeta la ruta del administrador y evita destinos externos",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/reporteVentas.test.js",
+    "nombre": "reporteVentas UT28 calcula inicios de día semana y mes",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/reporteVentas.test.js",
+    "nombre": "reporteVentas UT29 desplaza fechas y compara año anterior",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/reporteVentas.test.js",
+    "nombre": "reporteVentas UT30 excluye cancelados y respeta rango final abierto",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/utils/reporteVentas.test.js",
+    "nombre": "reporteVentas UT31 produce serie y desglose de ventas incluso productos eliminados",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/admin/AdminIcon.test.jsx",
+    "nombre": "AdminIcon CP24 usa el tamaño recibido y oculta el icono decorativo al lector",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/admin/AdminSidebar.test.jsx",
+    "nombre": "AdminSidebar CP25 marca la sección activa y ofrece el retorno a la tienda",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/admin/AdminTitle.test.jsx",
+    "nombre": "AdminTitle CP23 presenta título, descripción y acciones recibidas",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/admin/EstadoBadge.test.jsx",
+    "nombre": "EstadoBadge CP26 traduce el estado y conserva estados desconocidos",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/admin/EstadoSelect.test.jsx",
+    "nombre": "EstadoSelect CP27 acepta props, todos y comunica el valor seleccionado",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/admin/OrderInfo.test.jsx",
+    "nombre": "OrderInfo CP28 envío presenta dirección completa y teléfono",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/admin/OrderInfo.test.jsx",
+    "nombre": "OrderInfo CP29 retiro omite dirección; envío sin teléfono indica su ausencia",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/admin/OrderItemsTable.test.jsx",
+    "nombre": "OrderItemsTable CP30 presenta cantidad, subtotal y total de los items recibidos",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/admin/OrderProductPicker.test.jsx",
+    "nombre": "OrderProductPicker CP31 muestra cantidades y deshabilita agotados",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/admin/OrderProductPicker.test.jsx",
+    "nombre": "OrderProductPicker CP32 limita al stock, elimina negativos y redondea las fracciones",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/admin/OrderTable.test.jsx",
+    "nombre": "OrderTable CP33 presenta pedido, entrega, estado y enlace al detalle",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/components/admin/OrderTable.test.jsx",
+    "nombre": "OrderTable CP34 lista vacía conserva los encabezados sin pedidos ficticios",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/pages/admin/ProductReports.test.jsx",
+    "nombre": "ProductReports UI13 inventario filtra stock crítico",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/pages/auth/Login.test.jsx",
+    "nombre": "Login UI08 login informa credenciales inválidas",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/pages/auth/Login.test.jsx",
+    "nombre": "Login UI09 cliente demo puede iniciar sesión y cierra el modal",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/pages/auth/Signup.test.jsx",
+    "nombre": "Signup UI10 registro público no ofrece rol administrador",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/pages/company/Contact.test.jsx",
+    "nombre": "Contact UI12 contacto guarda consulta mediante API y confirma recepción",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/pages/checkout/MyOrders.test.jsx",
+    "nombre": "MyOrders muestra solamente las compras devueltas para el cliente",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/pages/checkout/Payment.test.jsx",
+    "nombre": "Compra integrada CK01 no permite pagar un carrito vacío",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/pages/checkout/Payment.test.jsx",
+    "nombre": "Compra integrada CK02 envío solicita dirección y muestra costo",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/pages/checkout/Payment.test.jsx",
+    "nombre": "Compra integrada CK03 contacto inválido bloquea el paso a tarjeta",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/pages/checkout/Payment.test.jsx",
+    "nombre": "Compra integrada CK04 aprueba envío registra total descuenta stock y vacía",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/pages/checkout/Payment.test.jsx",
+    "nombre": "Compra integrada CK05 rechazo conserva carrito stock y pedidos",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/pages/checkout/Payment.test.jsx",
+    "nombre": "Compra integrada CK06 reintento aprobado crea un único pedido",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/pages/checkout/Payment.test.jsx",
+    "nombre": "Compra integrada CK07 tarjeta no autorizada bloquea revisión",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/pages/checkout/Payment.test.jsx",
+    "nombre": "Compra integrada CK08 volver entre pasos conserva los datos de entrega",
+    "estado": "passed"
+  },
+  {
+    "archivo": "src/pages/products/Products.test.jsx",
+    "nombre": "Products UI07 búsqueda del catálogo muestra estado vacío",
+    "estado": "passed"
+  }
+]

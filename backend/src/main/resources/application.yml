@@ -1,0 +1,43 @@
+server:
+  port: ${PORT:8080}
+  error:
+    include-message: never
+    include-stacktrace: never
+spring:
+  application:
+    name: mitienda-api
+  datasource:
+    url: ${DB_URL:jdbc:h2:file:./data/mitienda;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+  h2:
+    console:
+      enabled: false
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+      accept-float-as-int: false
+mitienda:
+  security:
+    jwt-secret: ${MITIENDA_JWT_SECRET:}
+    key-file: ${MITIENDA_KEY_FILE:./data/jwt.key}
+    secure-cookie: ${COOKIE_SECURE:false}
+    access-minutes: ${ACCESS_MINUTES:10}
+    refresh-days: ${REFRESH_DAYS:7}
+    allowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173,http://127.0.0.1:5173,http://localhost:8080,http://127.0.0.1:8080}
+  seed-demo: ${SEED_DEMO:true}
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: method
+    csrf:
+      enabled: true
+  api-docs:
+    path: /v3/api-docs

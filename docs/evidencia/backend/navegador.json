@@ -1,0 +1,65 @@
+{
+  "fecha": "2026-11-13T02:20:47.668Z",
+  "pruebas": [
+    {
+      "nombre": "Inicio conserva diseño y carga 32 productos desde REST",
+      "estado": "passed"
+    },
+    {
+      "nombre": "Cliente inicia sesión y conserva sesión después de recargar",
+      "estado": "passed"
+    },
+    {
+      "nombre": "Cliente no accede a panel y API privada exige JWT",
+      "estado": "passed"
+    },
+    {
+      "nombre": "Tarjeta rechazada conserva carrito y stock",
+      "estado": "passed"
+    },
+    {
+      "nombre": "Compra aprobada queda en servidor y en Mis compras",
+      "estado": "passed"
+    },
+    {
+      "nombre": "Cerrar sesión y falsificar localStorage no concede acceso",
+      "estado": "passed"
+    },
+    {
+      "nombre": "Vendedor tiene menú limitado y no entra a usuarios",
+      "estado": "passed"
+    },
+    {
+      "nombre": "Administrador carga CRUD de usuarios y dashboard",
+      "estado": "passed"
+    },
+    {
+      "nombre": "CRUD de categoría se persiste y vuelve a cargar",
+      "estado": "passed"
+    },
+    {
+      "nombre": "Producto creado, editado y retirado desde el panel REST",
+      "estado": "passed"
+    },
+    {
+      "nombre": "Usuario creado, editado y desactivado sin exponer contraseña",
+      "estado": "passed"
+    },
+    {
+      "nombre": "JAR sirve frontend y Swagger en un solo puerto",
+      "estado": "passed"
+    },
+    {
+      "nombre": "Vista móvil sin desbordamiento horizontal",
+      "estado": "passed"
+    },
+    {
+      "nombre": "Navegación sin errores JavaScript",
+      "estado": "passed"
+    },
+    {
+      "nombre": "Persistencia de sesión y pedidos tras reiniciar el backend",
+      "estado": "passed"
+    }
+  ]
+}
